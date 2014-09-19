@@ -45,7 +45,7 @@ repos = {
          # 'labscript_devices': 'branch(default) and max(tag())',
         }
 other_includes = [__file__,
-                  'README.txt',
+                  'README.md',
                   'config',
                   'userlib']
 
@@ -59,13 +59,12 @@ else:
 
     
 def get_all_files_and_folders(path):
+    import itertools
     yield path
     if os.path.isdir(path):
         for root, folders, files in os.walk(path):
-            for folder in folders:
-                yield os.path.join(root, folder)
-            for file in files:
-                yield os.path.join(root, file)
+            for entry in itertools.chain(folders, files):
+                yield os.path.join(root, entry)
                 
     
 def build(keep_hg = None):
@@ -115,29 +114,38 @@ def clean():
     if os.path.exists(build_folder):
         shutil.rmtree(build_folder)
     
+    
 def getinput(prompt, default):
-    result = input(prompt + ' (%s): '%default)
-    return result or default 
+    try:
+        result = input(prompt + ' (%s): '%default)
+        return result or default 
+    except KeyboardInterrupt, EOFError:
+        sys.exit(1)
     
 def yn_choice(message, default='y'):
-    choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
-    choice = raw_input("%s (%s) " % (message, choices))
-    values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
-    return choice.strip().lower() in values
+    try:
+        choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
+        choice = raw_input("%s (%s) " % (message, choices))
+        values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
+        return choice.strip().lower() in values
+    except KeyBoardInterrupt, EOFError:
+        sys.exit(1)
 
+    
 def install():
     install_folder = getinput('Enter custom installation directory', default_install_dir)
     if os.path.exists(install_folder):
-    if yn_choice('Install directory %s already exists, overwrite?'%install_folder, default='n'):
-        shutil.rmtree(install_folder)
+        if yn_choice('Install directory %s already exists, overwrite?'%install_folder, default='n'):
+            shutil.rmtree(install_folder)
     try:
         os.mkdir(install_dir)
     except OSError as e:
         sys.stderr.write('Could not create install directory:\n %s'%str(e))
-        import IPython
-        IPython.embed()
+        sys.exit(1)
+        
         
 def uninstall():
+    # Be careful implementing this that you don't delete the code you're working on like an idiot.
     pass
     
 if __name__ == '__main__':
