@@ -18,7 +18,7 @@ A script to install the labscript suite onto a system.
         to later uninstall the labscript suite. Removes labscript directories from Python's
         search path, removes application shortcuts and deletes the install directory.
         
-    * `build`:
+   * `build` [--keep-hg]:
         Clones the labscript repositories from btbucket, deletes .hg* files, and bundles
         everything into a zip file along with setup.py itself.
         Which revisions are used can be set in setup.py, but defaults to:
@@ -27,3 +27,7 @@ A script to install the labscript suite onto a system.
         
         which means the most recent tagged revision in the default branch. Since we use tags
         for version numbers only, this will use the latest stable release of each package.
+        
+        The `--keep-hg` option does not remove repository information before bundling packages
+        into the output zip files. This means the resulting install will contain mercurial
+        repositories - this could be useful for developers.
