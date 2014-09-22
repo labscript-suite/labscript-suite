@@ -19,14 +19,15 @@ import subprocess
 import shutil
 import zipfile
 import traceback
-
+import site
+    
 if sys.version < '3':
     input = raw_input
 
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
 
-usage = 'usage: python setup.py (install | uninstall | build [--keep-hg] | clean)\n'
+usage = 'usage:\npython setup.py (install | uninstall [<path>] | build [--keep-hg] | clean)\n'
 
 __version__ = '2.0.0-dev'
 
@@ -44,20 +45,39 @@ repos = {
          # 'labscript_utils': 'branch(default) and max(tag())',
          # 'labscript_devices': 'branch(default) and max(tag())',
         }
-other_includes = [__file__,
+
+# Non repository files to be included:
+other_includes = ['setup.py',
                   'README.md',
                   'config',
                   'userlib']
 
-build_folder = os.path.join(this_folder, 'build')
-output_file = os.path.join(build_folder, 'labscript_suite_%s.zip'%__version__)
+# Which of the above files pertain to the installer itself. They will be
+# installed in an 'uninstall' directory, as the same setip.py script can
+# be used for uninstalling.            
+installer_files = ['setup.py',
+                   'README.md']
+
+# These folders, which contain user code and settings,
+# will not be deleted during uninstallation or overwritten
+# during installation:
+do_not_delete = ['userlib', 'config']
+
+# Although we won't delete the above folders, we will
+# overwrite specific files within them if installing over the top:
+files_to_overwrite = [os.path.join('config', 'default.ini')]
+
+output_base = 'labscript_suite_' + __version__
+output_file = output_base + '.zip'
 
 if os.name == 'nt':
-    default_install_dir = r'C:\labscript_suite'
+    default_install_folder = r'C:\labscript_suite'
 else:
-    default_install_dir = os.path.join(os.getenv('HOME'), 'labscript_suite')
+    default_install_folder = os.path.join(os.getenv('HOME'), 'labscript_suite')
 
-    
+IS_LABSCRIPT_SUITE = '.is_labscript_suite_install_dir'
+IS_BUILD = '.is_labscript_suite_build'
+
 def get_all_files_and_folders(path):
     import itertools
     yield path
@@ -66,6 +86,12 @@ def get_all_files_and_folders(path):
             for entry in itertools.chain(folders, files):
                 yield os.path.join(root, entry)
                 
+def exclude_from_copying(path):
+    if os.path.relpath(path, this_folder).startswith('.'):
+        return True
+    elif os.path.abspath(path) == os.path.abspath(output_file):
+        return True
+    return False
     
 def build(keep_hg = None):
     if keep_hg == '--keep-hg':
@@ -74,14 +100,12 @@ def build(keep_hg = None):
         raise TypeError('Invalid argument %s'%keep_hg)
     else:
         keep_hg = False
-    if os.path.exists(build_folder):
+    if os.path.exists(IS_BUILD):
         sys.stderr.write('Previous build exists, run \'clean\' command first.\n'+usage)
         sys.exit(1)
-    os.mkdir(build_folder)
     for repo in repos:
-        os.chdir(build_folder)
         subprocess.check_call(['hg', 'clone', bitbucket_page+repo])
-        os.chdir(os.path.join(build_folder, repo))
+        os.chdir(repo)
         subprocess.check_call(['hg', 'update', '-r', repos[repo]])
         if not keep_hg:
             try:
@@ -96,24 +120,41 @@ def build(keep_hg = None):
                 os.unlink('.hgignore')
             except OSError:
                 pass
+    # Add file that marks this as a labscript suite install dir:
+    os.chdir(this_folder)
+    with open(IS_BUILD, 'w') as f:
+        pass
+        
+def dist():
+    if not os.path.exists(IS_BUILD):
+        build()
     print('Writing %s...' % output_file)
     with zipfile.ZipFile(output_file, 'w') as f:
-        os.chdir(build_folder)
-        for repo in repos:
-            for entry in get_all_files_and_folders(repo):
-                f.write(entry)
-            shutil.rmtree(repo)
-        os.chdir(this_folder)
-        for path in other_includes:
-            for entry in get_all_files_and_folders(path):
-                f.write(entry)
+        for entry in get_all_files_and_folders('.'):
+            if not exclude_from_copying(entry):
+                f.write(entry, os.path.join(output_base, entry))
     print('done')
 
-
-def clean():
-    if os.path.exists(build_folder):
-        shutil.rmtree(build_folder)
+def sdist():
+    dist()
     
+def bdist():
+    dist()
+    
+def clean():
+    try:
+        os.unlink(IS_BUILD)
+    except OSError:
+        pass
+    try:
+        os.unlink(output_file)
+    except OSError:
+        pass
+    for repo in repos:
+        try:
+            shutil.rmtree(repo)
+        except OSError:
+            pass
     
 def getinput(prompt, default):
     try:
@@ -121,6 +162,7 @@ def getinput(prompt, default):
         return result or default 
     except KeyboardInterrupt, EOFError:
         sys.exit(1)
+    
     
 def yn_choice(message, default='y'):
     try:
@@ -133,25 +175,114 @@ def yn_choice(message, default='y'):
 
     
 def install():
-    install_folder = getinput('Enter custom installation directory', default_install_dir)
+    if not os.path.exists(IS_BUILD):
+        build()
+    # Copy files:
+    install_folder = getinput('Enter custom installation directory or press enter', default_install_folder)
+    install_folder = os.path.abspath(install_folder)
     if os.path.exists(install_folder):
-        if yn_choice('Install directory %s already exists, overwrite?'%install_folder, default='n'):
-            shutil.rmtree(install_folder)
+        if yn_choice('Install directory %s already exists, ' % install_folder + 
+                     'Replace existing installation? userlib and non-default config settings ' +
+                     'will be kept, but backing them up is recommended.', default='n'):
+            uninstall()
+            
+    print('Copying files...')
+    if not os.path.exists(install_folder):
+        try:
+            os.mkdir(install_folder)
+        except OSError as e:
+            sys.stderr.write('Could not write to install directory:\n %s'%str(e))
+            sys.exit(1)
     try:
-        os.mkdir(install_dir)
+        for entry in os.listdir('.'):
+            if not exclude_from_copying(entry):
+                if os.path.isdir(entry):
+                    dest = os.path.join(install_folder, entry)
+                    copy = shutil.copytree
+                else:
+                    dest = install_folder
+                    copy = shutil.copy
+                if entry in do_not_delete:
+                    if os.path.exists(dest):
+                        continue
+                copy(entry, dest)
+        for entry in files_to_overwrite:
+            dest = os.path.join(install_folder, entry)
+            if os.path.exists(dest):
+                os.unlink(dest)
+            shutil.copy(entry, dest)
     except OSError as e:
-        sys.stderr.write('Could not create install directory:\n %s'%str(e))
+        sys.stderr.write('Could not write to install directory:\n %s'%str(e))
         sys.exit(1)
+    # Copy the readme and setup script itself to an "uninstall" directory:
+    uninstall_folder = os.path.join(install_folder, "uninstall")
+    os.mkdir(uninstall_folder)
+    for entry in installer_files:
+        shutil.move(os.path.join(install_folder, entry), uninstall_folder)
+    # Add file that marks this as a labscript suite install dir:
+    with open(os.path.join(install_folder), IS_LABSCRIPT_SUITE, 'w'):
+        pass
+    shutil.move(os.path.join(install_folder, entry), uninstall_folder)
+    # Add libs to python's search path:
+    site_packages_dir = site.getsitepackages()[0]
+    pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
+    print('Adding install directories to PYTHONPATH by writing (%s)'%pth_file)
+    with open(pth_file, 'w') as f:
+        f.write(install_folder + '\n')
+        f.write(os.path.join(install_folder, 'userlib') + '\n')
+        f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
         
+    
+def uninstall(*args, **kwargs):
+    confirm = kwargs.pop('confirm', True)
+    if kwargs:
+        raise TypeError('uninstall() got unexpected keyword argument \'%s\''%kwargs.popitem()[0])
+    if len(args) > 1:
+        raise TypeError('uninstall() takes at most one positional argument (%s given)'%len(args))
+    elif args:
+        uninstall_folder = args[0]
+    else:
+        for path in sys.path:
+            if os.path.exists(os.path.join(path, IS_LABSCRIPT_SUITE)):
+                uninstall_folder = path 
+                break
+        else:
+            if not os.path.exists(default_install_folder):
+                sys.stderr.write('ERROR: Cannot find a labscript suite installation on this system\n'
+                                 'Please provide the install directory')
+                sys.stderr.write(usage)
+                sys.exit(1)
+            uninstall_folder = default_install_folder
+    if confirm:
+        if not yn_choice('Uninstall the labscript suite from %s? ' % uninstall_folder + 
+                         'userlib and non-default config settings ' +
+                         'will be kept, but backing them up is recommended.', default='n'):
+            sys.exit(1)
+    if not os.path.exists(os.path.join(uninstall_folder, IS_LABSCRIPT_SUITE)):
+        sys.stderr.write(
+            'ERROR: %s does not appear to be a labscript suite installation directory. ' % uninstall_folder +
+            'If you really want it gone, please delete it manually.\n')
+        sys.exit(1)
+    if 'pythonlib' in uninstall_folder:
+        class BeMoreCareful(ValueError): pass
+        raise BeMoreCareful("Don't delete your working directory, stupid")
         
-def uninstall():
+    print(uninstall_folder)
+    # def ignore(folder, entries):
+        # entries = set(entries)
+        # if folder == install_folder:
+            # for folder_to_keep in do_not_delete:
+                # if os.path.join(install_folder
+            # if os.path.exists(os.path.)
+            # return [f for f in files if f not in ]
     # Be careful implementing this that you don't delete the code you're working on like an idiot.
-    pass
+
     
 if __name__ == '__main__':
     actions = {'install': install,
                'uninstall': uninstall,
                'build': build,
+               'dist': dist,
                'clean': clean,
                }
                
