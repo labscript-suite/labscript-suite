@@ -64,10 +64,6 @@ README = 'README.txt'
 # during installation:
 do_not_delete = ['userlib', 'config']
 
-# Although we won't delete the above folders, we will
-# overwrite specific files within them if installing over the top:
-files_to_overwrite = [os.path.join('config', 'default.ini')]
-
 output_base = 'labscript_suite_' + __version__
 output_file = output_base + '.zip'
 
@@ -121,8 +117,8 @@ def build(keep_hg = None):
                 os.unlink('.hgignore')
             except OSError:
                 pass
+        os.chdir(this_folder)
     # Add file that marks this as a labscript suite install dir:
-    os.chdir(this_folder)
     with open(IS_BUILD, 'w'):
         pass
         
@@ -183,7 +179,7 @@ def install():
     install_folder = os.path.abspath(install_folder)
     if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
         if not yn_choice('\nReplace existing installation? in %s? ' % install_folder + 
-                         'userlib and non-default config settings ' +
+                         'userlib and configuration ' +
                          'will be kept, but backing them up is recommended.', default='n'):
             print('Cancelled')
             sys.exit(1)
@@ -214,11 +210,6 @@ def install():
                     if os.path.exists(dest):
                         continue
                 copy(entry, dest)
-        for entry in files_to_overwrite:
-            dest = os.path.join(install_folder, entry)
-            if os.path.exists(dest):
-                os.unlink(dest)
-            shutil.copy(entry, dest)
     except OSError as e:
         sys.stderr.write('Could not write to install directory:\n %s'%str(e))
         sys.exit(1)
@@ -231,7 +222,7 @@ def install():
         f.write('To uninstall, run: \n\n' +
                 '    python uninstall.py\n\n' +
                 'in this directory.\n' +
-                'userlib and non-default config settings ' +
+                'userlib and configuration ' +
                 'will be kept, but backing them up is recommended.\n')
     # Add libs to python's search path:
     site_packages_dir = site.getsitepackages()[0]
@@ -278,7 +269,7 @@ def uninstall(*args, **kwargs):
             uninstall_folder = default_install_folder
     if confirm:
         if not yn_choice('\nUninstall the labscript suite from %s? ' % uninstall_folder + 
-                         'userlib and non-default config settings ' +
+                         'userlib and configuration ' +
                          'will be kept, but backing them up is recommended.', default='n'):
             print('Cancelled')
             sys.exit(1)
