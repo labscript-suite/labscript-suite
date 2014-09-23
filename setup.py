@@ -27,7 +27,14 @@ if sys.version < '3':
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
 
-usage = 'usage:\npython setup.py (install | uninstall [<path>] | build [--keep-hg] | clean)\n'
+usage = """
+usage:
+  python setup.py install
+  python setup.py uninstall [<path>]
+  python setup.py build [--keep-hg]
+  python setup.py dist
+  python setup.py clean
+"""
 
 __version__ = '2.0.0-dev'
 
@@ -37,7 +44,7 @@ bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 # recent tag in the default branch:
 repos = {
          # 'labscript': 'branch(default) and max(tag())',
-         'runmanager': 'max(branch(default) and tag())',
+         'runmanager': 'Qt', #'max(branch(default) and tag())',
          # 'runviewer': 'branch(default) and max(tag())',
          # 'blacs': 'branch(default) and max(tag())',
          # 'lyse': 'branch(default) and max(tag())',
@@ -46,17 +53,11 @@ repos = {
          # 'labscript_devices': 'branch(default) and max(tag())',
         }
 
-# Non repository files to be included:
-other_includes = ['setup.py',
-                  'README.md',
-                  'config',
-                  'userlib']
+# Which programs should have application shortcuts made for them:
+gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse', 'mise']
 
-# Which of the above files pertain to the installer itself. They will be
-# installed in an 'uninstall' directory, as the same setip.py script can
-# be used for uninstalling.            
-installer_files = ['setup.py',
-                   'README.md']
+# The name of the readme file:
+README = 'README.md'
 
 # These folders, which contain user code and settings,
 # will not be deleted during uninstallation or overwritten
@@ -76,7 +77,7 @@ else:
     default_install_folder = os.path.join(os.getenv('HOME'), 'labscript_suite')
 
 IS_LABSCRIPT_SUITE = '.is_labscript_suite_install_dir'
-IS_BUILD = '.is_labscript_suite_build'
+IS_BUILD = '.is_labscript_suite_build_dir'
 
 def get_all_files_and_folders(path):
     import itertools
@@ -122,7 +123,7 @@ def build(keep_hg = None):
                 pass
     # Add file that marks this as a labscript suite install dir:
     os.chdir(this_folder)
-    with open(IS_BUILD, 'w') as f:
+    with open(IS_BUILD, 'w'):
         pass
         
 def dist():
@@ -144,21 +145,24 @@ def bdist():
 def clean():
     try:
         os.unlink(IS_BUILD)
+        print('deleted', IS_BUILD)
     except OSError:
         pass
     try:
         os.unlink(output_file)
+        print('deleted', output_file)
     except OSError:
         pass
     for repo in repos:
         try:
             shutil.rmtree(repo)
+            print('deleted', repo)
         except OSError:
             pass
     
 def getinput(prompt, default):
     try:
-        result = input(prompt + ' (%s): '%default)
+        result = input(prompt + '\n(%s): '%default)
         return result or default 
     except KeyboardInterrupt, EOFError:
         sys.exit(1)
@@ -167,33 +171,37 @@ def getinput(prompt, default):
 def yn_choice(message, default='y'):
     try:
         choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
-        choice = raw_input("%s (%s) " % (message, choices))
+        choice = raw_input("%s\n(%s): " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return choice.strip().lower() in values
-    except KeyBoardInterrupt, EOFError:
+    except KeyboardInterrupt, EOFError:
         sys.exit(1)
 
     
 def install():
-    if not os.path.exists(IS_BUILD):
-        build()
-    # Copy files:
-    install_folder = getinput('Enter custom installation directory or press enter', default_install_folder)
+    install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
     install_folder = os.path.abspath(install_folder)
-    if os.path.exists(install_folder):
-        if yn_choice('Install directory %s already exists, ' % install_folder + 
-                     'Replace existing installation? userlib and non-default config settings ' +
-                     'will be kept, but backing them up is recommended.', default='n'):
-            uninstall()
-            
-    print('Copying files...')
+    if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
+        if not yn_choice('\nReplace existing installation? in %s? ' % install_folder + 
+                         'userlib and non-default config settings ' +
+                         'will be kept, but backing them up is recommended.', default='n'):
+            print('Cancelled')
+            sys.exit(1)
+        uninstall(confirm=False)
+        os.chdir(this_folder)
+    if not os.path.exists(IS_BUILD):
+        build()    
+    print('Copying files')
     if not os.path.exists(install_folder):
         try:
             os.mkdir(install_folder)
         except OSError as e:
-            sys.stderr.write('Could not write to install directory:\n %s'%str(e))
+            sys.stderr.write('Could not create to install directory:\n %s'%str(e))
             sys.exit(1)
     try:
+        # Add file that marks this as a labscript suite install dir:
+        with open(os.path.join(install_folder, IS_LABSCRIPT_SUITE), 'w'):
+            pass
         for entry in os.listdir('.'):
             if not exclude_from_copying(entry):
                 if os.path.isdir(entry):
@@ -214,24 +222,39 @@ def install():
     except OSError as e:
         sys.stderr.write('Could not write to install directory:\n %s'%str(e))
         sys.exit(1)
-    # Copy the readme and setup script itself to an "uninstall" directory:
-    uninstall_folder = os.path.join(install_folder, "uninstall")
-    os.mkdir(uninstall_folder)
-    for entry in installer_files:
-        shutil.move(os.path.join(install_folder, entry), uninstall_folder)
-    # Add file that marks this as a labscript suite install dir:
-    with open(os.path.join(install_folder), IS_LABSCRIPT_SUITE, 'w'):
-        pass
-    shutil.move(os.path.join(install_folder, entry), uninstall_folder)
+    # Rename setup.py to uninstall.py, as it will function only as an uninstaller from within the
+    # labscript install directory:
+    shutil.move(os.path.join(install_folder, 'setup.py'), os.path.join(install_folder, 'uninstall.py'))
+    # Replace the readme file with one with instructions for uninstalling only
+    os.unlink(os.path.join(install_folder, README))
+    with open(os.path.join(install_folder, 'README_uninstall.txt'), 'w') as f:
+        f.write('To uninstall, run: \n\n' +
+                '    python uninstall.py\n\n' +
+                'in this directory.\n' +
+                'userlib and non-default config settings ' +
+                'will be kept, but backing them up is recommended.\n')
     # Add libs to python's search path:
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
-    print('Adding install directories to PYTHONPATH by writing (%s)'%pth_file)
+    print('Adding to Python search path (%s)'%pth_file)
     with open(pth_file, 'w') as f:
         f.write(install_folder + '\n')
         f.write(os.path.join(install_folder, 'userlib') + '\n')
         f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
-        
+    print('adding application shortcuts')
+    if os.name == 'nt':
+        from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
+        for program in gui_programs:
+            path = os.path.join(install_folder, '%s.lnk'%program)
+            target = sys.executable.lower().replace('.exe', 'w.exe')
+            arguments = os.path.join(install_folder, program, '__main__.py')
+            working_directory = os.path.join(install_folder, program)
+            icon_path = os.path.join(install_folder, program, '%s.ico'%program)
+            description = app_descriptions[program]
+            appid = appids[program]
+            make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
+            add_to_start_menu(path)
+    print('done')
     
 def uninstall(*args, **kwargs):
     confirm = kwargs.pop('confirm', True)
@@ -247,60 +270,75 @@ def uninstall(*args, **kwargs):
                 uninstall_folder = path 
                 break
         else:
-            if not os.path.exists(default_install_folder):
-                sys.stderr.write('ERROR: Cannot find a labscript suite installation on this system\n'
+            if not os.path.exists(os.path.join(default_install_folder, IS_LABSCRIPT_SUITE)):
+                sys.stderr.write('\nERROR: Cannot find a labscript suite installation on this system\n'
                                  'Please provide the install directory')
                 sys.stderr.write(usage)
                 sys.exit(1)
             uninstall_folder = default_install_folder
     if confirm:
-        if not yn_choice('Uninstall the labscript suite from %s? ' % uninstall_folder + 
+        if not yn_choice('\nUninstall the labscript suite from %s? ' % uninstall_folder + 
                          'userlib and non-default config settings ' +
                          'will be kept, but backing them up is recommended.', default='n'):
+            print('Cancelled')
             sys.exit(1)
     if not os.path.exists(os.path.join(uninstall_folder, IS_LABSCRIPT_SUITE)):
         sys.stderr.write(
-            'ERROR: %s does not appear to be a labscript suite installation directory. ' % uninstall_folder +
+            '\nERROR: %s does not appear to be a labscript suite installation directory. ' % uninstall_folder +
             'If you really want it gone, please delete it manually.\n')
         sys.exit(1)
-    if 'pythonlib' in uninstall_folder:
-        class BeMoreCareful(ValueError): pass
-        raise BeMoreCareful("Don't delete your working directory, stupid")
-        
-    print(uninstall_folder)
-    # def ignore(folder, entries):
-        # entries = set(entries)
-        # if folder == install_folder:
-            # for folder_to_keep in do_not_delete:
-                # if os.path.join(install_folder
-            # if os.path.exists(os.path.)
-            # return [f for f in files if f not in ]
-    # Be careful implementing this that you don't delete the code you're working on like an idiot.
+    print('Removing application shortcuts')
+    if os.name == 'nt':
+        from labscript_utils.winshell import remove_from_start_menu
+        for program in gui_programs:
+            remove_from_start_menu('%s.lnk'%program)   
+    site_packages_dir = site.getsitepackages()[0]
+    pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
+    print('Removing from Python search path (%s)'%pth_file)
+    if os.path.exists(pth_file):
+        os.unlink(pth_file)
+    print('Deleting files')
+    # So we can use relative paths, helps reduce the risk of deleting stuff elsewhere:
+    os.chdir(uninstall_folder)
+    for entry in os.listdir('.'):
+        if os.path.isdir(entry):
+            delete = shutil.rmtree
+        else:
+            delete = os.unlink
+        if entry not in do_not_delete:
+            delete(entry)
+    print('done')
 
     
 if __name__ == '__main__':
-    actions = {'install': install,
-               'uninstall': uninstall,
-               'build': build,
-               'dist': dist,
-               'clean': clean,
-               }
-               
-    if len(sys.argv) < 2:
-        sys.stderr.write(usage)
-        sys.exit(1)
-    action = sys.argv[1]
-    try:
-        function = actions[action]
-    except KeyError:
-        sys.stderr.write(usage)
-        sys.exit(1)
+    if os.path.exists(IS_LABSCRIPT_SUITE):
+        # Once copied into the labscript install directory at install time,
+        # this script will function as an uninstaller only.
+        uninstall()
+        sys.exit(0)
     else:
-        args = sys.argv[2:]
-        try:
-            function(*args)
-        except Exception:
-            sys.stderr.write(traceback.format_exc())
+        actions = {'install': install,
+                   'uninstall': uninstall,
+                   'build': build,
+                   'dist': dist,
+                   'clean': clean,
+                   }
+                   
+        if len(sys.argv) < 2:
             sys.stderr.write(usage)
             sys.exit(1)
+        action = sys.argv[1]
+        try:
+            function = actions[action]
+        except KeyError:
+            sys.stderr.write(usage)
+            sys.exit(1)
+        else:
+            args = sys.argv[2:]
+            try:
+                function(*args)
+            except Exception:
+                sys.stderr.write(traceback.format_exc())
+                sys.stderr.write(usage)
+                sys.exit(1)
         
