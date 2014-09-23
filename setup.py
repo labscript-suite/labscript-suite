@@ -57,7 +57,7 @@ repos = {
 gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse', 'mise']
 
 # The name of the readme file:
-README = 'README.md'
+README = 'README.txt'
 
 # These folders, which contain user code and settings,
 # will not be deleted during uninstallation or overwritten
