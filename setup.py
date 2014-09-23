@@ -40,16 +40,16 @@ __version__ = '2.0.0-dev'
 
 bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 
-# Can specify the specific tags or changesets to be used, otherwise will use the most
-# recent tag in the default branch:
+# Can specify the specific tags or changesets to be used, should be 'branch(default) and max(tag())'
+# for stable releases.
 repos = {
          # 'labscript': 'branch(default) and max(tag())',
-         'runmanager': 'Qt', #'max(branch(default) and tag())',
-         # 'runviewer': 'branch(default) and max(tag())',
+         'runmanager': 'Qt',
+         'runviewer': 'gated-clocks',
          # 'blacs': 'branch(default) and max(tag())',
          # 'lyse': 'branch(default) and max(tag())',
          # 'mise': 'branch(default) and max(tag())',
-         # 'labscript_utils': 'branch(default) and max(tag())',
+         'labscript_utils': '1.1.0-dev', #'branch(default) and max(tag())',
          # 'labscript_devices': 'branch(default) and max(tag())',
         }
 
