@@ -1,3 +1,5 @@
+-*- markdown -*-
+
 # labscript suite installer
 
 A script to install the labscript suite onto a system.
