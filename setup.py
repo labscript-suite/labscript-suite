@@ -43,14 +43,14 @@ bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 # Can specify the specific tags or changesets to be used, should be 'branch(default) and max(tag())'
 # for stable releases.
 repos = {
-         # 'labscript': 'branch(default) and max(tag())',
+         'labscript': 'gated-clocks',
          'runmanager': 'Qt',
          'runviewer': 'gated-clocks',
-         # 'blacs': 'branch(default) and max(tag())',
-         # 'lyse': 'branch(default) and max(tag())',
+         'blacs': '1.1.0-dev',
+         'lyse': 'branch(default) and max(tag())',
          # 'mise': 'branch(default) and max(tag())',
-         'labscript_utils': '1.1.0-dev', #'branch(default) and max(tag())',
-         # 'labscript_devices': 'branch(default) and max(tag())',
+         'labscript_utils': '1.1.0-dev',
+         'labscript_devices': 'gated-clocks',
         }
 
 # Which programs should have application shortcuts made for them:
@@ -62,7 +62,7 @@ README = 'README.txt'
 # These folders, which contain user code and settings,
 # will not be deleted during uninstallation or overwritten
 # during installation:
-do_not_delete = ['userlib', 'config']
+do_not_delete = ['userlib', 'labconfig']
 
 output_base = 'labscript_suite_' + __version__
 output_file = output_base + '.zip'
