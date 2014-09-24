@@ -237,7 +237,10 @@ def install():
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
         for program in gui_programs:
             path = os.path.join(install_folder, '%s.lnk'%program)
-            target = sys.executable.lower().replace('.exe', 'w.exe')
+            executable = sys.executable.lower()
+            if not executable.endswith('w.exe'):
+                executable = executable.replace('.exe', 'w.exe')
+            target = executable
             arguments = os.path.join(install_folder, program, '__main__.py')
             working_directory = os.path.join(install_folder, program)
             icon_path = os.path.join(install_folder, program, '%s.ico'%program)
@@ -296,8 +299,9 @@ def uninstall(*args, **kwargs):
             delete = shutil.rmtree
         else:
             delete = os.unlink
-        if entry not in do_not_delete:
+        if entry not in do_not_delete and entry != IS_LABSCRIPT_SUITE:
             delete(entry)
+    os.unlink(IS_LABSCRIPT_SUITE)
     print('done')
 
     
