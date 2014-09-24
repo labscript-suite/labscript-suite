@@ -47,8 +47,8 @@ repos = {
          'runmanager': 'Qt',
          'runviewer': 'gated-clocks',
          'blacs': '1.1.0-dev',
-         'lyse': 'branch(default) and max(tag())',
-         # 'mise': 'branch(default) and max(tag())',
+         'lyse': 'Qt',
+         'mise': 'default',
          'labscript_utils': '1.1.0-dev',
          'labscript_devices': 'gated-clocks',
         }
