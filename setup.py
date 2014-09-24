@@ -69,6 +69,9 @@ do_not_delete = ['userlib', 'labconfig']
 output_base = 'labscript_suite_' + __version__
 output_file = output_base + '.zip'
 
+# What will the shortcuts be called on Windows?
+shortcut_format = 'labscript suite - %s.lnk'
+
 if os.name == 'nt':
     default_install_folder = r'C:\labscript_suite'
 else:
@@ -77,6 +80,7 @@ else:
 IS_LABSCRIPT_SUITE = '.is_labscript_suite_install_dir'
 IS_BUILD = '.is_labscript_suite_build_dir'
 
+
 def get_all_files_and_folders(path):
     import itertools
     yield path
@@ -84,13 +88,15 @@ def get_all_files_and_folders(path):
         for root, folders, files in os.walk(path):
             for entry in itertools.chain(folders, files):
                 yield os.path.join(root, entry)
-                
+           
+           
 def exclude_from_copying(path):
     if os.path.relpath(path, this_folder).startswith('.'):
         return True
     elif os.path.abspath(path) == os.path.abspath(output_file):
         return True
     return False
+    
     
 def build(keep_hg = None):
     if keep_hg == '--keep-hg':
@@ -124,6 +130,7 @@ def build(keep_hg = None):
     with open(IS_BUILD, 'w'):
         pass
         
+        
 def dist():
     if not os.path.exists(IS_BUILD):
         build()
@@ -134,11 +141,14 @@ def dist():
                 f.write(entry, os.path.join(output_base, entry))
     print('done')
 
+    
 def sdist():
     dist()
     
+    
 def bdist():
     dist()
+    
     
 def clean():
     try:
@@ -157,6 +167,7 @@ def clean():
             print('deleted', repo)
         except OSError:
             pass
+    
     
 def getinput(prompt, default):
     try:
@@ -240,7 +251,7 @@ def install():
     if os.name == 'nt':
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
         for program in gui_programs:
-            path = os.path.join(install_folder, 'labscript suite - %s.lnk'%program)
+            path = os.path.join(install_folder, shortcut_format % program)
             executable = sys.executable.lower()
             if not executable.endswith('w.exe'):
                 executable = executable.replace('.exe', 'w.exe')
@@ -252,7 +263,13 @@ def install():
             appid = appids[program]
             make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
             add_to_start_menu(path)
+        # Clear the icon cache so Windows gets the shortcut icons right even if they were previously broken:
+        try:
+            subprocess.Popen(['ie4uinit.exe', '-ClearIconCache'])
+        except Exception:
+            sys.stderr.write('failed to clear icon cache, icons might be blank\n')
     print('done')
+    
     
 def uninstall(*args, **kwargs):
     confirm = kwargs.pop('confirm', True)
@@ -289,7 +306,7 @@ def uninstall(*args, **kwargs):
     if os.name == 'nt':
         from labscript_utils.winshell import remove_from_start_menu
         for program in gui_programs:
-            remove_from_start_menu('%s.lnk'%program)   
+            remove_from_start_menu(shortcut_format % program)   
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Removing from Python search path (%s)'%pth_file)
