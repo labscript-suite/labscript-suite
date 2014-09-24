@@ -23,7 +23,9 @@ import site
     
 if sys.version < '3':
     input = raw_input
-
+else:
+    from importlib import reload
+    
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
 
@@ -232,11 +234,13 @@ def install():
         f.write(install_folder + '\n')
         f.write(os.path.join(install_folder, 'userlib') + '\n')
         f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
+    # Reload the site module so later code sees these paths:
+    reload(site)
     print('adding application shortcuts')
     if os.name == 'nt':
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
         for program in gui_programs:
-            path = os.path.join(install_folder, '%s.lnk'%program)
+            path = os.path.join(install_folder, 'labscript suite - %s.lnk'%program)
             executable = sys.executable.lower()
             if not executable.endswith('w.exe'):
                 executable = executable.replace('.exe', 'w.exe')
