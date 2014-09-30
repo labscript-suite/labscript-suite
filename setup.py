@@ -20,7 +20,9 @@ import shutil
 import zipfile
 import traceback
 import site
-    
+import imp
+from collections import OrderedDict
+
 if sys.version < '3':
     input = raw_input
 else:
@@ -28,6 +30,8 @@ else:
     
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
+
+devnull = open(os.devnull, 'w')
 
 usage = """
 usage:
@@ -91,40 +95,102 @@ def get_all_files_and_folders(path):
            
            
 def exclude_from_copying(path):
+    # Ignore dotfiles in the top level of the installer folder:
     if os.path.relpath(path, this_folder).startswith('.'):
         return True
+    # Ignore the output zip file itself:
     elif os.path.abspath(path) == os.path.abspath(output_file):
         return True
     return False
     
     
-def build(keep_hg = None):
-    if keep_hg == '--keep-hg':
-        keep_hg = True
-    elif keep_hg is not None:
-        raise TypeError('Invalid argument %s'%keep_hg)
+def runcommand(args, check_retcode=True, print_command=True, input=None):
+    import pipes
+    command = ' '.join(pipes.quote(arg) for arg in args)
+    if print_command:
+        print('    ' + command)
+    child = subprocess.Popen(args, stdin=subprocess.PIPE)
+    stdout, stderr = child.communicate(input)
+    if check_retcode and child.returncode != 0:
+        raise OSError('Error running %s'%command)
+        
+        
+def get_dependencies():
+    deps = OrderedDict()
+    print('reading dependency list')
+    with open('dependencies.txt') as f:
+        for line in f:
+            if line.strip() and not line.startswith('#'):
+                pypi_name_and_version, module_name, install_methods = line.split()
+                install_methods = install_methods.split(',')
+                deps[module_name] = pypi_name_and_version, install_methods
+    print('checking for conda...',end='')
+    try:
+        # Done via command line since 'conda' package may not be available for import if we are
+        # within a conda environment:
+        subprocess.check_call(['conda'], stdout=devnull, stderr=devnull)
+        CONDA = True
+        print('yes')
+    except OSError:
+        CONDA = False
+        print('no')
+    print('checking for pip...', end='')
+    try:
+        # Done via module import, since we may be within a conda environment and the 'pip' command
+        # might point to the default environment instead of the one we're in.
+        imp.find_module('pip')
+        PIP = True
+        print('yes')
+    except ImportError:
+        PIP = False
+        print('no')
+    print('checking for setuptools...', end='')
+    try:
+        # Again via import since 'easy_install' might be the default environment, and we want
+        # to ensure setuptools is installed in the environment we are in. However we actually import
+        # it rather than using imp.find_module, because the latter doesn't work, even when the module
+        # is present. I don't know why.
+        import setuptools
+        SETUPTOOLS = True
+        print('yes')
+    except ImportError:
+        SETUPTOOLS = False
+        print('no')
+    if CONDA:
+        if not PIP:
+            print('installing pip')
+            runcommand(['conda', 'install', 'pip'], input='f\n')
+            PIP = True
+            SETUPTOOLS = True # Installing pip installs setuptools
+        if not SETUPTOOLS:
+            print('installing setuptools')
+            runcommand(['conda', 'install', 'setuptools'], input='f\n')
+            SETUPTOOLS = True
+    elif SETUPTOOLS:
+        if not PIP:
+            print('installing pip')
+            runcommand(['easy_install', 'pip'])
+            PIP = True
+    elif PIP:
+        if not SETUPTOOLS:
+            print('installing setuptools')
+            runcommand(['pip', 'install', 'setuptools'])
+            SETUPTOOLS = True
     else:
-        keep_hg = False
+        raise OSError('No package management tools available. Cannot automatically resolve dependencies.')
+        sys.exit(1)
+    # Now to actually install dependencies:
+        
+def build():
     if os.path.exists(IS_BUILD):
         sys.stderr.write('Previous build exists, run \'clean\' command first.\n'+usage)
         sys.exit(1)
     for repo in repos:
-        subprocess.check_call(['hg', 'clone', bitbucket_page+repo])
+        print('cloning %s'%repo)
+        runcommand(['hg', 'clone', bitbucket_page+repo])
         os.chdir(repo)
-        subprocess.check_call(['hg', 'update', '-r', repos[repo]])
-        if not keep_hg:
-            try:
-                shutil.rmtree('.hg')
-            except OSError:
-                pass
-            try:
-                os.unlink('.hgtags')
-            except OSError:
-                pass
-            try:
-                os.unlink('.hgignore')
-            except OSError:
-                pass
+        print('updating to %s'%repos[repo])
+        runcommand(['hg', 'update', '-r', repos[repo]])
         os.chdir(this_folder)
     # Add file that marks this as a labscript suite install dir:
     with open(IS_BUILD, 'w'):
@@ -132,8 +198,9 @@ def build(keep_hg = None):
         
         
 def dist():
-    if not os.path.exists(IS_BUILD):
-        build()
+    if os.path.exists(IS_BUILD):
+        sys.stderr.write('Build exists, run \'clean\' command first.\n'+usage)
+        sys.exit(1)
     print('Writing %s...' % output_file)
     with zipfile.ZipFile(output_file, 'w') as f:
         for entry in get_all_files_and_folders('.'):
@@ -188,6 +255,9 @@ def yn_choice(message, default='y'):
 
     
 def install():
+    get_dependencies()
+    if not os.path.exists(IS_BUILD):
+        build()
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
     install_folder = os.path.abspath(install_folder)
     if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
@@ -198,8 +268,6 @@ def install():
             sys.exit(1)
         uninstall(confirm=False)
         os.chdir(this_folder)
-    if not os.path.exists(IS_BUILD):
-        build()    
     print('Copying files')
     if not os.path.exists(install_folder):
         try:
@@ -338,6 +406,7 @@ if __name__ == '__main__':
                    'build': build,
                    'dist': dist,
                    'clean': clean,
+                   'get_dependencies': get_dependencies
                    }
                    
         if len(sys.argv) < 2:
