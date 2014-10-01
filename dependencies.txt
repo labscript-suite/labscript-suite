@@ -1,16 +1,22 @@
-# PyPI name/version     import_name     install_method
+# package name      import name     optional    available install methods
 
-pyqt4>=4.10.4,<5        PyQt4           conda
-numpy>=1.8.1,<2         numpy           conda
-scipy>=0.14.0,<1        scipy           conda
-matplotlib>=1.3.1,<2    matplotlib      conda,pip,easy_install
-pandas>=0.14.0,<1       pandas          conda,easy_install
-pyzmq>=14.3.0,<15       zmq             conda,pip,easy_install
-h5py>=2.3.0,<3          h5py            conda
+pyqt                PyQt4           False       conda,web
+numpy               numpy           False       conda,web
+scipy               scipy           False       conda,web
+matplotlib          matplotlib      False       conda,pip,web
+pandas              pandas          False       conda,web
+pyzmq               zmq             False       conda,pip,web
+h5py                h5py            False       conda,web
 
-pyqtgraph>=0.9.8,<1     pyqtgraph       pip,easy_install
-PyDAQmx>=1.3,<2         PyDAQmx         pip,easy_install
-spinapi>=3.1.0,<4       spinapi         pip,easy_install
-qtutils>=1.5.2,<2       qtutils         pip,easy_install
-zprocess>=1.1.3,<2      zprocess        pip,easy_install
+pyqtgraph           pyqtgraph       False       pip
+qtutils             qtutils         False       pip
+zprocess            zprocess        False       pip
 
+# Required if using Windows:
+pywin32             win32com         True       conda,web
+
+# Optional, if using National instruments devices (Must have NI DAQmx installed):
+PyDAQmx             PyDAQmx         True        pip
+
+# Optional, if using Spincore PulseBlasters (must have spincore DLL installed on Windows):
+spinapi             spinapi         True        pip

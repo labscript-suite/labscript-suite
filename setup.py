@@ -22,6 +22,8 @@ import traceback
 import site
 import imp
 from collections import OrderedDict
+import ast
+import textwrap
 
 if sys.version < '3':
     input = raw_input
@@ -64,6 +66,9 @@ gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse', 'mise']
 
 # The name of the readme file:
 README = 'README.txt'
+
+# The name of the dependencies file:
+DEPENDENCIES = 'dependencies.txt'
 
 # These folders, which contain user code and settings,
 # will not be deleted during uninstallation or overwritten
@@ -115,71 +120,54 @@ def runcommand(args, check_retcode=True, print_command=True, input=None):
         raise OSError('Error running %s'%command)
         
         
-def get_dependencies():
+def check_dependencies():
     deps = OrderedDict()
-    print('reading dependency list')
-    with open('dependencies.txt') as f:
-        for line in f:
+    print('Checking for dependencies...')
+    with open(DEPENDENCIES) as f:
+        lines = f.readlines()
+        for i, line in enumerate(lines):
             if line.strip() and not line.startswith('#'):
-                pypi_name_and_version, module_name, install_methods = line.split()
-                install_methods = install_methods.split(',')
-                deps[module_name] = pypi_name_and_version, install_methods
-    print('checking for conda...',end='')
-    try:
-        # Done via command line since 'conda' package may not be available for import if we are
-        # within a conda environment:
-        subprocess.check_call(['conda'], stdout=devnull, stderr=devnull)
-        CONDA = True
-        print('yes')
-    except OSError:
-        CONDA = False
-        print('no')
-    print('checking for pip...', end='')
-    try:
-        # Done via module import, since we may be within a conda environment and the 'pip' command
-        # might point to the default environment instead of the one we're in.
-        imp.find_module('pip')
-        PIP = True
-        print('yes')
-    except ImportError:
-        PIP = False
-        print('no')
-    print('checking for setuptools...', end='')
-    try:
-        # Again via import since 'easy_install' might be the default environment, and we want
-        # to ensure setuptools is installed in the environment we are in. However we actually import
-        # it rather than using imp.find_module, because the latter doesn't work, even when the module
-        # is present. I don't know why.
-        import setuptools
-        SETUPTOOLS = True
-        print('yes')
-    except ImportError:
-        SETUPTOOLS = False
-        print('no')
-    if CONDA:
-        if not PIP:
-            print('installing pip')
-            runcommand(['conda', 'install', 'pip'], input='f\n')
-            PIP = True
-            SETUPTOOLS = True # Installing pip installs setuptools
-        if not SETUPTOOLS:
-            print('installing setuptools')
-            runcommand(['conda', 'install', 'setuptools'], input='f\n')
-            SETUPTOOLS = True
-    elif SETUPTOOLS:
-        if not PIP:
-            print('installing pip')
-            runcommand(['easy_install', 'pip'])
-            PIP = True
-    elif PIP:
-        if not SETUPTOOLS:
-            print('installing setuptools')
-            runcommand(['pip', 'install', 'setuptools'])
-            SETUPTOOLS = True
-    else:
-        raise OSError('No package management tools available. Cannot automatically resolve dependencies.')
+                package_name, module_name, optional, install_methods = line.split()
+                optional = ast.literal_eval(optional)
+                if optional:
+                    comment = ''
+                    j = 1
+                    while lines[i-j].strip().startswith('#'):
+                        comment = lines[i-j].strip().strip('#').strip() + ' ' + comment
+                        j += 1
+                else:
+                    comment = None
+                deps[module_name] = package_name, optional, install_methods, comment
+    nonoptional_missing = False
+    optional_missing = False
+    for module_name in deps:
+        package_name, optional, install_methods, comment = deps[module_name]
+        try:
+            imp.find_module(module_name)
+        except ImportError:
+            if optional:
+                optional_missing = True
+            else:
+                nonoptional_missing = True
+            if optional:
+                print()
+                for line in textwrap.wrap(comment):
+                    print('    # ' + line)
+                print('    [OPTIONAL] %s not found, installable via %s'%(package_name, install_methods))
+            else:
+                print('    %s not found, installable via %s'%(package_name, install_methods))
+    if nonoptional_missing:
+        sys.stderr.write('\nNon-optional dependencies are missing.\nPlease install dependencies and run again.\n')
         sys.exit(1)
-    # Now to actually install dependencies:
+    elif optional_missing:
+        print('\nAll not-optional dependencies satisfied.')
+        sys.stderr.write('\nSome optional dependencies were not satisfied.' +
+                         'Please review the above and decide whether you require these packages.\n')
+        if not yn_choice('Continue without these optional packages?', default='n'):
+            sys.exit(1)
+    else:
+        print('\nAll dependencies satisfied')
+        
         
 def build():
     if os.path.exists(IS_BUILD):
@@ -223,17 +211,19 @@ def clean():
         print('deleted', IS_BUILD)
     except OSError:
         pass
-    try:
-        os.unlink(output_file)
-        print('deleted', output_file)
-    except OSError:
-        pass
-    for repo in repos:
+    if os.path.exists(output_file):
         try:
-            shutil.rmtree(repo)
-            print('deleted', repo)
-        except OSError:
-            pass
+            os.unlink(output_file)
+            print('deleted', output_file)
+        except OSError as e:
+            sys.stderr.write('Could not delete %s:\n%s\n'%(output_file, str(e)))
+    for repo in repos:
+        if os.path.exists(repo):
+            try:
+                shutil.rmtree(repo)
+                print('deleted', repo)
+            except OSError as e:
+                sys.stderr.write('Could not delete %s:\n%s\n'%(repo, str(e)))
     
     
 def getinput(prompt, default):
@@ -253,9 +243,33 @@ def yn_choice(message, default='y'):
     except KeyboardInterrupt, EOFError:
         sys.exit(1)
 
+        
+def make_labconfig_file(install_folder):
+    from labscript_utils.labconfig import LabConfig, default_config_path
+    source_path = os.path.join(install_folder, 'labconfig', 'example.ini')
+    target_path = default_config_path
+    if os.path.exists(target_path):
+        # Don't modify it, leave their config as it is:
+        return
+    print('making default labconfig file')
+    with open(source_path) as infile, open(target_path, 'w') as outfile:
+        data = infile.read()
+        data = data.replace('\\', os.path.sep)
+        outfile.write(data)
+    # Now change some things about it:
+    config = LabConfig()
+    config.set('DEFAULT', 'labscript_suite', install_folder)
+    if sys.platform == 'linux2':
+        config.set('programs', 'text_editor', 'gedit')
+    elif sys.platform == 'darwin':
+        config.set('programs', 'text_editor', 'open')
+        config.set('programs', 'text_editor_arguments', '-a TextEdit {file}')
+    if sys.platform != 'win32':
+        config.set('programs', 'hdf5_viewer', 'hdfview')
+    
     
 def install():
-    get_dependencies()
+    check_dependencies()
     if not os.path.exists(IS_BUILD):
         build()
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
@@ -305,6 +319,8 @@ def install():
                 'in this directory.\n' +
                 'userlib and configuration ' +
                 'will be kept, but backing them up is recommended.\n')
+    # Remove the dependencies.txt file:
+    os.unlink(os.path.join(install_folder, DEPENDENCIES))
     # Add libs to python's search path:
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
@@ -315,6 +331,7 @@ def install():
         f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
     # Reload the site module so later code sees these paths:
     reload(site)
+    make_labconfig_file(install_folder)
     print('adding application shortcuts')
     if os.name == 'nt':
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
@@ -406,7 +423,7 @@ if __name__ == '__main__':
                    'build': build,
                    'dist': dist,
                    'clean': clean,
-                   'get_dependencies': get_dependencies
+                   'check_dependencies': check_dependencies
                    }
                    
         if len(sys.argv) < 2:
