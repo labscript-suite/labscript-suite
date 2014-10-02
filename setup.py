@@ -120,9 +120,17 @@ def runcommand(args, check_retcode=True, print_command=True, input=None):
         raise OSError('Error running %s'%command)
         
         
-def check_dependencies():
+def check_dependencies(check_only = True):
     deps = OrderedDict()
-    print('Checking for dependencies...')
+    print('Checking dependencies...\n')
+    try:
+        print('  checking for mercurial...', end='')
+        subprocess.check_call(['hg'], stdout=devnull, stderr=devnull)
+        print('yes')
+    except OSError:
+        print('no')
+        sys.stderr.write('Please install mercurial (tortoisehg recommended) before continuing\n')
+        sys.exit(1)
     with open(DEPENDENCIES) as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
@@ -140,22 +148,30 @@ def check_dependencies():
                 deps[module_name] = package_name, optional, install_methods, comment
     nonoptional_missing = False
     optional_missing = False
+    output_lines = []
     for module_name in deps:
         package_name, optional, install_methods, comment = deps[module_name]
         try:
+            print('  checking for %s...'%package_name, end='')
             imp.find_module(module_name)
+            print('yes')
         except ImportError:
+            print('no')
             if optional:
                 optional_missing = True
             else:
                 nonoptional_missing = True
             if optional:
-                print()
+                output_lines.append('')
                 for line in textwrap.wrap(comment):
-                    print('    # ' + line)
-                print('    [OPTIONAL] %s not found, installable via %s'%(package_name, install_methods))
+                    output_lines.append('  # ' + line)
+                output_lines.append('  [OPTIONAL] %s not found, installable via %s'%(package_name, install_methods))
             else:
-                print('    %s not found, installable via %s'%(package_name, install_methods))
+                output_lines.append('  %s not found, installable via %s'%(package_name, install_methods))
+    print('\nMissing dependencies:\n')
+    for line in output_lines:
+        print(line)
+    
     if nonoptional_missing:
         sys.stderr.write('\nNon-optional dependencies are missing.\nPlease install dependencies and run again.\n')
         sys.exit(1)
@@ -163,7 +179,7 @@ def check_dependencies():
         print('\nAll not-optional dependencies satisfied.')
         sys.stderr.write('\nSome optional dependencies were not satisfied.' +
                          'Please review the above and decide whether you require these packages.\n')
-        if not yn_choice('Continue without these optional packages?', default='n'):
+        if check_only or not yn_choice('Continue without these optional packages?', default='n'):
             sys.exit(1)
     else:
         print('\nAll dependencies satisfied')
@@ -269,7 +285,7 @@ def make_labconfig_file(install_folder):
     
     
 def install():
-    check_dependencies()
+    check_dependencies(check_only = True)
     if not os.path.exists(IS_BUILD):
         build()
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
