@@ -29,7 +29,7 @@ if sys.version < '3':
     input = raw_input
 else:
     from importlib import reload
-    
+
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
 
@@ -51,15 +51,15 @@ bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 # Can specify the specific tags or changesets to be used, should be 'branch(default) and max(tag())'
 # for stable releases.
 repos = {
-         'labscript': 'branch(default) and max(tag())',
-         'runmanager': 'branch(default) and max(tag())',
-         'runviewer': 'branch(default) and max(tag())',
-         'blacs': 'branch(default) and max(tag())',
-         'lyse': 'gtk',
-         'mise': 'default',
-         'labscript_utils': 'branch(default) and max(tag())',
-         'labscript_devices': 'branch(default) and max(tag())',
-        }
+    'labscript': 'branch(default) and max(tag())',
+    'runmanager': 'branch(default) and max(tag())',
+    'runviewer': 'branch(default) and max(tag())',
+    'blacs': 'branch(default) and max(tag())',
+    'lyse': 'gtk',
+    'mise': 'default',
+    'labscript_utils': 'branch(default) and max(tag())',
+    'labscript_devices': 'branch(default) and max(tag())',
+}
 
 # Which programs should have application shortcuts made for them:
 gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse', 'mise']
@@ -97,8 +97,8 @@ def get_all_files_and_folders(path):
         for root, folders, files in os.walk(path):
             for entry in itertools.chain(folders, files):
                 yield os.path.join(root, entry)
-           
-           
+
+
 def exclude_from_copying(path):
     # Ignore dotfiles in the top level of the installer folder:
     if os.path.relpath(path, this_folder).startswith('.'):
@@ -107,8 +107,8 @@ def exclude_from_copying(path):
     elif os.path.abspath(path) == os.path.abspath(output_file):
         return True
     return False
-    
-    
+
+
 def runcommand(args, check_retcode=True, print_command=True, input=None):
     import pipes
     command = ' '.join(pipes.quote(arg) for arg in args)
@@ -117,9 +117,9 @@ def runcommand(args, check_retcode=True, print_command=True, input=None):
     child = subprocess.Popen(args, stdin=subprocess.PIPE)
     stdout, stderr = child.communicate(input)
     if check_retcode and child.returncode != 0:
-        raise OSError('Error running %s'%command)
-        
-        
+        raise OSError('Error running %s' % command)
+
+
 def check_dependencies():
     deps = OrderedDict()
     print('Checking dependencies...\n')
@@ -140,8 +140,8 @@ def check_dependencies():
                 if optional:
                     comment = ''
                     j = 1
-                    while lines[i-j].strip().startswith('#'):
-                        comment = lines[i-j].strip().strip('#').strip() + ' ' + comment
+                    while lines[i - j].strip().startswith('#'):
+                        comment = lines[i - j].strip().strip('#').strip() + ' ' + comment
                         j += 1
                 else:
                     comment = None
@@ -155,7 +155,7 @@ def check_dependencies():
         if package_name == 'pywin32' and not os.name == 'nt':
             continue
         try:
-            print('  checking for %s...'%package_name, end='')
+            print('  checking for %s...' % package_name, end='')
             imp.find_module(module_name)
             print('yes')
         except ImportError:
@@ -168,14 +168,14 @@ def check_dependencies():
                 output_lines.append('')
                 for line in textwrap.wrap(comment):
                     output_lines.append('  # ' + line)
-                output_lines.append('  [OPTIONAL] %s not found, installable via %s'%(package_name, install_methods))
+                output_lines.append('  [OPTIONAL] %s not found, installable via %s' % (package_name, install_methods))
             else:
-                output_lines.append('  %s not found, installable via %s'%(package_name, install_methods))
+                output_lines.append('  %s not found, installable via %s' % (package_name, install_methods))
     if nonoptional_missing or optional_missing:
         print('\nMissing dependencies:\n')
     for line in output_lines:
         print(line)
-    
+
     if nonoptional_missing:
         sys.stderr.write('\nNon-optional dependencies are missing.\nPlease install dependencies and run again.\n')
         sys.exit(1)
@@ -187,27 +187,27 @@ def check_dependencies():
             sys.exit(1)
     else:
         print('\nAll dependencies satisfied')
-        
-        
+
+
 def build():
     if os.path.exists(IS_BUILD):
-        sys.stderr.write('Previous build exists, run \'clean\' command first.\n'+usage)
+        sys.stderr.write('Previous build exists, run \'clean\' command first.\n' + usage)
         sys.exit(1)
     for repo in repos:
-        print('cloning %s'%repo)
-        runcommand(['hg', 'clone', bitbucket_page+repo])
+        print('cloning %s' % repo)
+        runcommand(['hg', 'clone', bitbucket_page + repo])
         os.chdir(repo)
-        print('updating to %s'%repos[repo])
+        print('updating to %s' % repos[repo])
         runcommand(['hg', 'update', '-r', repos[repo]])
         os.chdir(this_folder)
     # Add file that marks this as a labscript suite install dir:
     with open(IS_BUILD, 'w'):
         pass
-        
-        
+
+
 def dist():
     if os.path.exists(IS_BUILD):
-        sys.stderr.write('Build exists, run \'clean\' command first.\n'+usage)
+        sys.stderr.write('Build exists, run \'clean\' command first.\n' + usage)
         sys.exit(1)
     print('Writing %s...' % output_file)
     with zipfile.ZipFile(output_file, 'w') as f:
@@ -216,15 +216,15 @@ def dist():
                 f.write(entry, os.path.join(output_base, entry))
     print('done')
 
-    
+
 def sdist():
     dist()
-    
-    
+
+
 def bdist():
     dist()
-    
-    
+
+
 def clean():
     try:
         os.unlink(IS_BUILD)
@@ -236,24 +236,24 @@ def clean():
             os.unlink(output_file)
             print('deleted', output_file)
         except OSError as e:
-            sys.stderr.write('Could not delete %s:\n%s\n'%(output_file, str(e)))
+            sys.stderr.write('Could not delete %s:\n%s\n' % (output_file, str(e)))
     for repo in repos:
         if os.path.exists(repo):
             try:
                 shutil.rmtree(repo)
                 print('deleted', repo)
             except OSError as e:
-                sys.stderr.write('Could not delete %s:\n%s\n'%(repo, str(e)))
-    
-    
+                sys.stderr.write('Could not delete %s:\n%s\n' % (repo, str(e)))
+
+
 def getinput(prompt, default):
     try:
-        result = input(prompt + '\n(%s): '%default)
-        return result or default 
+        result = input(prompt + '\n(%s): ' % default)
+        return result or default
     except KeyboardInterrupt, EOFError:
         sys.exit(1)
-    
-    
+
+
 def yn_choice(message, default='y'):
     try:
         choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
@@ -263,7 +263,7 @@ def yn_choice(message, default='y'):
     except KeyboardInterrupt, EOFError:
         sys.exit(1)
 
-        
+
 def make_labconfig_file(install_folder):
     from labscript_utils.labconfig import LabConfig, default_config_path
     source_path = os.path.join(install_folder, 'labconfig', 'example.ini')
@@ -286,8 +286,8 @@ def make_labconfig_file(install_folder):
         config.set('programs', 'text_editor_arguments', '-a TextEdit {file}')
     if sys.platform != 'win32':
         config.set('programs', 'hdf5_viewer', 'hdfview')
-    
-    
+
+
 def install():
     check_dependencies()
     if not os.path.exists(IS_BUILD):
@@ -298,14 +298,14 @@ def install():
     # Add libs to python's search path:
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
-    print('Adding to Python search path (%s)'%pth_file)
+    print('Adding to Python search path (%s)' % pth_file)
     with open(pth_file, 'w') as f:
         f.write(install_folder + '\n')
         f.write(os.path.join(install_folder, 'userlib') + '\n')
         f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
 
     if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
-        if not yn_choice('\nReplace existing installation? in %s? ' % install_folder + 
+        if not yn_choice('\nReplace existing installation? in %s? ' % install_folder +
                          'userlib and configuration ' +
                          'will be kept, but backing them up is recommended.', default='n'):
             print('Cancelled')
@@ -317,7 +317,7 @@ def install():
         try:
             os.mkdir(install_folder)
         except OSError as e:
-            sys.stderr.write('Could not create to install directory:\n %s'%str(e))
+            sys.stderr.write('Could not create to install directory:\n %s' % str(e))
             sys.exit(1)
     try:
         # Add file that marks this as a labscript suite install dir:
@@ -336,7 +336,7 @@ def install():
                         continue
                 copy(entry, dest)
     except OSError as e:
-        sys.stderr.write('Could not write to install directory:\n %s'%str(e))
+        sys.stderr.write('Could not write to install directory:\n %s' % str(e))
         sys.exit(1)
     # Rename setup.py to uninstall.py, as it will function only as an uninstaller from within the
     # labscript install directory:
@@ -367,7 +367,7 @@ def install():
             target = executable
             arguments = os.path.join(install_folder, program, '__main__.py')
             working_directory = os.path.join(install_folder, program)
-            icon_path = os.path.join(install_folder, program, '%s.ico'%program)
+            icon_path = os.path.join(install_folder, program, '%s.ico' % program)
             description = app_descriptions[program]
             appid = appids[program]
             make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
@@ -378,20 +378,20 @@ def install():
         except Exception:
             sys.stderr.write('failed to clear icon cache, icons might be blank\n')
     print('done')
-    
-    
+
+
 def uninstall(*args, **kwargs):
     confirm = kwargs.pop('confirm', True)
     if kwargs:
-        raise TypeError('uninstall() got unexpected keyword argument \'%s\''%kwargs.popitem()[0])
+        raise TypeError('uninstall() got unexpected keyword argument \'%s\'' % kwargs.popitem()[0])
     if len(args) > 1:
-        raise TypeError('uninstall() takes at most one positional argument (%s given)'%len(args))
+        raise TypeError('uninstall() takes at most one positional argument (%s given)' % len(args))
     elif args:
         uninstall_folder = args[0]
     else:
         for path in sys.path:
             if os.path.exists(os.path.join(path, IS_LABSCRIPT_SUITE)):
-                uninstall_folder = path 
+                uninstall_folder = path
                 break
         else:
             if not os.path.exists(os.path.join(default_install_folder, IS_LABSCRIPT_SUITE)):
@@ -401,7 +401,7 @@ def uninstall(*args, **kwargs):
                 sys.exit(1)
             uninstall_folder = default_install_folder
     if confirm:
-        if not yn_choice('\nUninstall the labscript suite from %s? ' % uninstall_folder + 
+        if not yn_choice('\nUninstall the labscript suite from %s? ' % uninstall_folder +
                          'userlib and configuration ' +
                          'will be kept, but backing them up is recommended.', default='n'):
             print('Cancelled')
@@ -411,14 +411,14 @@ def uninstall(*args, **kwargs):
             '\nERROR: %s does not appear to be a labscript suite installation directory. ' % uninstall_folder +
             'If you really want it gone, please delete it manually.\n')
         sys.exit(1)
-    print('Removing application shortcuts')
     if os.name == 'nt':
+        print('Removing application shortcuts')  # TODO unix
         from labscript_utils.winshell import remove_from_start_menu
         for program in gui_programs:
-            remove_from_start_menu(shortcut_format % program)   
+            remove_from_start_menu(shortcut_format % program)
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
-    print('Removing from Python search path (%s)'%pth_file)
+    print('Removing from Python search path (%s)' % pth_file)
     if os.path.exists(pth_file):
         os.unlink(pth_file)
     print('Deleting files')
@@ -434,7 +434,7 @@ def uninstall(*args, **kwargs):
     os.unlink(IS_LABSCRIPT_SUITE)
     print('done')
 
-    
+
 if __name__ == '__main__':
     if os.path.exists(IS_LABSCRIPT_SUITE):
         # Once copied into the labscript install directory at install time,
@@ -449,7 +449,7 @@ if __name__ == '__main__':
                    'clean': clean,
                    'check_dependencies': check_dependencies
                    }
-                   
+
         if len(sys.argv) < 2:
             sys.stderr.write(usage)
             sys.exit(1)
@@ -467,4 +467,3 @@ if __name__ == '__main__':
                 sys.stderr.write(traceback.format_exc())
                 sys.stderr.write(usage)
                 sys.exit(1)
-        
