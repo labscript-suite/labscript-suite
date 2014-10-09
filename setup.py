@@ -120,7 +120,7 @@ def runcommand(args, check_retcode=True, print_command=True, input=None):
         raise OSError('Error running %s'%command)
         
         
-def check_dependencies(check_only = True):
+def check_dependencies():
     deps = OrderedDict()
     print('Checking dependencies...\n')
     try:
@@ -168,7 +168,8 @@ def check_dependencies(check_only = True):
                 output_lines.append('  [OPTIONAL] %s not found, installable via %s'%(package_name, install_methods))
             else:
                 output_lines.append('  %s not found, installable via %s'%(package_name, install_methods))
-    print('\nMissing dependencies:\n')
+    if nonoptional_missing or optional_missing:
+        print('\nMissing dependencies:\n')
     for line in output_lines:
         print(line)
     
@@ -179,7 +180,7 @@ def check_dependencies(check_only = True):
         print('\nAll not-optional dependencies satisfied.')
         sys.stderr.write('\nSome optional dependencies were not satisfied.' +
                          'Please review the above and decide whether you require these packages.\n')
-        if check_only or not yn_choice('Continue without these optional packages?', default='n'):
+        if not yn_choice('Continue without these optional packages?', default='n'):
             sys.exit(1)
     else:
         print('\nAll dependencies satisfied')
@@ -285,7 +286,7 @@ def make_labconfig_file(install_folder):
     
     
 def install():
-    check_dependencies(check_only = True)
+    check_dependencies()
     if not os.path.exists(IS_BUILD):
         build()
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
