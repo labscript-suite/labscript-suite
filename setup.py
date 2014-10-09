@@ -51,14 +51,14 @@ bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 # Can specify the specific tags or changesets to be used, should be 'branch(default) and max(tag())'
 # for stable releases.
 repos = {
-         'labscript': 'gated-clocks',
-         'runmanager': 'Qt',
-         'runviewer': 'gated-clocks',
-         'blacs': '1.1.0-dev',
-         'lyse': 'Qt',
+         'labscript': 'branch(default) and max(tag())',
+         'runmanager': 'branch(default) and max(tag())',
+         'runviewer': 'branch(default) and max(tag())',
+         'blacs': 'branch(default) and max(tag())',
+         'lyse': 'gtk',
          'mise': 'default',
-         'labscript_utils': '1.1.0-dev',
-         'labscript_devices': 'gated-clocks',
+         'labscript_utils': 'branch(default) and max(tag())',
+         'labscript_devices': 'branch(default) and max(tag())',
         }
 
 # Which programs should have application shortcuts made for them:
@@ -151,6 +151,9 @@ def check_dependencies():
     output_lines = []
     for module_name in deps:
         package_name, optional, install_methods, comment = deps[module_name]
+        # Don't bother checking pywin32 if we are not on Windows:
+        if package_name == 'pywin32' and not os.name == 'nt':
+            continue
         try:
             print('  checking for %s...'%package_name, end='')
             imp.find_module(module_name)
@@ -291,6 +294,16 @@ def install():
         build()
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
     install_folder = os.path.abspath(install_folder)
+
+    # Add libs to python's search path:
+    site_packages_dir = site.getsitepackages()[0]
+    pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
+    print('Adding to Python search path (%s)'%pth_file)
+    with open(pth_file, 'w') as f:
+        f.write(install_folder + '\n')
+        f.write(os.path.join(install_folder, 'userlib') + '\n')
+        f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
+
     if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
         if not yn_choice('\nReplace existing installation? in %s? ' % install_folder + 
                          'userlib and configuration ' +
@@ -338,18 +351,12 @@ def install():
                 'will be kept, but backing them up is recommended.\n')
     # Remove the dependencies.txt file:
     os.unlink(os.path.join(install_folder, DEPENDENCIES))
-    # Add libs to python's search path:
-    site_packages_dir = site.getsitepackages()[0]
-    pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
-    print('Adding to Python search path (%s)'%pth_file)
-    with open(pth_file, 'w') as f:
-        f.write(install_folder + '\n')
-        f.write(os.path.join(install_folder, 'userlib') + '\n')
-        f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
     # Reload the site module so later code sees these paths:
     reload(site)
     make_labconfig_file(install_folder)
-    print('adding application shortcuts')
+    if os.name == 'nt':
+        print('adding application shortcuts')
+        # TODO make this work on linux!
     if os.name == 'nt':
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
         for program in gui_programs:
