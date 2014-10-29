@@ -140,7 +140,8 @@ def check_dependencies():
         print('yes')
     except OSError:
         print('no')
-        sys.stderr.write('Please install mercurial (tortoisehg recommended) before continuing\n')
+        sys.stderr.write('Please install mercurial (tortoisehg recommended) before continuing\n' +
+                         'You will have to restart this terminal after installation for the installer to find it.\n')
         sys.exit(1)
     with open(DEPENDENCIES) as f:
         lines = f.readlines()
