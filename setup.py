@@ -24,6 +24,7 @@ import imp
 from collections import OrderedDict
 import ast
 import textwrap
+import contextlib
 
 if sys.version < '3':
     input = raw_input
@@ -39,7 +40,7 @@ usage = """
 usage:
   python setup.py install
   python setup.py uninstall [<path>]
-  python setup.py build [--keep-hg]
+  python setup.py build
   python setup.py dist
   python setup.py clean
 """
@@ -88,6 +89,16 @@ else:
 
 IS_LABSCRIPT_SUITE = '.is_labscript_suite_install_dir'
 IS_BUILD = '.is_labscript_suite_build_dir'
+
+
+# set the umask to remove root access until we need it:
+highest_umask = os.umask(0o0022)
+
+@contextlib.contextmanager
+def escalated_privileges():
+    normal_umask = os.umask(highest_umask)
+    yield
+    os.umask(normal_umask)
 
 
 def get_all_files_and_folders(path):
@@ -299,11 +310,12 @@ def install():
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Adding to Python search path (%s)' % pth_file)
-    with open(pth_file, 'w') as f:
-        f.write(install_folder + '\n')
-        f.write(os.path.join(install_folder, 'userlib') + '\n')
-        f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
-
+    # temporarily escalate privileges so we can create the .pth file:
+    with escalated_privileges:
+        with open(pth_file, 'w') as f:
+            f.write(install_folder + '\n')
+            f.write(os.path.join(install_folder, 'userlib') + '\n')
+            f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
     if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
         if not yn_choice('\nReplace existing installation? in %s? ' % install_folder +
                          'userlib and configuration ' +
@@ -420,7 +432,8 @@ def uninstall(*args, **kwargs):
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Removing from Python search path (%s)' % pth_file)
     if os.path.exists(pth_file):
-        os.unlink(pth_file)
+        with escalated_privileges:
+            os.unlink(pth_file)
     print('Deleting files')
     # So we can use relative paths, helps reduce the risk of deleting stuff elsewhere:
     os.chdir(uninstall_folder)
