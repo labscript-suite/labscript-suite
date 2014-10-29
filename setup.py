@@ -318,6 +318,15 @@ def install():
     install_folder = getinput('\nEnter custom installation directory or press enter', default_install_folder)
     install_folder = os.path.abspath(install_folder)
 
+    if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
+        if not yn_choice('\nReplace existing installation? in %s? ' % install_folder +
+                         'userlib and configuration ' +
+                         'will be kept, but backing them up is recommended.', default='n'):
+            print('Cancelled')
+            sys.exit(1)
+        uninstall(confirm=False)
+        os.chdir(this_folder)
+
     # Add libs to python's search path:
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
@@ -328,14 +337,7 @@ def install():
             f.write(install_folder + '\n')
             f.write(os.path.join(install_folder, 'userlib') + '\n')
             f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
-    if os.path.exists(install_folder) and os.path.exists(os.path.join(install_folder, IS_LABSCRIPT_SUITE)):
-        if not yn_choice('\nReplace existing installation? in %s? ' % install_folder +
-                         'userlib and configuration ' +
-                         'will be kept, but backing them up is recommended.', default='n'):
-            print('Cancelled')
-            sys.exit(1)
-        uninstall(confirm=False)
-        os.chdir(this_folder)
+
     print('Copying files')
     if not os.path.exists(install_folder):
         try:
