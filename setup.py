@@ -45,7 +45,7 @@ usage:
   python setup.py clean
 """
 
-__version__ = '2.0.0-dev'
+__version__ = '2.0.0'
 
 bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 
