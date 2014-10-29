@@ -9,9 +9,16 @@ usage:
     python setup.py (install | uninstall | build | dist | clean)
 
 
-If on unix, run the installer with sudo. You should install to a user folder
+
+Note: If on unix, run the installer with sudo. You should install to a user folder
 (default is $HOME/labscript_suite), but the installer requires root privileges
-to add the install directory to the Python search path.
+in order to add the install directory to the Python search path.
+
+
+Warning: if you are installing to a conda environment, ensure you do 'conda install pip'
+and restart the terminal before installing the dependencies that require pip. Otherwise the
+existing system pip (if any) will be used instead, which is not what you want.
+
 
 install
 -------

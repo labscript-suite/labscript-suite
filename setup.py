@@ -312,7 +312,7 @@ def install():
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Adding to Python search path (%s)' % pth_file)
     # temporarily escalate privileges so we can create the .pth file:
-    with escalated_privileges:
+    with escalated_privileges():
         with open(pth_file, 'w') as f:
             f.write(install_folder + '\n')
             f.write(os.path.join(install_folder, 'userlib') + '\n')
@@ -433,7 +433,7 @@ def uninstall(*args, **kwargs):
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Removing from Python search path (%s)' % pth_file)
     if os.path.exists(pth_file):
-        with escalated_privileges:
+        with escalated_privileges():
             os.unlink(pth_file)
     print('Deleting files')
     # So we can use relative paths, helps reduce the risk of deleting stuff elsewhere:
