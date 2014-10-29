@@ -11,6 +11,7 @@ h5py                h5py            False       conda,web
 pyqtgraph           pyqtgraph       False       pip
 qtutils             qtutils         False       pip
 zprocess            zprocess        False       pip
+tzlocal             tzlocal         False       pip
 
 # Required if using Windows:
 pywin32             win32com         True       conda,web
