@@ -10,9 +10,12 @@ usage:
 
 
 
-Note: If on unix, run the installer with sudo. You should install to a user folder
-(default is $HOME/labscript_suite), but the installer requires root privileges
-in order to add the install directory to the Python search path.
+Note: If on unix, and installing using the system Python, install with sudo.
+You should install to a user folder (default is $HOME/labscript_suite), but
+the installer will requires root privileges in order to add the install
+directory to the Python search path. However if your Python installation is
+somewhere that does not require root access (such as if you are using anaconda
+isntalled to your home directory), sudo is not required.
 
 
 Warning: if you are installing to a conda environment, ensure you do 'conda install pip'

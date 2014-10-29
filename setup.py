@@ -90,15 +90,26 @@ else:
 IS_LABSCRIPT_SUITE = '.is_labscript_suite_install_dir'
 IS_BUILD = '.is_labscript_suite_build_dir'
 
-
-# set the umask to remove root access until we need it:
-highest_umask = os.umask(0o0022)
+SUDO = False
+if os.name == 'posix':
+    sudo_uid = os.getenv('SUDO_UID')
+    if sudo_uid is not None:
+        SUDO = True
+        SUDO_UID = int(sudo_uid)
+        # Remove root privileges until we need them:
+        os.seteuid(SUDO_UID)
 
 @contextlib.contextmanager
 def escalated_privileges():
-    normal_umask = os.umask(highest_umask)
-    yield
-    os.umask(normal_umask)
+    # Temporarily regain root privileges
+    if SUDO:
+        os.seteuid(0)
+    try:
+        yield
+    finally:
+        # Back to normal permissions
+        if SUDO:
+            os.seteuid(SUDO_UID)
 
 
 def get_all_files_and_folders(path):
