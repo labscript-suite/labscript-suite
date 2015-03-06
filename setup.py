@@ -45,7 +45,7 @@ usage:
   python setup.py clean
 """
 
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 
 bitbucket_page = 'https://bitbucket.org/labscript_suite/'
 
@@ -56,14 +56,13 @@ repos = {
     'runmanager': 'branch(default) and max(tag())',
     'runviewer': 'branch(default) and max(tag())',
     'blacs': 'branch(default) and max(tag())',
-    'lyse': 'gtk',
-    'mise': 'default',
+    'lyse': 'branch(default) and max(tag())',
     'labscript_utils': 'branch(default) and max(tag())',
     'labscript_devices': 'branch(default) and max(tag())',
 }
 
 # Which programs should have application shortcuts made for them:
-gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse', 'mise']
+gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse']
 
 # The name of the readme file:
 README = 'README.txt'
@@ -273,7 +272,7 @@ def getinput(prompt, default):
     try:
         result = input(prompt + '\n(%s): ' % default)
         return result or default
-    except KeyboardInterrupt, EOFError:
+    except (KeyboardInterrupt, EOFError):
         sys.exit(1)
 
 
@@ -283,7 +282,7 @@ def yn_choice(message, default='y'):
         choice = raw_input("%s\n(%s): " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return choice.strip().lower() in values
-    except KeyboardInterrupt, EOFError:
+    except (KeyboardInterrupt, EOFError):
         sys.exit(1)
 
 
