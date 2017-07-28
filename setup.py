@@ -25,11 +25,13 @@ from collections import OrderedDict
 import ast
 import textwrap
 import contextlib
+import six
 
-if sys.version < '3':
+if six.PY2:
     input = raw_input
 else:
     from importlib import reload
+    raw_input = input
 
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
