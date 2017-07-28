@@ -26,6 +26,8 @@ import ast
 import textwrap
 import contextlib
 import six
+import struct
+import platform
 
 if six.PY2:
     input = raw_input
@@ -400,8 +402,15 @@ def install():
             make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
             add_to_start_menu(path)
         # Clear the icon cache so Windows gets the shortcut icons right even if they were previously broken:
+        if not (struct.calcsize("P") == 8) and (platform.machine().endswith('64')):
+            # 64-bit windows auto-redirects 32-bit python calls away from system32
+            # have to use full path with emulator re-direct
+            exe = os.path.join(os.environ['WINDIR'],'sysnative','ie4uinit.exe')
+        else:
+            exe = 'ie4uinit.exe'
+            
         try:
-            subprocess.Popen(['ie4uinit.exe', '-ClearIconCache'])
+            subprocess.Popen([exe, '-ClearIconCache'])
         except Exception:
             sys.stderr.write('failed to clear icon cache, icons might be blank\n')
     print('done')
