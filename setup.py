@@ -33,7 +33,6 @@ if six.PY2:
     input = raw_input
 else:
     from importlib import reload
-    raw_input = input
 
 this_folder = os.path.realpath(os.path.dirname(__file__))
 os.chdir(this_folder)
@@ -283,7 +282,7 @@ def getinput(prompt, default):
 def yn_choice(message, default='y'):
     try:
         choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
-        choice = raw_input("%s\n(%s): " % (message, choices))
+        choice = input("%s\n(%s): " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return choice.strip().lower() in values
     except (KeyboardInterrupt, EOFError):
