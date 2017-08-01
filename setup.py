@@ -25,11 +25,11 @@ from collections import OrderedDict
 import ast
 import textwrap
 import contextlib
-import six
 import struct
 import platform
 
-if six.PY2:
+# check version of python running installer
+if sys.version_info[0] == 2:
     input = raw_input
 else:
     from importlib import reload
