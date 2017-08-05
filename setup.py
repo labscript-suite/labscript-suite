@@ -25,8 +25,11 @@ from collections import OrderedDict
 import ast
 import textwrap
 import contextlib
+import struct
+import platform
 
-if sys.version < '3':
+# check version of python running installer
+if sys.version_info[0] == 2:
     input = raw_input
 else:
     from importlib import reload
@@ -279,7 +282,7 @@ def getinput(prompt, default):
 def yn_choice(message, default='y'):
     try:
         choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
-        choice = raw_input("%s\n(%s): " % (message, choices))
+        choice = input("%s\n(%s): " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return choice.strip().lower() in values
     except (KeyboardInterrupt, EOFError):
@@ -398,8 +401,15 @@ def install():
             make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
             add_to_start_menu(path)
         # Clear the icon cache so Windows gets the shortcut icons right even if they were previously broken:
+        if not (struct.calcsize("P") == 8) and (platform.machine().endswith('64')):
+            # 64-bit windows auto-redirects 32-bit python calls away from system32
+            # have to use full path with emulator re-direct
+            exe = os.path.join(os.environ['WINDIR'],'sysnative','ie4uinit.exe')
+        else:
+            exe = 'ie4uinit.exe'
+            
         try:
-            subprocess.Popen(['ie4uinit.exe', '-ClearIconCache'])
+            subprocess.Popen([exe, '-ClearIconCache'])
         except Exception:
             sys.stderr.write('failed to clear icon cache, icons might be blank\n')
     print('done')
