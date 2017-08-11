@@ -114,6 +114,15 @@ def escalated_privileges():
             os.seteuid(SUDO_UID)
 
 
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
 def get_all_files_and_folders(path):
     import itertools
     yield path
@@ -311,7 +320,7 @@ def make_labconfig_file(install_folder):
         config.set('programs', 'text_editor_arguments', '-a TextEdit {file}')
     if sys.platform != 'win32':
         config.set('programs', 'hdf5_viewer', 'hdfview')
-
+        config.set('DEFAULT', 'shared_drive', os.path.join(os.getenv('HOME'), 'labscript_shared'))
 
 def install():
     check_dependencies()
@@ -382,6 +391,7 @@ def install():
     # Reload the site module so later code sees these paths:
     reload(site)
     make_labconfig_file(install_folder)
+    mkdir_p(os.path.join(install_folder, 'userlib', 'app_saved_configs'))
     if os.name == 'nt':
         print('adding application shortcuts')
         # TODO make this work on linux!
