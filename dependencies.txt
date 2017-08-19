@@ -1,6 +1,6 @@
 # package name      import name     optional    available install methods
 
-pyqt                PyQt4           False       conda,web
+pyqt                PyQt5/PyQt4     False       conda,web
 numpy               numpy           False       conda,web
 scipy               scipy           False       conda,web
 matplotlib          matplotlib      False       conda,pip,web
