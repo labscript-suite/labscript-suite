@@ -188,11 +188,15 @@ def check_dependencies():
         # Don't bother checking pywin32 if we are not on Windows:
         if package_name == 'pywin32' and not os.name == 'nt':
             continue
-        try:
-            print('  checking for %s...' % package_name, end='')
-            imp.find_module(module_name)
-            print('yes')
-        except ImportError:
+        print('  checking for %s...' % package_name, end='')
+        for alternate_name in module_name.split('/'):
+            try:
+                imp.find_module(alternate_name)
+                print('yes')
+                break
+            except ImportError:
+                continue
+        else:
             print('no')
             if optional:
                 optional_missing = True
