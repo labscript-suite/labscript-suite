@@ -13,8 +13,11 @@ qtutils             qtutils         False       pip
 zprocess            zprocess        False       pip
 tzlocal             tzlocal         False       pip
 
+# Required if using serial devices such as NovaTech DDS9m or similar:
+pyserial            serial          True        conda,pip
+
 # Required if using Windows:
-pywin32             win32com         True       conda,web
+pywin32             win32com        True       conda,web
 
 # Optional, if using National instruments devices (Must have NI DAQmx installed):
 PyDAQmx             PyDAQmx         True        pip
