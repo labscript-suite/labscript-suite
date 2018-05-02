@@ -68,7 +68,7 @@ repos = {
 gui_programs = ['runmanager', 'runviewer', 'blacs', 'lyse']
 
 # The name of the readme file:
-README = 'README.txt'
+README = 'README.md'
 
 # The name of the dependencies file:
 DEPENDENCIES = 'dependencies.txt'
