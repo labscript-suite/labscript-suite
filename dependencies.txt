@@ -12,6 +12,7 @@ pyqtgraph           pyqtgraph       False       pip
 qtutils             qtutils         False       pip
 zprocess            zprocess        False       pip
 tzlocal             tzlocal         False       pip
+autocython          autocython      False       pip
 
 # Required if using serial devices such as NovaTech DDS9m or similar:
 pyserial            serial          True        conda,pip
