@@ -4,7 +4,7 @@ labscript suite installer
 A script to install the labscript suite onto a system.
 
 You will need to install a mercurial client and Python distribution prior 
-to running this installer. On windows, we recommend [TortoiseHg](http://tortoisehg.bitbucket.org/) and the 
+to running this installer. On windows, we recommend [TortoiseHg](http://tortoisehg.bitbucket.io/) and the 
 [Annaconda Python Distribution](https://www.anaconda.com/download/).
 
 Check out this repository (https://bitbucket.org/labscript_suite/installer) locally on your PC and follow the below instructions to install the labscript_suite. Depending on your Python distribution, you may be prompted to upgrade or install dependencies manually.
