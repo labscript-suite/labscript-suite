@@ -7,12 +7,11 @@ matplotlib              matplotlib              False       conda,pip,web
 pandas                  pandas                  False       conda,web
 pyzmq                   zmq                     False       conda,pip,web
 h5py                    h5py                    False       conda,web
-pyqtgraph               pyqtgraph               False       pip
+pyqtgraph               pyqtgraph               False       conda,pip
+tzlocal                 tzlocal                 False       conda,pip
 qtutils                 qtutils                 False       pip
 zprocess                zprocess                False       pip
-tzlocal                 tzlocal                 False       pip
 autocython              autocython              False       pip
-concurrent-log-handler  concurrent_log_handler  False       pip
 
 # Required if using serial devices such as NovaTech DDS9m or similar:
 pyserial                serial                  True        conda,pip
