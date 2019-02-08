@@ -406,13 +406,39 @@ def install():
             executable = sys.executable.lower()
             if not executable.endswith('w.exe'):
                 executable = executable.replace('.exe', 'w.exe')
+
+            # Executable to run is the current Python interpreter, but
+            # the graphical version of it (pythonw.exe)
             target = executable
-            arguments = os.path.join(install_folder, program, '__main__.py')
+            # Args is a single arg to the path to the __main__ script of the app:
+            arguments = [os.path.join(install_folder, program, '__main__.py')]
+
+            def condify(target, arguments):
+                # format is ROOT_PYTHONW ROOT_CWP_SCRIPT ENV_BASE ENV_PYTHONW
+                # Followed by our actual program and args
+                root_pythonw = os.getenv('CONDA_PYTHON_EXE').replace('.exe', 'w.exe')
+                root_cw_script = root_pythonw.replace('pythonw.exe', 'cwp.py')
+                env_base = os.getenv('CONDA_PREFIX')
+                env_pythonw = target
+                args = [root_cw_script, env_base, env_pythonw] + arguments
+                return root_pythonw, args
+
+            # If we are in a conda environment, the shortcuts will need to use conda's
+            # 'cpw' wrapper script in order to correctly configure the conda
+            # environment, otherwise dll loading will fail and that sort of thing:
+            if os.getenv('CONDA_PREFIX', None) is not None:
+                target, arguments = condify(target, arguments)
+
+            # Quote for spaces etc in the target and args list:
+            target = '"%s"' % target
+            arglist = ' '.join(['"%s"' % arg for arg in arguments])
+
             working_directory = os.path.join(install_folder, program)
+            working_directory = '"%s"' % working_directory
             icon_path = os.path.join(install_folder, program, '%s.ico' % program)
             description = app_descriptions[program]
             appid = appids[program]
-            make_shortcut(path, target, arguments, working_directory, icon_path, description, appid)
+            make_shortcut(path, target, arglist, working_directory, icon_path, description, appid)
             add_to_start_menu(path)
         # Clear the icon cache so Windows gets the shortcut icons right even if they were previously broken:
         if not (struct.calcsize("P") == 8) and (platform.machine().endswith('64')):
