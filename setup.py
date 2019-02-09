@@ -81,8 +81,29 @@ do_not_delete = ['userlib', 'labconfig']
 output_base = 'labscript_suite_' + __version__
 output_file = output_base + '.zip'
 
-# What will the shortcuts be called on Windows?
-shortcut_format = 'labscript suite - %s.lnk'
+
+def get_env():
+    """Return the name of the Python environment we are in, if any. At the moment
+    this only looks for conda environments"""
+    env = os.getenv('CONDA_DEFAULT_ENV', None)
+    if env == 'base':
+        # Do not count the base environment:
+        env = None
+    return env
+
+
+def launcher_name(program_name):
+    """Return the name of the launcher file for a given program. 
+    This will be used for the launchers and start menu shortcuts"""
+    name = 'labscript suite'
+    env = get_env()
+    if env is not None:
+        name += ' (%s)' % env
+    name += ' - %s' % program_name
+    if os.name == 'nt':
+        name += '.lnk'
+    return name
+
 
 if os.name == 'nt':
     default_install_folder = r'C:\labscript_suite'
@@ -402,7 +423,7 @@ def install():
     if os.name == 'nt':
         from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
         for program in gui_programs:
-            path = os.path.join(install_folder, shortcut_format % program)
+            path = os.path.join(install_folder, launcher_name(program))
             executable = sys.executable.lower()
             if not executable.endswith('w.exe'):
                 executable = executable.replace('.exe', 'w.exe')
@@ -490,7 +511,7 @@ def uninstall(*args, **kwargs):
         print('Removing application shortcuts')  # TODO unix
         from labscript_utils.winshell import remove_from_start_menu
         for program in gui_programs:
-            remove_from_start_menu(shortcut_format % program)
+            remove_from_start_menu(launcher_name(program))
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Removing from Python search path (%s)' % pth_file)
