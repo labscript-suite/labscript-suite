@@ -438,10 +438,10 @@ def install():
                 # format is ROOT_PYTHONW ROOT_CWP_SCRIPT ENV_BASE ENV_PYTHONW
                 # Followed by our actual program and args
                 root_pythonw = os.getenv('CONDA_PYTHON_EXE').replace('.exe', 'w.exe')
-                root_cw_script = root_pythonw.replace('pythonw.exe', 'cwp.py')
+                root_cwp_script = root_pythonw.replace('pythonw.exe', 'cwp.py')
                 env_base = os.getenv('CONDA_PREFIX')
                 env_pythonw = target
-                args = [root_cw_script, env_base, env_pythonw] + arguments
+                args = [root_cwp_script, env_base, env_pythonw] + arguments
                 return root_pythonw, args
 
             # If we are in a conda environment, the shortcuts will need to use conda's
