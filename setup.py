@@ -186,6 +186,15 @@ def check_dependencies():
         sys.stderr.write('Please install mercurial (tortoisehg recommended) before continuing\n' +
                          'You will have to restart this terminal after installation for the installer to find it.\n')
         sys.exit(1)
+    print('  checking if using conda...', end='')
+    if os.getenv('CONDA_PREFIX') is not None:
+        print('yes')
+        if os.getenv('CONDA_PYTHON_EXE') is None:
+            sys.stderr.write("error: for conda installations, conda >= 4.4 is required. Update conda with:\n" +
+                             "  'conda update conda'.")
+            sys.exit(1)
+    else:
+        print('no')
     with open(DEPENDENCIES) as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
