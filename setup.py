@@ -189,9 +189,16 @@ def check_dependencies():
     print('  checking if using conda...', end='')
     if os.getenv('CONDA_PREFIX') is not None:
         print('yes')
-        if os.getenv('CONDA_PYTHON_EXE') is None:
-            sys.stderr.write("error: for conda installations, conda >= 4.4 is required. Update conda with:\n" +
-                             "  'conda update conda'.")
+        conda_exe = os.getenv('CONDA_EXE')
+        if conda_exe is not None:
+            conda_exe = os.path.normpath(conda_exe)
+            version_output = subprocess.check_output([conda_exe, '--version']).decode()
+            version = version_output.split()[1]
+        if conda_exe is None or tuple(int(v) for v in version.split('.')) < (4, 4):
+            sys.stderr.write("\n  error: conda %s found." % version +
+                             "\n  for conda installations, conda >= 4.4 is required." +
+                             "\n  Update conda with:\n    conda update conda"
+                             "\n  You may then need to restart the terminal session.")
             sys.exit(1)
     else:
         print('no')
@@ -446,15 +453,16 @@ def install():
             def condify(target, arguments):
                 # format is ROOT_PYTHONW ROOT_CWP_SCRIPT ENV_BASE ENV_PYTHONW
                 # Followed by our actual program and args
-                root_pythonw = os.getenv('CONDA_PYTHON_EXE').replace('.exe', 'w.exe')
-                root_cwp_script = root_pythonw.replace('pythonw.exe', 'cwp.py')
+                conda_root = os.path.dirname(os.path.dirname(os.getenv('CONDA_EXE')))
+                root_pythonw = os.path.join(conda_root, 'pythonw.exe')
+                root_cwp_script = os.path.join(conda_root, 'cwp.py')
                 env_base = os.getenv('CONDA_PREFIX')
                 env_pythonw = target
                 args = [root_cwp_script, env_base, env_pythonw] + arguments
                 return root_pythonw, args
 
             # If we are in a conda environment, the shortcuts will need to use conda's
-            # 'cpw' wrapper script in order to correctly configure the conda
+            # 'cwp' wrapper script in order to correctly configure the conda
             # environment, otherwise dll loading will fail and that sort of thing:
             if os.getenv('CONDA_PREFIX', None) is not None:
                 target, arguments = condify(target, arguments)
