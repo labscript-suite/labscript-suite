@@ -186,14 +186,17 @@ def check_dependencies():
         sys.stderr.write('Please install mercurial (tortoisehg recommended) before continuing\n' +
                          'You will have to restart this terminal after installation for the installer to find it.\n')
         sys.exit(1)
+
     print('  checking if using conda...', end='')
     if os.getenv('CONDA_PREFIX') is not None:
         print('yes')
         conda_exe = os.getenv('CONDA_EXE')
         if conda_exe is not None:
             conda_exe = os.path.normpath(conda_exe)
-            version_output = subprocess.check_output([conda_exe, '--version']).decode()
-            version = version_output.split()[1]
+            version_output = subprocess.check_output(
+                [conda_exe, '--version'], stderr=subprocess.STDOUT
+            ).decode()
+            version = version_output.strip().split()[1]
         if conda_exe is None or tuple(int(v) for v in version.split('.')) < (4, 4):
             sys.stderr.write("\n  error: conda %s found." % version +
                              "\n  for conda installations, conda >= 4.4 is required." +
