@@ -197,6 +197,8 @@ def check_dependencies():
                 [conda_exe, '--version'], stderr=subprocess.STDOUT
             ).decode()
             version = version_output.strip().split()[1]
+        else:
+            version = "<none>"
         if conda_exe is None or tuple(int(v) for v in version.split('.')) < (4, 4):
             sys.stderr.write("\n  error: conda %s found." % version +
                              "\n  for conda installations, conda >= 4.4 is required." +
