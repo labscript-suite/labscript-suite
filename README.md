@@ -3,6 +3,11 @@ labscript suite installer
 
 A script to install the labscript suite onto a system.
 
+Contents
+========
+
+[TOC]
+
 Installation instructions
 =========================
 
@@ -35,8 +40,8 @@ start menu shortcuts will contain the conda environment name.
 ------------------------
 Use mercurial to download ('clone') the latest version of the installer from bitbucket.
 You can do this using TortoiseHg's graphical interface by right clicking in your file
-manager and selecting Tortoisehg > Clone. Then, enter the address of this repository
-(https://bitbucket.org/labscript_suite/installer) in the 'source' field and click
+manager and selecting Tortoisehg > Clone. Then, enter the address of this repository,
+`https://bitbucket.org/labscript_suite/installer` in the 'source' field and click
 'clone'. Alternately, you can clone this repository from the command line using the
 following command:
 ```
@@ -367,7 +372,7 @@ it provides in synchronising and tracking the history of changes to your experim
 over time.
 
 10. Before you go...
------------------------------------
+--------------------
 The labscript suite is an open-source, community project. Please contribute back! The
 open-source nature of the project is what makes it viable in the long run, but this
 relies on fixes and other work being shared. 'Upstreaming' (contributing back) your
