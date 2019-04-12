@@ -267,11 +267,11 @@ package. Calling these two functions is necessary to tell the `labscript` module
 the details of this experiment script to a HDF5 file, even though that file will only be
 used for the description of devices contained within it, and not for running any
 experiment (which in this case would be an experiment of duration 1 second, that does
-nothing). By wrapping the `start()` and `stop()` functions in the `if __name__ ==
-'__main'__` check, we ensure that those functions only run if this code is executed
-directly by Python, and not if this code is imported by another Python script. This is
-useful since you may wish to import this connection table file in other experiment
-scripts. 
+nothing). By wrapping the `start()` and `stop()` functions in the
+`if __name__ == '__main'__` check, we ensure that those functions only run if this code
+is executed directly by Python, and not if this code is imported by another Python
+script. This is useful since you may wish to import this connection table file in other
+experiment scripts.
 
 Note: there are at present two common practices among labscript users as to whether to
 have a single connection table .py file that all experiment scripts import, or whether
