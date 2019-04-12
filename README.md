@@ -176,10 +176,10 @@ See below for how to start the zlock server on the computer in question
 
 `[programs]/text_editor` This is the command or path to the text editor that will be
 launched when you click buttons in labscript suite programs to edit labscript experiment
-files or your connection table. For example, you might set it to `C:\Program
-Files\Sublime Text 3\sublime_text.exe` on windows or `subl` on Unix. You normally don't
-need to modify `text_editor_arguments`, but you can if you wish to pass additional
-command line arguments to the text editor when it is launched.
+files or your connection table. For example, you might set it to
+`C:\Program Files\Sublime Text 3\sublime_text.exe` on windows or `subl` on Unix. You
+normally don't need to modify `text_editor_arguments`, but you can if you wish to pass
+additional command line arguments to the text editor when it is launched.
 
 `[programs]/hdf5_viewer` This is the command or path to the HDF viewer executable. You
 might set it to for example
