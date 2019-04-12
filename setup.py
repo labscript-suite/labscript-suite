@@ -202,7 +202,7 @@ def check_dependencies():
         if conda_exe is None or tuple(int(v) for v in version.split('.')) < (4, 4):
             sys.stderr.write("\n  error: conda %s found." % version +
                              "\n  for conda installations, conda >= 4.4 is required." +
-                             "\n  Update conda with:\n    conda update conda"
+                             "\n  Update conda with:\n    conda update -n base conda"
                              "\n  You may then need to restart the terminal session.")
             sys.exit(1)
     else:

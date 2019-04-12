@@ -3,6 +3,6 @@ from labscript_devices.PulseBlaster import PulseBlaster
 
 PulseBlaster('pulseblaster_0')
 
-start()
-
-stop(1)
+if __name__ == '__main__':
+    start()
+    stop(1)
