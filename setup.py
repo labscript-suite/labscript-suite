@@ -366,7 +366,7 @@ def make_labconfig_file(install_folder):
         config.set('programs', 'text_editor_arguments', '-a TextEdit {file}')
     if sys.platform != 'win32':
         config.set('programs', 'hdf5_viewer', 'hdfview')
-        config.set('DEFAULT', 'shared_drive', os.path.join(os.getenv('HOME'), 'labscript_shared'))
+        config.set('DEFAULT', 'shared_drive', '$HOME/labscript_shared')
 
 def install():
     check_dependencies()
