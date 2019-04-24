@@ -357,9 +357,9 @@ def make_labconfig_file(install_folder):
         data = data.replace('\\', os.path.sep)
         outfile.write(data)
     # Now change some things about it:
-    config = LabConfig()
+    config = LabConfig(target_path)
     config.set('DEFAULT', 'labscript_suite', install_folder)
-    if sys.platform == 'linux2':
+    if sys.platform in ['linux', 'linux2']:
         config.set('programs', 'text_editor', 'gedit')
     elif sys.platform == 'darwin':
         config.set('programs', 'text_editor', 'open')
