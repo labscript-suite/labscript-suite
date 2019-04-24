@@ -1,26 +1,27 @@
 # package name          import name             optional    available install methods
 
-pyqt                    PyQt5/PyQt4             False       conda,web
-numpy                   numpy                   False       conda,web
-scipy                   scipy                   False       conda,web
-matplotlib              matplotlib              False       conda,pip,web
-pandas                  pandas                  False       conda,web
-pyzmq                   zmq                     False       conda,pip,web
-h5py                    h5py                    False       conda,web
+pyqt                    PyQt5/PyQt4             False       conda,pip
+numpy                   numpy                   False       conda,pip
+scipy                   scipy                   False       conda,pip
+matplotlib              matplotlib              False       conda,pip
+pandas                  pandas                  False       conda,pip
+pyzmq                   zmq                     False       conda,pip
+h5py                    h5py                    False       conda,pip
 pyqtgraph               pyqtgraph               False       conda,pip
 tzlocal                 tzlocal                 False       conda,pip
 qtutils                 qtutils                 False       pip
 zprocess                zprocess                False       pip
 autocython              autocython              False       pip
+configparser            configparser            False       conda,pip
 
 # Required if using serial devices such as NovaTech DDS9m or similar:
 pyserial                serial                  True        conda,pip
 
 # Required if using Windows:
-pywin32                 win32com                True        conda,web
+pywin32                 win32com                True        conda,pip
 
-# Optional, if using National instruments devices (Must have NI DAQmx installed):
+# Required if using National instruments devices (Must have NI DAQmx installed):
 PyDAQmx                 PyDAQmx                 True        pip
 
-# Optional, if using Spincore PulseBlasters (must have spincore DLL installed on Windows):
+# Required if using Spincore PulseBlasters (must have spincore DLL installed on Windows):
 spinapi                 spinapi                 True        pip

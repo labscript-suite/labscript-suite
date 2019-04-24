@@ -178,7 +178,7 @@ def check_dependencies():
     deps = OrderedDict()
     print('Checking dependencies...\n')
     try:
-        print('  checking for mercurial...', end='')
+        print('checking for mercurial... '.rjust(30), end='')
         subprocess.check_call(['hg'], stdout=devnull, stderr=devnull)
         print('yes')
     except OSError:
@@ -187,7 +187,7 @@ def check_dependencies():
                          'You will have to restart this terminal after installation for the installer to find it.\n')
         sys.exit(1)
 
-    print('  checking if using conda...', end='')
+    print('checking if using conda... '.rjust(30), end='')
     if os.getenv('CONDA_PREFIX') is not None:
         print('yes')
         conda_exe = os.getenv('CONDA_EXE')
@@ -230,7 +230,7 @@ def check_dependencies():
         # Don't bother checking pywin32 if we are not on Windows:
         if package_name == 'pywin32' and not os.name == 'nt':
             continue
-        print('  checking for %s...' % package_name, end='')
+        print(('checking for %s... ' % package_name).rjust(30), end='')
         for alternate_name in module_name.split('/'):
             try:
                 imp.find_module(alternate_name)
