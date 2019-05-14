@@ -81,30 +81,6 @@ do_not_delete = ['userlib', 'labconfig']
 output_base = 'labscript_suite_' + __version__
 output_file = output_base + '.zip'
 
-
-def get_env():
-    """Return the name of the Python environment we are in, if any. At the moment
-    this only looks for conda environments"""
-    env = os.getenv('CONDA_DEFAULT_ENV', None)
-    if env == 'base':
-        # Do not count the base environment:
-        env = None
-    return env
-
-
-def launcher_name(program_name):
-    """Return the name of the launcher file for a given program. 
-    This will be used for the launchers and start menu shortcuts"""
-    name = 'labscript suite'
-    env = get_env()
-    if env is not None:
-        name += ' (%s)' % env
-    name += ' - %s' % program_name
-    if os.name == 'nt':
-        name += '.lnk'
-    return name
-
-
 if os.name == 'nt':
     default_install_folder = r'C:\labscript_suite'
 else:
@@ -442,47 +418,10 @@ def install():
         print('adding application shortcuts')
         # TODO make this work on linux!
     if os.name == 'nt':
-        from labscript_utils.winshell import appids, app_descriptions, make_shortcut, add_to_start_menu
-        for program in gui_programs:
-            path = os.path.join(install_folder, launcher_name(program))
-            executable = sys.executable.lower()
-            if not executable.endswith('w.exe'):
-                executable = executable.replace('.exe', 'w.exe')
-
-            # Executable to run is the current Python interpreter, but
-            # the graphical version of it (pythonw.exe)
-            target = executable
-            # Args is a single arg to the path to the __main__ script of the app:
-            arguments = [os.path.join(install_folder, program, '__main__.py')]
-
-            def condify(target, arguments):
-                # format is ROOT_PYTHONW ROOT_CWP_SCRIPT ENV_BASE ENV_PYTHONW
-                # Followed by our actual program and args
-                conda_root = os.path.dirname(os.path.dirname(os.getenv('CONDA_EXE')))
-                root_pythonw = os.path.join(conda_root, 'pythonw.exe')
-                root_cwp_script = os.path.join(conda_root, 'cwp.py')
-                env_base = os.getenv('CONDA_PREFIX')
-                env_pythonw = target
-                args = [root_cwp_script, env_base, env_pythonw] + arguments
-                return root_pythonw, args
-
-            # If we are in a conda environment, the shortcuts will need to use conda's
-            # 'cwp' wrapper script in order to correctly configure the conda
-            # environment, otherwise dll loading will fail and that sort of thing:
-            if os.getenv('CONDA_PREFIX', None) is not None:
-                target, arguments = condify(target, arguments)
-
-            # Quote for spaces etc in the target and args list:
-            target = '"%s"' % target
-            arglist = ' '.join(['"%s"' % arg for arg in arguments])
-
-            working_directory = os.path.join(install_folder, program)
-            working_directory = '"%s"' % working_directory
-            icon_path = os.path.join(install_folder, program, '%s.ico' % program)
-            description = app_descriptions[program]
-            appid = appids[program]
-            make_shortcut(path, target, arglist, working_directory, icon_path, description, appid)
-            add_to_start_menu(path)
+        from labscript_utils.winshell import make_shortcut, add_to_start_menu
+        for appname in gui_programs:
+            shortcut_path = make_shortcut(appname)
+            add_to_start_menu(shortcut_path)
         # Clear the icon cache so Windows gets the shortcut icons right even if they were previously broken:
         if not (struct.calcsize("P") == 8) and (platform.machine().endswith('64')):
             # 64-bit windows auto-redirects 32-bit python calls away from system32
@@ -531,7 +470,7 @@ def uninstall(*args, **kwargs):
         sys.exit(1)
     if os.name == 'nt':
         print('Removing application shortcuts')  # TODO unix
-        from labscript_utils.winshell import remove_from_start_menu
+        from labscript_utils.winshell import remove_from_start_menu, launcher_name
         for program in gui_programs:
             remove_from_start_menu(launcher_name(program))
     site_packages_dir = site.getsitepackages()[0]
