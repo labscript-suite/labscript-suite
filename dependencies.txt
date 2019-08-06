@@ -9,11 +9,12 @@ pyzmq                   zmq                     False       conda,pip
 h5py                    h5py                    False       conda,pip
 pyqtgraph               pyqtgraph               False       conda,pip
 tzlocal                 tzlocal                 False       conda,pip
+configparser            configparser            False       conda,pip
+pillow                  PIL                     False       conda,pip
+importlib_metadata      importlib_metadata      False       conda,pip
 qtutils                 qtutils                 False       pip
 zprocess                zprocess                False       pip
 autocython              autocython              False       pip
-configparser            configparser            False       conda,pip
-pillow                  PIL                     False       conda,pip
 
 # Required if using serial devices such as NovaTech DDS9m or similar:
 pyserial                serial                  True        conda,pip

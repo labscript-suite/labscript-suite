@@ -154,7 +154,7 @@ def check_dependencies():
     deps = OrderedDict()
     print('Checking dependencies...\n')
     try:
-        print('checking for mercurial... '.rjust(30), end='')
+        print('checking for mercurial... '.rjust(35), end='')
         subprocess.check_call(['hg'], stdout=devnull, stderr=devnull)
         print('yes')
     except OSError:
@@ -163,7 +163,7 @@ def check_dependencies():
                          'You will have to restart this terminal after installation for the installer to find it.\n')
         sys.exit(1)
 
-    print('checking if using conda... '.rjust(30), end='')
+    print('checking if using conda... '.rjust(35), end='')
     if os.getenv('CONDA_PREFIX') is not None:
         print('yes')
         conda_exe = os.getenv('CONDA_EXE')
@@ -198,6 +198,10 @@ def check_dependencies():
                 else:
                     comment = None
                 deps[module_name] = package_name, optional, install_methods, comment
+    if (sys.version_info.major, sys.version_info.minor) >= (3, 8):
+        # importlib_metadata is in the standard library from 3.8 onward, so is no longer
+        # a dependency
+        del deps['importlib_metadata']
     nonoptional_missing = False
     optional_missing = False
     output_lines = []
@@ -206,7 +210,7 @@ def check_dependencies():
         # Don't bother checking pywin32 if we are not on Windows:
         if package_name == 'pywin32' and not os.name == 'nt':
             continue
-        print(('checking for %s... ' % package_name).rjust(30), end='')
+        print(('checking for %s... ' % package_name).rjust(35), end='')
         for alternate_name in module_name.split('/'):
             try:
                 imp.find_module(alternate_name)
