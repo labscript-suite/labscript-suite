@@ -329,11 +329,9 @@ def make_labconfig_file(install_folder):
     source_path = os.path.join(install_folder, 'labconfig', 'example.ini')
     target_path = default_config_path
     if os.path.exists(target_path):
-        print('config file exists already')
         # Don't modify it, leave their config as it is:
         return
     print('making default labconfig file')
-    print(target_path)
     with open(source_path) as infile, open(target_path, 'w') as outfile:
         data = infile.read()
         data = data.replace('\\', os.path.sep)
