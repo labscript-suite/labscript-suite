@@ -368,11 +368,6 @@ def install():
     site_packages_dir = site.getsitepackages()[0]
     pth_file = os.path.join(site_packages_dir, 'labscript_suite.pth')
     print('Adding to Python search path (%s)' % pth_file)
-    # Prepend the install directory to sys.path, so that upcoming labscript_utils
-    # imports use the installed module and not the temporary downloaded copy in this
-    # working directory. This is important for submodules that introspect their paths,
-    # like labscript_utils.winshell.
-    sys.path.insert(0, install_folder)
 
     # temporarily escalate privileges so we can create the .pth file:
     with escalated_privileges():
@@ -380,6 +375,16 @@ def install():
             f.write(install_folder + '\n')
             f.write(os.path.join(install_folder, 'userlib') + '\n')
             f.write(os.path.join(install_folder, 'userlib', 'pythonlib') + '\n')
+
+    # Prepend the install directory to sys.path, so that upcoming labscript_utils
+    # imports use the installed module and not the temporary downloaded copy in this
+    # working directory. This is important for submodules that introspect their paths,
+    # like labscript_utils.winshell.
+    sys.path.insert(0, install_folder)
+    # Unload any previously imported copies of labscript_utils:
+    for item in sys.modules.copy():
+        if item.startswith('labscript_utils'):
+            del sys.modules[item]
 
     print('Copying files')
     if not os.path.exists(install_folder):
