@@ -1,464 +1,531 @@
-labscript suite installer
-=========================
-
-A script to install the labscript suite onto a system.
-
-Contents
-========
-
-[TOC]
-
-Installation instructions
-=========================
-
-1. Install prerequisites
-------------------------
-You will need to install Python and Mercurial prior to running the labscript suite
-installer. Mercurial—also known as 'hg'—is a 'version control system', which the
-installer uses to download the latest versions of the labscript suite components from
-bitbucket.org, and which you can use to update those components to newer versions in the
-future.
-
-On Windows, we recommend you obtain Mercurial by installing
-[TortoiseHg](http://tortoisehg.bitbucket.io/) and Python from the [Anaconda Python
-Distribution](https://www.anaconda.com/download/). For new setups, we recommend using
-Python 3. The labscript suite is compatible with Python 2.7, but Python 2.7 is nearing
-end of life and the labscript suite will eventually drop support for it.
-
-If you are using the Anaconda Python distribution, we recommend that you install it
-"just for me" (not "for all users"), and that you do not check the "add Anaconda to the
-PATH" checkbox in the installer. Then, to use Anaconda Python from the command line,
-open the "Anaconda Prompt" start menu shortcut instead of `cmd.exe`. From there you can
-use the `python`, `conda` and `pip` commands as required below. If using Anaconda Python
-on Unix, you will need to follow Anaconda's instructions for your operating system and
-shell to activate the conda environment before running commands. You may use Anaconda
-environments to install multiple copies of the labscript suite if you like—if so the
-start menu shortcuts will contain the conda environment name.
+# the _labscript suite_
 
 
-2. Clone this repository
-------------------------
-Use mercurial to download ('clone') the latest version of the installer from bitbucket.
-You can do this using TortoiseHg's graphical interface by right clicking in your file
-manager and selecting Tortoisehg > Clone. Then, enter the address of this repository,
-`https://bitbucket.org/labscript_suite/installer` in the 'source' field and click
-'clone'. Alternately, you can clone this repository from the command line using the
-following command:
+### Experiment control and automation system
+
+This is a metapackage for the _labscript suite_ experiment control and automation system. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+
+___
+<!-- ![labscript logo](https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/suite_logo_white_bg.png "labscript suite logo") -->
+
+<a href="https://github.com/labscript-suite/labscript"><img src="img/labscript.png" height="100" alt="the labscript suite – labscript"></a> <a href="https://github.com/labscript-suite/runmanager"><img src="img/runmanager.png" height="100" alt="the labscript suite – runmanager"></a> <a href="https://github.com/labscript-suite/blacs"><img src="img/blacs.png" height="100" alt="the labscript suite – blacs"></a> <a href="https://github.com/labscript-suite/lyse"><img src="img/lyse.png" height="100" alt="the labscript suite – lyse"></a> <a href="https://github.com/labscript-suite/runviewer"><img src="img/runviewer.png" height="100" alt="the labscript suite – runviewer"></a>
+
+
+The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on repetition of parameterised, hardware-timed experiments.
+
+<!-- #### Features:
+- Flexible and automated oversight of heterogeneous hardware.
+- The most mature and widely used open-source control system in quantum science.
+- Multiple analysis-based feedback modes.
+- Extensible plugin architecture (e.g. machine learning online optimisation).
+- Readily integrates with other software, including image acquisition, analysis, and even other control systems.
+- Compose experiments as human-readable Python code, leveraging modularity, revision control and re-use.
+- Dynamic visualisation of experiment composition and results.
+- Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
+- Auto-generating user-interfaces.
+- High-level scripting: all user-interface interaction can be programatically synthesised. -->
+
+## Table of contents
+
+- [Installing the _labscript suite_](#installing-the-labscript-suite)
+  - [Virtual environments](#virtual-environments)
+  - [Regular installation](#regular-installation-from-the-python-package-index)
+  - [Developer installation](#developer-installation-for-those-who-want-to-customize-the-labscript-suite)
+  - [Updating a regular installation](#updating-a-regular-installation)
+  - [Updating a developer installation](#updating-a-developer-installation)
+- [Recent changes to the _labscript suite_](#recent-changes-to-the-labscript-suite)
+  - [Profile directories](#changes-to-profile-directories)
+  - [Application shortcuts](#changes-to-application-shortcuts)
+  - [Source code structure](#changes-to-source-code-structure)
+  - [Versioning](#changes-to-versioning)
+- [Archival metadata](#archival-metadata)
+  - [What to do if you had custom code in a fork on BitBucket](#what-to-do-if-you-had-custom-code-in-a-fork-on-bitbucket)
+  - [Migrating other repositories to GitHub](#migrating-other-repositories-to-github)
+- [Contributing to the _labscript suite_](#contributing-to-the-labscript-suite)
+  - [Issue tracking](#issue-tracking)
+  - [Request for developers](#request-for-developers)
+  - [Pull requests](#pull-requests)
+  - [Branching model/strategy](#branching-modelstrategy)
+  - [Learning Git](#learning-git)
+- [Citing the _labscript suite_](#citing-the-labscript-suite)
+
+## Installing the _labscript suite_
+
+We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+
+This makes it far easier to get started using the _labscript suite_, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
+
+* [`pip`](https://packaging.python.org/tutorials/installing-packages): the standard package manager common to all Python distributions; or 
+* [`conda`](https://anaconda.org/anaconda/conda): a binary package and environment manager, part of the [Anaconda Python](https://www.anaconda.com) distribution.
+
+
+### Virtual environments
+
+We recommend installing labscript (regular or developer mode) in a [virtual environment](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments). This helps sandbox the codebase without interfering with (or being interfered with) your system Python installation, or Python environments used for other purposes. There are a number of ways to configure a virtual environment. If you are unfamiliar with doing so, we recommend using the [venv module](https://docs.python.org/3/library/venv.html), part of the Python Standard Library. Here’s an example (on Windows):
+
+
+#### Quick start
+
 ```
-hg clone https://bitbucket.org/labscript_suite/installer
+C:\> mkdir labscript-suite
+C:\> cd labscript-suite
+C:\labscript-suite> python -m venv .venv
+C:\labscript-suite> .venv\Scripts\activate
+(.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
 ```
-Whichever method is used, a folder called 'installer' will be created in the current
-directory. TortoiseHg, if you used it, may open 'hg workbench' showing the revision
-history of the installer itself. You can close that for now.
+Once activated, the name of the virtual environment (in this case, `.venv`) will prefix the command line.
 
-3. Run the installer
---------------------
-Open the command prompt (the Anaconda Prompt if using Anaconda) and navigate to the
-freshly-cloned 'installer' folder using `cd`. To quickly navigate to a particular folder
-in Windows, you can press Ctrl-L in the file explorer to highlight the current
-directory, and copy it to the clipboard with Ctrl-C. Then, in the command prompt type
-`cd` and a space followed by Ctrl-V, and press enter. Once in the installer directory
-run the installer by typing
+
+#### Detailed instructions
+
+1. From a new terminal, create the installation directory and enter it. Here we use `C:\labscript-suite` but this can be whatever you like:
+
+    ```
+    C:\> mkdir labscript-suite
+    C:\> cd labscript-suite
+    ```
+
+2. Create a virtual environment. Here we name it `.venv`, located inside the installation directory (name and location are also variable but these are conventional choices).
+
+    ```
+    C:\labscript-suite> python -m venv .venv
+    ```
+
+3. Activate the virtual environment:
+
+    ```
+    C:\labscript-suite> .venv\Scripts\activate
+    ```
+
+    _Note:_ This step is OS specific, e.g. on Linux it’s `source .venv/bin/activate`.
+
+4. Update the Python package installer and other installation packages of your virtual environment.
+
+    ```
+    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    ```
+
+
+### Regular installation from the Python Package Index
+
+If you are using a virtual environment ([above](#virtual-environments)), activate it before executing the following commands. In this example, we will use the installation directory `C:\labscript-suite` with an existing virtual environment, not yet activated (skip the first two lines/steps if continuing on from above).
+
+
+#### Quick start
+
 ```
-python setup.py install
-```
-and follow the prompts.
-
-Note: if on Unix, you may need to specify `python3` instead of just `python` to ensure
-the suite is installed with Python 3 instead of Python 2. If on Unix and using system
-Python (i.e. not Anaconda), you should also run the above command with `sudo`. Even
-though the installer will by default install the labscript suite to your home directory,
-in order to add that directory to the Python search path, it may need root privileges.
-
-During installation, the installer will check if the required Python packages are
-installed, and will list any that are not. If using Anaconda, most packages are
-available in the conda repositories and can be installed by typing:
-```
-conda install <package>
-```
-from the Anaconda prompt. Some packages are not available in the conda repositories
-however, and these should be installed using pip, the standard Python package manager,
-by typing:
-```
-pip install <package>
-```
-As a general rule, always prefer using conda, where possible, and use pip only to
-install packages not available from conda. If you are on Windows and not using Anaconda,
-you can install all packages using `pip`. If you are on Unix and not using Anaconda, you
-may have another package manager that you prefer installing packages with, only using
-pip for the packages not available from your package manager.
-
-Once all required (and desired optional) Python packages are installed, the installer
-will copy the labscript suite components to the chosen install directory, add that
-directory (as well as the 'userlib' and 'userlib/pythonlib' subdirectories—more on these
-later) to the Python search path, and if on Windows, will create start menu shortcuts
-for the applications.
-
-If you encounter a problem during installation, you may wish to try running
-```
-python setup.py clean
-```
-to clear temporary files from the installer and begin installation from scratch. Do not
-hesitate to ask for help or report a problem with the installer (or any labscript suite
-component) by filing an issue here on the installer's Bitbucket repository, or by
-sending a message to the [mailing list](http://groups.google.com/group/labscriptsuite).
-
-4. Install a text editor
-------------------------
-To use the labscript suite, you will need at the very least, a text editor to write
-labscript experiment scripts. [Notepad++](https://notepad-plus-plus.org/) and [Sublime
-Text](https://www.sublimetext.com/) are great options, but any text editor or Python IDE
-will do, including [Spyder](https://www.spyder-ide.org/) which comes with Anaconda and
-is geared toward those familiar with MatLab. The single most important issue when
-setting up a text editor to write Python code is that you configure it to insert four
-spaces—and not a tab character—when you hit the tab key. Almost all Python code is
-written with four spaces used for indentation, and you will run into difficult-to-debug
-issues if your code contains tab characters. So whichever text editor you install, if it
-does not already insert four spaces (Spyder already does for example), check its
-documentation for how to configure it to do so.
-
-5. Install HDFview
-------------------
-Labscript shot files are in the HDF5 format, and can be viewed using the [HDFview
-tool](https://www.hdfgroup.org/downloads/hdfview/). Although you don't need HDFview to
-use the labscript suite, it can be informative to quickly inspect shot files to see
-their contents without writing Python code.
-
-6. Edit your labconfig file
----------------------------
-The installer creates a file `labscript_suite/labconfig/<your_computer's_hostname>.ini`,
-which contains configuration settings for the labscript suite. The reason the filename
-is your computer's hostname is that the labscript suite can be run over multiple
-computers, and these computers may need to have configuration files that are in sync
-with each other in order for the labscript suite components to communicate with each
-other. As such, you may wish to keep all the configuration files for a laboratory in one
-folder under version control. The filename being the hostname means labscript suite
-programs know which file to read even if several config files are present.
-
-Most of the settings in labconfig do not need to be modified. Exceptions are:
-
-`[DEFAULT]/experiment_name`: this is the name of the experiment, or laboratory, as a
-whole. This name determines the names of subfolders where shot files are saved,
-subfolders where saved settings from labscript suite applications are stored, and
-default locations where labscript suite programs expect experiment scripts and analysis
-scripts to be located. It should be short, and a valid Python module name, i.e. contain
-only alphanumeric characters and underscores, and not begin with a numerical digit (this
-ensures that code stored in subfolders with this name can be imported by other Python
-code). As with the labconfig file being specific to each computer, experiment names
-being unique to different experiments allows experiment scripts and other data from
-multiple experiments to be stored in the same version control repository without
-interference.
-
-`[DEFAULT]/shared_drive`: this is the drive letter or mount path of the drive that shot
-files (and some other files) will be stored on. If running the labscript suite on
-multiple computers, this is how the programs share shot files - by passing filepaths to
-each other that refer to files on the shared drive. If using the labscript suite on a
-single computer, you can leave this as `C:\` or `~/labscript_shared` on Windows or Unix
-respectively. Then shot files will be saved in `C:\Experiments` or
-`~/labscript_shared/Experiments`. Otherwise, set it to the drive letter of a network
-drive that will be accessible to all computers running labscript suite programs (it is
-OK if each computer has the shared drive mounted as a different drive letter or at a
-different mount point, so long as this setting in each computer's labconfig file points
-to the right location).
-
-`[servers]/zlock` This is the hostname or IP address of the computer that will be
-running a 'zlock' server. Zlock is a program that tracks which other program has a file
-open at any time. By asking zlock server for permission before opening a file, labscript
-suite programs ensure that they do not write to a file at the same time as another
-labscript suite program is reading or writing, which could cause data corruption. If you
-are running the labscript suite on a single computer, you can leave this as 'localhost'
-and not take any further action. Otherwise, choose one of your computers—preferably one
-that is likely to be reliably on all the time and not under very high load—and enter its
-IP address or hostname here. All computers that might access the same shot files (i.e.
-all that have been configured to use the same shared drive for shot files) must be
-configured to use the same zlock server, otherwise there is a risk of data corruption.
-See below for how to start the zlock server on the computer in question
-
-`[programs]/text_editor` This is the command or path to the text editor that will be
-launched when you click buttons in labscript suite programs to edit labscript experiment
-files or your connection table. For example, you might set it to
-`C:\Program Files\Sublime Text 3\sublime_text.exe` on windows or `subl` on Unix. You
-normally don't need to modify `text_editor_arguments`, but you can if you wish to pass
-additional command line arguments to the text editor when it is launched.
-
-`[programs]/hdf5_viewer` This is the command or path to the HDF viewer executable. You
-might set it to for example
-`C:\Users\<your_username>\AppData\Local\HDF_Group\HDFView\3.1.0\hdfview.bat` on windows,
-or `hdfview` or `hdfview.bat` on Unix, depending on how/where you installed HDFview to
-(the above path is the default install location for HDFview 3.1.0 on Windows). This will
-be used to open a HDF5 file for viewing when, for example, double clicking a shot file
-in `lyse`.
-
-7. Start the zlock server
--------------------------
-On the computer that you have decided to run the zlock server, from the command prompt
-(or Anaconda Prompt), run:
-```
-python -m labscript_utils.zlock
-```
-That's it! A zlock server is now running on that computer. You may wish to automate
-starting the zlock server when the computer starts, and/or create a batch file to run
-the above. In either case, if using anaconda on Windows, the batch file will need to
-activate the conda environment first, which will look something like this:
-```
-CALL C:\Users\<your_user_name>\AppData\Local\Continuum\anaconda3\condabin\conda.bat activate
-start cmd /k python -m labscript_utils.zlock
-```
-where `<your_user_name>` is replaced with your username. The above method of activating
-conda from within a batch file is current as of conda 4.6.11 (April 2019), but may
-change in the future, so if it does not work, you may wish to search for instructions
-specific to your version of conda.
-
-Note: if a labscript program runs and sees that the zlock server is supposed to be on
-that computer, but that the server is not running, it will start a zlock server running
-in the background (this is why you do not need to start zlock manually if only using one
-computer). So if you forget to start the zlock server before starting other programs,
-but then remember and start the zlock server manually, you may get an error that 'the
-port is already in use'. You can just ignore this and rest assured that zlock is already
-running. However, if you want to have a visible terminal for zlock, you will need to
-kill the background one using the task manager, or reboot.
-
-A general note about task management: All labscript suite processes will appear in
-Windows' task manager as "Python". To see which is which, if you need to end them, in
-Windows 8 or 10, go to the 'details' tab of the Task manager, right click on one of the
-column headers and click "Select Columns". Select the "Command line" column. Then you
-will be able to see in this column which Python process corresponds to which labscript
-suite component. In Windows 7, you can view this information in a tooltip when hovering
-over the task.
-
-8. Create and compile a connection table
-----------------------------------------
-
-In your labconfig file, one of the configuration settings is
-`[paths]/connection_table_py`. This is the location of the python file containing your
-'connection table'. A connection table is an experiment script, written in Python,
-containing a description of the devices in use in your experiment and how they are
-connected to each other. It is a valid experiment script, and in principle could
-compiled and run just like any other labscript experiment script. Instead of actually
-running it however, when this experiment script is compiled, the resulting HDF5 file is
-used by BLACS to know what hardware is in use in the experiment so that it can set up
-the appropriate device tabs in its user interface and initialise communication with the
-devices in question.
-
-If you did not change the labconfig setting, then labscript suite programs will expect
-your connection table .py file to be called `connectiontable.py`, and to be located
-within your experiment-specific 'labscriptlib' folder:
-`<labscript_suite_directory>/userlib/labscriptlib/<experiment_name>/`. Create this file,
-including the `<experiment_name>` parent directory, and edit it to make your first
-connection table. Here is a minimal connection table .py file that can get you started,
-though describing how to make a complete and realistic connection table is outside the
-scope of this getting-started guide:
-
-```python
-from labscript import *
-from labscript_devices.PulseBlaster import PulseBlaster
-
-PulseBlaster('pulseblaster_0')
-
-if __name__ == '__main__':
-    start()
-    stop(1)
+C:\labscript-suite> .venv\Scripts\activate
+(.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+(.venv) C:\labscript-suite> pip install labscript-suite
+(.venv) C:\labscript-suite> pip install PyQt5
+(.venv) C:\labscript-suite> labscript-profile-create
+(.venv) C:\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 ```
 
-This connection table imports the PulseBlaster labscript device class from the
-`labscript_devices` Python package, creates an instance of it, specifying its name, and
-then calls `start()` and `stop()`, which are functions from the `labscript` Python
-package. Calling these two functions is necessary to tell the `labscript` module to save
-the details of this experiment script to a HDF5 file, even though that file will only be
-used for the description of devices contained within it, and not for running any
-experiment (which in this case would be an experiment of duration 1 second, that does
-nothing). By wrapping the `start()` and `stop()` functions in the
-`if __name__ == '__main'__` check, we ensure that those functions only run if this code
-is executed directly by Python, and not if this code is imported by another Python
-script. This is useful since you may wish to import this connection table file in other
-experiment scripts.
 
-Note: there are at present two common practices among labscript users as to whether to
-have a single connection table .py file that all experiment scripts import, or whether
-to duplicate, within each experiment script, the bits of the connection table that are
-relevant to that specific script. Both practices have their pros and cons. Using a
-common connection table means that one need not duplicate code, which can be
-time-consuming and prone to human error. However, duplicating the code into each
-experiment script means that each script has a self-contained record of the devices it
-requires and their configuration, and any devices that are in your lab but not in use by
-a specific script will not need to functional in order for the script to run (BLACS will
-simply skip over these devices when it comes time to run an experiment). The choice is
-yours, but if you do decide to use a common connection table that is imported from other
-scripts, instead of importing it normally, you will need to use the function
-`labscript_utils.import_or_reload`, like so:
+#### Detailed instructions
 
-```python
-from labscript_utils import import_or_reload
-import_or_reload('labscriptlib.<experiment_name>.connectiontable')
+1. Activate the virtual environment (this step is OS specific, e.g. on Linux it’s `source .venv/bin/activate`).
 
-# other imports and experiment script continue here
+    ```
+    C:\labscript-suite> .venv\Scripts\activate
+    ```
+
+2. Update the Python package installer and other installation packages of your virtual environment.
+
+    ```
+    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    ```
+
+3. Install the meta-package from PyPI. This will install blacs, labscript, labscript-devices, labscript-utils, lyse, runmanager, runviewer, and all dependencies (except the bindings to the GUI toolkit and device-driver specific packages):
+
+    ```
+    (.venv) C:\labscript-suite> pip install labscript-suite
+    ```
+
+4. Install PyQt5, the bindings to the GUI toolkit (not installed above for licensing reasons):
+
+    ```
+    (.venv) C:\labscript-suite> pip install PyQt5
+    ```
+
+5. Create a profile directory in your home directory (the new location of user data; more [below](#changes-to-profile-directories)):
+
+    ```
+    (.venv) C:\labscript-suite> labscript-profile-create
+    ```
+
+6. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).
+
+    ```
+    (.venv) C:\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+    ```
+
+    These will be named, e.g. ‘runmanager – the labcript suite’ which when clicked on will:
+
+   * Launch the application without a terminal window, using the virtual environment the above command was called in.
+   * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
+
+    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’.
+
+Alternatively, you can launch the applications from a terminal, e.g. 
+
+```
+(.venv) C:\> runmanager
 ```
 
-This is because, when runmanager compiles shots, it runs the experiment script file
-multiple times within the same Python process. Python caches imports, such that if you
-import a module twice, the second time the imported code does not actually run. Because
-of the way labscript works, the code in the connection table must run ever time a shot
-file runs. The `import_or_reload()` function ensures this. Readers familiar with Python
-may realise that one could achieve the same result by putting the connection table code
-within a function, and calling that function within the `if __name__ == '__main__'` of
-`connectiontable.py` block as well as at the top of experiment scripts. This will work
-too.
+This will print debugging information to the console.
 
-Once you have created your connection table .py file, it needs to be compiled to produce
-the connection table HDF5 file. You could do this using runmanager, and then manually
-rename the resulting shot file and move it to the correct location, however a quicker
-way is using BLACS. Start BLACS from the start menu shortcut (or with `python -m blacs`
-from a terminal if on unix). BLACS will complain with an error that it cannot open the
-connection table HDF5 file. Dismiss this error, and from the 'connection table' menu,
-select 'recompile'. This will open a dialog box from which you can compile your
-connection table. Once it has successfully compiled, click the button to restart BLACS.
-BLACS will then restart and load the device interfaces appropriate for the set of
-hardware described by your connection table.
+To launch the applications detached from the console, suffix the application name with `-gui`, e.g.
 
-If your connection table requires 'globals' in order to compile—for example, calibration
-quantities used for unit conversion (so that one can use custom units to control devices
-in BLACS in manual mode), you may configure BLACS to compile the connection table using
-specified globals files, settable by going to connection table > select globals in
-BLACS. It is a good idea to store globals required by the connection table in a separate
-file than those used in the rest of the experiment, and to compile the connection table
-with your 'connection table globals' file, and to compile regular shots with both this
-file and another file (or several files) containing globals used in the experiment
-logic. This allows BLACS to prompt you to recompile the connection table if the relevant
-globals change, without the prompt giving false positives whenever unrelated globals are
-modified.
- 
-
-9. General advice
------------------
-
-The labscript suite is now installed and configured on your computer/computers. You may
-launch programs from the start menu items in Windows, or from a terminal (on any
-operating system) using `python -m <program_name>`, where `<program_name>` is `blacs`,
-`runmanager`, `lyse`, or `runviewer`. Launching from a terminal can be useful to see
-additional output if something is going wrong, such as a program crashing.
-
-The labscript suite installer creates a number of folders that it adds to the Python
-search path, and as such, python code placed in these folders may be imported by other
-Python code, whether it is an experiment script, an analysis routine, or something else.
-These folders are the `userlib` folder within the labscript suite installation
-directory, and the `pythonlib` folder within that. Typical usage is to place code that
-you wish to re-use in experiment scripts within
-`userlib/labscriptlib/<experiment_name>`, or, if the code is not specific to one
-experiment, within `userlib/labscriptlib/common/`. Then such code may be imported as:
-
-```python
-from labscriptlib.common.some_module import some_function
-from labscriptlib.<experiment_name>.some_other_module import some_experiment_specific_function
+```
+(.venv) C:\> runmanager-gui
 ```
 
-Similarly, code re-used by analysis routines can be placed in the analysislib subfolder,
-following the same pattern of an experiment-specific subdirectory and a 'common'
-subdirectory.
-
-The labscriptlib and analysislib subdirectories are also the default locations for new
-experiment scripts and analysis routines respectively.
-
-The `pythonlib` subfolder is added directly to the Python search path, so code within it
-can be imported by name without the `pythonlib` prefix. This is a place to put modules
-used perhaps both by experiment scripts and analysis routines, or by other code
-altogether that happens to run in your laboratory.
-
-When code is organised in this way, a laboratory or research group with multiple
-experiments may have a single `userlib` folder, under version control or synchronised
-across computers using Google drive or similar, without conflict, whilst still sharing
-common components. It takes some discipline to keep things organised in this way, but is
-worth learning how to use version control (for example mercurial or git) for the benefit
-it provides in synchronising and tracking the history of changes to your experiment code
-over time.
-
-10. Before you go...
---------------------
-The labscript suite is an open-source, community project. Please contribute back! The
-open-source nature of the project is what makes it viable in the long run, but this
-relies on fixes and other work being shared. 'Upstreaming' (contributing back) your
-changes also means that other work on the labscript suite will be building on top of
-code that already contains your changes, avoiding a situation in which the code changes
-to a point where it is difficult to update to a newer version of the labscript suite
-whilst retaining custom changes you have made. Upstreaming your changes is the best way
-to avoid being stuck on a 'legacy' version of the labscript suite as it continues to
-improve in the future.
-
-If you find a bug, please report it to the relevant subproject here on bitbucket, or if
-you are not sure, send an email on the [mailing
-list](http://groups.google.com/group/labscriptsuite). We may also make announcements on
-the mailing list from time to time, and it is a good way to be informed of issues others
-are having and their solutions, so you may wish to subscribe to the mailing list
-regardless.
-
-If you fix an issue in the labscript suite, enhance it in a way that might be generally
-useful, or implement support for a device others might use, the best way to contribute
-it back is by making a 'pull request' on bitbucket to the relevant subproject. If you
-are having trouble working out how to do this, ask for help on the mailing list and we
-will try to help.
-
-Finally, if you use the labscript suite in work leading to a scientific publication, do
-not forget to cite our article, *A scripted control system for autonomous hardware-timed
-experiments*, [Review of Scientific Instruments 84,
-085111](http://aip.scitation.org/doi/10.1063/1.4817213) (2013).
-[arXiv:1303.0080](http://arxiv.org/abs/1303.0080). Whilst it is not necessary to cite
-the software in every publication resulting from an apparatus that uses the labscript
-suite, it is reasonable to cite it in any context where you are otherwise describing the
-technical details of your apparatus.
+_Note:_ You must have activated the virtual environment in which the _labscript suite_ was installed to use these commands.
 
 
-Other commands
-==============
+### Developer installation (for those who want to customize the _labscript suite_)
 
-The above instructions should be used to install the labscript suite.
-However, the install script can also be used to uninstall a previously made
-installation, and other less-commonly-needed functionality. 
-
-usage:
-    python setup.py (install | uninstall | build | dist | clean)
+_Note:_ You do not necessarily need not fork, clone, and install editable versions of all _labscript suite _repositories to customise your installation and/or contribute these changes back to the base repositories. For example, if you only want to develop custom labscript device drivers, you might only fork and clone the labscript-devices repository. Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
-install
--------
+#### Quick start
 
-Runs 'build' if it has not already run. Copies the labscript suite packages to
-a chosen install directory, adds them to Python's search path, and creates
-application shortcuts. Checks that dependencies are satisfied and list missing
-ones.
+_Coming soon!_
 
 
-uninstall [<path>]
---------------------
+#### Detailed instructions
 
-Removes labscript directories from Python's search path, removes application
-shortcuts and deletes the contents of the install directory, except for the
-userlib directory and config files. Install directory will be automatically
-detected by looking in Python's search path, or it can be provided as an
-argument if this fails.
+1. Fork the labscript-suite repositories you want to develop using the [GitHub online](https://help.github.com/en/github/getting-started-with-github/fork-a-repo). Below we will include all repositories (except the labscript-suite metapackage).
 
-The installer also copies also itself into the install directory as
-'uninstall.py', and can used from there to uninstall the labscript suite.
+2. Use `pip` to both clone these forks locally and install them into your environment. In this example (on Linux), the forks are owned by the (non-existent) GitHub user wkheisenberg.
+
+    ```
+    $ pip install \
+    --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs \
+    --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript \
+    --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices \
+    --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils \
+    --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
+    --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
+    --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
+    ```
+
+    _Notes:_
+
+    *   This will set your forked repository(ies) to be the ‘origin’ remote.
+    *   On Windows the line continuation character is `^` rather than `\`.
+
+    Alternatively, manually clone the repositories using <code>[git clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)</code> and then install them using `pip` by running the following from the common parent directory:
+
+    ```
+    $ pip install -e blacs -e labscript -e labscript-devices -e labscript-utils \
+        -e lyse -e runmanager -e runviewer
+    ```
+
+    For a single package, this would look like:
+
+    ```
+    $ git clone https://github.com/wkheisenberg/runmanager.git
+    $ pip install -e runmanager
+    ```
+
+3. For each repository, set the upstream remote to the base labscript-suite repository:
 
 
-build
------------------
+    ```
+    $ cd blacs
+    $ git remote add upstream https://github.com/labscript-suite/blacs.git
+    $ cd ..
+    ```
 
-Clones the labscript repositories from bitbucket into the current directory
-Which revisions are used can be set in setup.py, but defaults to
+    Repeat for the other repositories.
 
-    max(branch(default) and tag())
-
-which means the most recent tagged revision in the default branch. Since we
-use tags for version numbers only, this will use the latest stable release of
-each package.
+4. Continue from step 4 (install PyQt5) in the [regular installation instructions](#regular-installation-from-the-python-package-index).
 
 
-dist
-----
+### Updating a regular installation
 
-Creates a zip file of the installer.
+Individual components of the labscript suite can be updated using the `--upgrade` (`-U`) flag of `pip`. For example:
+
+```
+(.venv) C:\labscript-suite> pip install -U runmanager
+```
+
+To upgrade to a pre-release version, you can use the `--pre` (pre-relase) flag:
+
+```
+(.venv) C:\labscript-suite> pip install -U --pre runmanager
+```
+
+If updating multiple components, use a single pip install command for this to ensure dependency resolution is best dealt with:
+
+```
+(.venv) C:\labscript-suite> pip install -U labscript lyse runmanager
+```
+
+You can also update (or downgrade) to a specific version:
+
+```
+(.venv) C:\labscript-suite> pip install runmanager==2.5.0
+```
+
+Development versions will be suffixed with `devN`, i.e.
+
+```
+(.venv) C:\labscript-suite> pip install runmanager==2.6.0dev3
+```
 
 
-clean
------
+### Updating a developer installation
 
-Removes build files and zip file, if any.
+This assumes you have already completed the developer installation above and have:
+
+*   Forked a _labscript suite_ repository on GitHub;
+*   Cloned the repository;
+*   Set your fork to be the ‘origin’ remote; and
+*   Set the labscript-suite base repository to be the ‘upstream’ remote.
+
+1. Use one of the following to keep your repository (and feature branches) up-to-date:
+
+    [Fetch changes, and merge](https://help.github.com/en/github/using-git/getting-changes-from-a-remote-repository#fetching-changes-from-a-remote-repository) with your local master branch.
+
+    ```
+    $ git checkout master
+    $ git fetch upstream master --tags
+    $ git merge upstream/master
+    ```
+
+    Or using [Git Pull](https://help.github.com/en/github/using-git/getting-changes-from-a-remote-repository#pulling-changes-from-a-remote-repository):
+
+    ```
+    $ git checkout master
+    $ git pull upstream master --tags
+    ```
+
+    Or using [hub sync](https://hub.github.com/) command-line extension (does not require current local working branch to be master):
+
+    ```
+    $ hub sync
+    ```
+
+2. Update your feature branches by merging them with master or rebasing them to master:
+
+    ```
+    $ git checkout your-feature-name
+    $ git merge master <OR> git rebase master --autostash
+    ```
+
+3. Update your fork by [pushing](https://help.github.com/en/github/using-git/pushing-commits-to-a-remote-repository) any changes resulting from steps 1–2 and/or subsequent local development:
+
+    ```
+    $ git checkout master
+    $ git push origin master --tags
+    $ git checkout your-feature-name
+    $ git push origin your-feature-name master
+    ```
+
+    _Note:_ If the feature branch has not yet been created on your fork, you need to include `-u` above, i.e.
+
+    ```
+    $ git push -u origin your-feature-name
+    ```
+
+4. Checkout the commit you want to install. This might be a specific release version (which can be specified by tag):
+
+    ```
+    $ git checkout v0.3.2
+    ```
+
+    ... or using the commit SHA:
+
+    ```
+    $ git checkout 59651b5
+    ```
+
+5. (Optional) Update the package using (from within the root of a repository):
+
+    ```
+    $ pip install -e .
+    ```
+
+    As the installations are in editable mode and the version is being introspected at runtime, this step is not always necessary, but is required for any change requiring setup.py to be run to take effect, e.g. dependency changes, console entry points, etc.
+
+
+## Recent changes to the _labscript suite_
+
+Upon migrating the code base to GitHub and publishing distributions on PyPI, the following changes have been undertaken.
+
+### Changes to profile directories
+
+The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user’s home directory, e.g.
+
+* `C:\Users\wkheisenberg\labscript-suite` on Windows.
+* `~/labscript-suite` or `/home/wkheisenberg/labscript-suite` on Linux and Mac OS X.
+
+A typical structure is:
+
+```
+    ~/labscript-suite/
+    ├── app_saved_configs/
+    │   ├── default_experiment/
+    ├── labconfig/
+    ├── logs/
+    └── userlib/
+        ├── analysislib/
+        ├── labscriptlib/
+        ├── pythonlib/
+        └── user_devices/
+```
+
+This structure is created by calling the command `labscript-profile-create`.
+
+in a terminal after installing `labscript-utils` (per the [installation instructions](#regular-installation-from-the-python-package-index)).
+
+_Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) this can be the same directory as an editable installation.
+
+
+### Changes to application shortcuts
+
+Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
+
+
+### Changes to source code structure
+
+Existing users who move to a developer (editable) installation, please note the following structural changes to the _labscript suite_ source code:
+
+* Each package has a top-level folder containing setup.py and setup.cfg used to build a distribution from source. The functional code base now resides in a subfolder corresponding to the name of the Python module, e.g. an editable installation might contain folders:
+
+    ```
+    <path-to-your-labscript-installation>/
+    ├── blacs/
+    │   └── blacs/
+    ├── labscript/
+    │   └── labscript/
+    ├── labscript-devices/
+    │   └── labscript_devices/
+    ├── labscript-utils/
+    │   └── labscript_utils/
+    ├── lyse/
+    │   ├── lyse/
+    ├── runmanager/
+    │   └── runmanager/
+    └── runviewer/
+        └── runviewer/
+    ```
+
+
+* Package names (shared by repositories and top-level folders) are now hyphenated, e.g. labscript-devices and labscript-utils.
+* Module names remain underscored, i.e. labscript_devices and labscript_utils.
+* The mixing of hyphen and underscores is inelegant but conventional.
+* All references to blacs are now lowercase.
+* As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and will be used as a metapackage for the labscript suite.
+
+
+### Changes to versioning
+
+Aside from the maintenance branches described [below](#branching-modelstrategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
+
+
+## Archival metadata
+
+Some repository metadata (such as pull request discussions) could not be migrated directly to GitHub. As such, we have created an archived copy of everything that was on BitBucket. This includes:
+
+* Issues (as they appear on BitBucket);
+* Pull requests discussions;
+* Commit comments for every labscript suite repository; and
+* Every public fork (as of 1st February, 2020).
+
+This archive can be found at [bitbucket-archive.labscriptsuite.org](https://bitbucket-archive.labscriptsuite.org/) (this page can take some time to load for the first time). Copies of every public fork of our repositories are at [github.com/labscript-suite-bitbucket-archive](https://github.com/labscript-suite-bitbucket-archive). As this is an archive, we will not be transferring ownership of these repositories back to their original owners. However, should you wish to continue development on one of those repositories you can fork it into your own account through the GitHub web interface. Should you have uncommitted changes (or changes made after 1st February, 2020) that you wish to have archived, please contact us to discuss the best approach to including these. Please note that we are not recommending continuing development in such forks long term, due to the changes in package structure outlined above.
+
+
+### What to do if you had custom code in a fork on BitBucket
+
+_Coming soon!_
+
+### Migrating other repositories to GitHub
+
+Should you have other repositories on BitBucket such as labscriptlib, analysislib, userlib, or labconfig (or any project unrelated to the _labscript suite_) we strongly suggest using the tools we developed to migrate the _labscript suite_. These are [philipstarkey/bitbucket-hg-exporter](https://github.com/philipstarkey/bitbucket-hg-exporter) and [chrisjbillington/hg-export-tool](https://github.com/chrisjbillington/hg-export-tool) which can be used together. See the documentation of those projects for further details.
+
+## Contributing to the _labscript suite_
+
+We are very grateful for all the contributions users have made in the past decade to make the _labscript suite_ the most widely used open-source experiment control and automation system in quantum science. These include development, suggestions, and feedback, and we look forward to this continuing on GitHub.
+
+
+### Issue tracking
+
+The issue tracking on GitHub is very similar to BitBucket, with the added advantage that you can add inter-repository issue references, e.g. referring to [labscript-suite/runmanager#68](https://github.com/labscript-suite/runmanager/issues/68) in any issue or pull request will link to the corresponding issue. We have imported all issues from the BitBucket repositories into the GitHub repositories. This import is not perfect (as each comment is now posted by Phil Starkey) but the comments have been modified to contain the original author attribution. We have also updated all links to files, pull requests, issues, and commits so that they point to the equivalent GitHub location and/or the archived copy of the data (as discussed above).
+
+Please use the GitHub issue tracker (rather than the mailing list) for:
+
+* Reporting **bugs** (when something doesn’t work or works ina way you didn’t expect);
+* Suggesting **enhancements**: new features or requests;
+* Issues relating to **installation**, **performance**, or **documentation**.
+
+However, advice for how to do something with the existing functionality of the _labscript suite_ is better suited to the mailing list.
+
+
+### Request for developers
+
+We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please reach out to us.
+
+
+### Pull requests
+
+We will continue the same feature-branch workflow as before:
+
+1. [Fork](https://guides.github.com/activities/forking/) one or more of the labscript suite repositories;
+2. Create a branch on your fork for a new feature; 
+3. Make and commit changes to this branch; and 
+4. Make a pull request back to our repository. 
+
+These steps are broadly covered in the GitHub [Hello World](https://guides.github.com/activities/hello-world/) guide, and in detail on the [NumPy development workflow](https://numpy.org/doc/stable/dev/development_workflow.html).
+
+
+### Branching model/strategy
+
+The move to GitHub for source control and PyPI for distribution is accompanied by a slight change in the branching strategy, to improve deployment and stability of the _labscript suite_. Whereas before all versions corresponded to single commits on the master branch; dedicated branches will be used to release and service minor versions. For example, releasing v0.1.0 would see the creation of a branch named maintenance/0.1.x, used to service all 0.1 versions. As we adhere to [semantic versioning](https://semver.org/), bug-fixes would be applied in this branch, bumping the minor (final) version number each time, e.g. 0.1.1, 0.1.2, etc. No development will occur in these branches; new features are merged into master, and bug-fixes are cherry-picked from master.
+
+You can learn more about this branching model at:
+
+* [releaseflow.org](http://releaseflow.org/)
+* [NumPy development workflow](https://numpy.org/doc/stable/dev/development_workflow.html)
+* [Release Flow – Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/learn/devops-at-microsoft/release-flow)
+
+
+### Learning Git
+
+As our former development, installation, and upgrading practices involved Mercurial revision-control, some of you may not be familiar with Git. While you no longer need to use _any_ revision control system to use the _labscript suite_, those of you wanting to contribute to development who aren’t acquainted with Git may benefit from these resources:
+
+* NumPy: [Getting started with Git development](https://numpy.org/doc/stable/dev/gitwash/development_setup.html)
+* [GitHub Guides](https://guides.github.com/): Very cogent information for beginners. We recommend starting with:
+    * [Hello World](https://guides.github.com/activities/hello-world/) (covers the basic process 
+    * [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+    	_Note:_ You may notice references to ‘GitHub Flow’ in these guides (and ‘Git Flow’ elsewhere). These share some aspects of the Release Flow branching-workflow we use, but are distinct.
+* [Atliassian Git Tutorials](https://www.atlassian.com/git/tutorials): Despite the many references to BitBucket (ignore these); there is a wealth of excellent beginner information for using Git at the command line here; and finally
+* [Oh Shit, Git!?!](https://ohshitgit.com/) Mistakes happen. This is a good place to start fixing them. ([Censored version](https://dangitgit.com/).)
+
+
+## Citing the _labscript suite_
+
+If you use the _labscript suite_ to control your experiment or perform analysis, please cite the following publication:
+
+_A scripted control system for autonomous hardware-timed experiments,_ [Review of Scientific Instruments **84**, 085111 (2013)](https://doi.org/10.1063/1.4817213). arXiv: [1303.0080](http://arxiv.org/abs/1303.0080).
+
+#### BibTeX citation
+```bibtex
+@article{doi:10.1063/1.4817213,
+  author = {Starkey, P. T. and Billington, C. J. and Johnstone, S. P. and
+            Jasperse, M. and Helmerson, K. and Turner, L. D. and Anderson, R. P.},
+  title = {A scripted control system for autonomous hardware-timed experiments},
+  journal = {Review of Scientific Instruments},
+  volume = {84},
+  number = {8},
+  pages = {085111},
+  year = {2013},
+  doi = {10.1063/1.4817213},
+  url = {https://doi.org/10.1063/1.4817213},
+  eprint = {https://doi.org/10.1063/1.4817213}
+}
+```
