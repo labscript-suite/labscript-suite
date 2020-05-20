@@ -1,17 +1,17 @@
 # the _labscript suite_
 
+<!-- ![labscript logo](https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/suite_logo_white_bg.png "labscript suite logo") -->
+
+<a href="https://github.com/labscript-suite/labscript"><img src="https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/img/labscript.png" height="100" alt="the labscript suite – labscript"></a> <a href="https://github.com/labscript-suite/runmanager"><img src="https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/img/runmanager.png" height="100" alt="the labscript suite – runmanager"></a> <a href="https://github.com/labscript-suite/blacs"><img src="https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/img/blacs.png" height="100" alt="the labscript suite – blacs"></a> <a href="https://github.com/labscript-suite/lyse"><img src="https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/img/lyse.png" height="100" alt="the labscript suite – lyse"></a> <a href="https://github.com/labscript-suite/runviewer"><img src="https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/img/runviewer.png" height="100" alt="the labscript suite – runviewer"></a>
 
 ### Experiment control and automation system
 
-This is a metapackage for the _labscript suite_ experiment control and automation system. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
-
 ___
-<!-- ![labscript logo](https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/suite_logo_white_bg.png "labscript suite logo") -->
-
-<a href="https://github.com/labscript-suite/labscript"><img src="img/labscript.png" height="100" alt="the labscript suite – labscript"></a> <a href="https://github.com/labscript-suite/runmanager"><img src="img/runmanager.png" height="100" alt="the labscript suite – runmanager"></a> <a href="https://github.com/labscript-suite/blacs"><img src="img/blacs.png" height="100" alt="the labscript suite – blacs"></a> <a href="https://github.com/labscript-suite/lyse"><img src="img/lyse.png" height="100" alt="the labscript suite – lyse"></a> <a href="https://github.com/labscript-suite/runviewer"><img src="img/runviewer.png" height="100" alt="the labscript suite – runviewer"></a>
-
 
 The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on repetition of parameterised, hardware-timed experiments.
+
+This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+
 
 <!-- #### Features:
 - Flexible and automated oversight of heterogeneous hardware.
