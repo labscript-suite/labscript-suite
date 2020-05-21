@@ -15,9 +15,9 @@ import sys
 import sphinx_rtd_theme
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify
-from labscript_suite.__version__ import __version__
 
 sys.path.insert(0, os.path.abspath('../..'))
+from labscript_suite.__version__ import __version__
 
 
 # -- Project information -----------------------------------------------------
