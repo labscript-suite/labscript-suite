@@ -28,14 +28,13 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
 <!-- 1. _A scripted control system for autonomous hardware-timed experiments,_ [Review of Scientific Instruments **84**, 085111 (2013)](https://doi.org/10.1063/1.4817213). arXiv: [1303.0080](http://arxiv.org/abs/1303.0080). -->
 
 <details>
-  <summary>P. T. Starkey, <em><a href="https://doi.org/10.26180/5bd68acaf0696">A software framework for control and automation of precisely timed experiments</a>.</em>  PhD thesis, Monash University (2019).</summary>
+  <summary>P. T. Starkey, <em><a href="https://doi.org/10.26180/5d1db8ffe29ef">A software framework for control and automation of precisely timed experiments</a>.</em>  PhD thesis, Monash University (2019).</summary>
 
   ```bibtex
     @phdthesis{starkey_phd_2019, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Starkey, P. T.},
       year = {2019},
-      month= {Jul},
       url = {https://doi.org/10.26180/5d1db8ffe29ef}, 
       doi = {10.26180/5d1db8ffe29ef},
       school = {Monash University},
@@ -44,14 +43,13 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
 </details>
 
 <details>
-  <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2019).</summary>
+  <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2018).</summary>
 
   ```bibtex
     @phdthesis{billington_phd_2019, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Billington, C. J.},
-      year = {2019},
-      month= {Apr},
+      year = {2018},
       url = {https://doi.org/10.26180/5bd68acaf0696}, 
       doi = {10.26180/5bd68acaf0696},
       school = {Monash University},

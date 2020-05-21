@@ -38,7 +38,7 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
   - [Application shortcuts](#changes-to-application-shortcuts)
   - [Source code structure](#changes-to-source-code-structure)
   - [Versioning](#changes-to-versioning)
-- [Archival metadata](#archival-metadata)
+- [BitBucket archive](#bitbucket-archive)
   - [What to do if you had custom code in a fork on BitBucket](#what-to-do-if-you-had-custom-code-in-a-fork-on-bitbucket)
   - [Migrating other repositories to GitHub](#migrating-other-repositories-to-github)
 - [Contributing to the _labscript suite_](#contributing-to-the-labscript-suite)
@@ -428,9 +428,9 @@ Existing users who move to a developer (editable) installation, please note the 
 Aside from the maintenance branches described [below](#branching-modelstrategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
 
 
-## Archival metadata
+## BitBucket archive
 
-Some repository metadata (such as pull request discussions) could not be migrated directly to GitHub. As such, we have created an archived copy of everything that was on BitBucket. This includes:
+Some repository metadata (such as pull request discussions) could not be migrated directly from BitBucket to GitHub. As such, we have created an archived copy of everything that was on BitBucket. This includes:
 
 * Issues (as they appear on BitBucket);
 * Pull requests discussions;
@@ -514,14 +514,13 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
 <!-- 1. _A scripted control system for autonomous hardware-timed experiments,_ [Review of Scientific Instruments **84**, 085111 (2013)](https://doi.org/10.1063/1.4817213). arXiv: [1303.0080](http://arxiv.org/abs/1303.0080). -->
 
 <details>
-  <summary>P. T. Starkey, <em><a href="https://doi.org/10.26180/5bd68acaf0696">A software framework for control and automation of precisely timed experiments</a>.</em>  PhD thesis, Monash University (2019).</summary>
+  <summary>P. T. Starkey, <em><a href="https://doi.org/10.26180/5d1db8ffe29ef">A software framework for control and automation of precisely timed experiments</a>.</em>  PhD thesis, Monash University (2019).</summary>
 
   ```bibtex
     @phdthesis{starkey_phd_2019, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Starkey, P. T.},
       year = {2019},
-      month= {Jul},
       url = {https://doi.org/10.26180/5d1db8ffe29ef}, 
       doi = {10.26180/5d1db8ffe29ef},
       school = {Monash University},
@@ -530,14 +529,13 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
 </details>
 
 <details>
-  <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2019).</summary>
+  <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2018).</summary>
 
   ```bibtex
     @phdthesis{billington_phd_2019, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Billington, C. J.},
-      year = {2019},
-      month= {Apr},
+      year = {2018},
       url = {https://doi.org/10.26180/5bd68acaf0696}, 
       doi = {10.26180/5bd68acaf0696},
       school = {Monash University},
