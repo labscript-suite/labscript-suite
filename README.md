@@ -8,12 +8,12 @@
 
 ___
 
-The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on repetition of parameterised, hardware-timed experiments.
+The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
 This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
 
 
-<!-- #### Features:
+#### Features:
 - Flexible and automated oversight of heterogeneous hardware.
 - The most mature and widely used open-source control system in quantum science.
 - Multiple analysis-based feedback modes.
@@ -23,7 +23,7 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 - Dynamic visualisation of experiment composition and results.
 - Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
 - Auto-generating user-interfaces.
-- High-level scripting: all user-interface interaction can be programatically synthesised. -->
+- High-level scripting: all user-interface interaction can be programatically synthesised.
 
 ## Table of contents
 
@@ -355,7 +355,7 @@ This assumes you have already completed the developer installation above and hav
 
 ## Recent changes to the _labscript suite_
 
-Upon migrating the code base to GitHub and publishing distributions on PyPI, the following changes have been undertaken.
+Upon migrating the code base to GitHub and publishing distributions on PyPI in April–May 2020, the following changes have been undertaken.
 
 ### Changes to profile directories
 
@@ -468,7 +468,7 @@ However, advice for how to do something with the existing functionality of the _
 
 ### Request for developers
 
-We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please reach out to us.
+We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please [reach out to us](mailto:labscriptsuite@gmail.com).
 
 
 ### Pull requests
@@ -532,7 +532,7 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
   <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2018).</summary>
 
   ```bibtex
-    @phdthesis{billington_phd_2019, 
+    @phdthesis{billington_phd_2018, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Billington, C. J.},
       year = {2018},

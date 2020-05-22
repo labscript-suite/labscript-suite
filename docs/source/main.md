@@ -4,7 +4,7 @@
 
 ___
 
-The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on repetition of parameterised, hardware-timed experiments.
+The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
 
 ## Features
@@ -46,7 +46,7 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
   <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2018).</summary>
 
   ```bibtex
-    @phdthesis{billington_phd_2019, 
+    @phdthesis{billington_phd_2018, 
       title = {State-dependent forces in cold quantum gases}, 
       author = {Billington, C. J.},
       year = {2018},

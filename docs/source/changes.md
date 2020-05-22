@@ -1,6 +1,6 @@
 ## Recent changes to the _labscript suite_
 
-Upon migrating the code base to GitHub and publishing distributions on PyPI, the following changes have been undertaken.
+Upon migrating the code base to GitHub and publishing distributions on PyPI in April–May 2020, the following changes have been undertaken.
 
 ### Changes to profile directories
 
