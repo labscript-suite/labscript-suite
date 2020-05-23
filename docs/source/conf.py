@@ -79,6 +79,8 @@ intersphinx_mapping = {
 html_theme = "sphinx_rtd_theme"
 html_logo = "img/suite_logo_transparent.png"
 html_favicon = "img/labscript.ico"
+html_title = "labscript suite | experiment control and automation"
+html_short_title = "labscript suite"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
