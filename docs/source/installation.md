@@ -1,6 +1,6 @@
 ## Installing the _labscript suite_
 
-We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/labscript-suite).
 
 This makes it far easier to get started using the _labscript suite_, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
 
@@ -115,7 +115,7 @@ C:\labscript-suite> .venv\Scripts\activate
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
 
-    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’.
+    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’ for a virtual environment named `py38`.
 
 Alternatively, you can launch the applications from a terminal, e.g. 
 

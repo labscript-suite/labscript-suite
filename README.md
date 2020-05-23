@@ -10,7 +10,7 @@ ___
 
 The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/labscript). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
-This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/labscript-suite).
 
 
 #### Features:
@@ -166,7 +166,7 @@ C:\labscript-suite> .venv\Scripts\activate
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
 
-    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’.
+    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’ for a virtual environment named `py38`.
 
 Alternatively, you can launch the applications from a terminal, e.g. 
 
