@@ -71,3 +71,34 @@ Existing users who move to a developer (editable) installation, please note the 
 ### Versioning
 
 Aside from the maintenance branches described [below](#branching-modelstrategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
+
+
+### Secure communication
+
+Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0). 
+
+As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret as follows:
+
+1. Run `python -m zprocess.makesecret` from the labconfig directory.
+
+2. Specify the path of the resulting private key as the `shared_secret` in your labconfig:
+
+    ```ini
+    [security]
+    shared_secret = %(labscript_suite)s/labconfig/zpsecret-09f6dfa0.key
+    allow_insecure = False
+    ```
+
+3. Copy the same private key to all computers running the *labscript suite* that need to communicate with each other, repeating step 2 for each of them.
+ 
+Treat this file like a password: it allows anyone on the same network access to
+*labscript suite* programs. 
+
+If you are on a trusted network and don't want to use encrypted communication, you may instead set:
+
+```ini
+[security]
+allow_insecure = True
+```
+
+*Note*: There is an outstanding issue   with the ZMQ Python bindings whereby encryption on Windows for Python distributions other than [Anaconda](https://www.anaconda.com) is significantly slower ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
