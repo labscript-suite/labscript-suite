@@ -31,9 +31,9 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 - [Recent changes to the _labscript suite_](#recent-changes-to-the-labscript-suite)
   - [Profile directories](#profile-directories)
   - [Application shortcuts](#application-shortcuts)
-  - [Source code structure](#source-code-structure)
-  - [Versioning](#versioning)
   - [Secure communication](#secure-communication)
+  - [Source code structure (developer installation)](#source-code-structure-developer-installation)
+  - [Versioning (developer installation)](#versioning-developer-installation)
 - [BitBucket archive](#bitbucket-archive)
   - [What to do if you had custom code in a fork on BitBucket](#what-to-do-if-you-had-custom-code-in-a-fork-on-bitbucket)
   - [Migrating other repositories to GitHub](#migrating-other-repositories-to-github)
@@ -48,7 +48,7 @@ We're excited to announce that accompanying the recent migration to GitHub, _lab
 
 This makes it far easier to get started using the _labscript suite_, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
 
-* [`pip`](https://packaging.python.org/tutorials/installing-packages): the standard package manager common to all Python distributions; or 
+* [`pip`](https://packaging.python.org/tutorials/installing-packages): the standard package manager common to all Python distributions; or
 * [`conda`](https://anaconda.org/anaconda/conda): a binary package and environment manager, part of the [Anaconda Python](https://www.anaconda.com) distribution.
 
 For further information, please see the [documentation](https://labscript-suite.github.io/installation.html), which includes information about both regular and developer (editable) installations of the *labscript suite*.
@@ -91,7 +91,36 @@ _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-
 Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
 
 
-### Source code structure
+### Secure communication
+
+Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
+
+As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret as follows:
+
+1. Run `python -m zprocess.makesecret` from the labconfig directory.
+
+2. Specify the path of the resulting [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key) as the `shared_secret` in your labconfig. For example:
+
+    ```ini
+    [security]
+    shared_secret = %(labscript_suite)s/labconfig/zpsecret-09f6dfa0.key
+    ```
+
+3. Copy the same pre-shared key to all computers running the *labscript suite* that need to communicate with each other, repeating step 2 for each of them.
+
+Treat this file like a password: it allows anyone on the same network access to *labscript suite* programs.
+
+If you are on a trusted network and don't want to use secure communication, you may instead set:
+
+```ini
+[security]
+allow_insecure = True
+```
+
+*Note*: There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
+
+
+### Source code structure (developer installation)
 
 Existing users who move to a developer (editable) installation, please note the following structural changes to the _labscript suite_ source code:
 
@@ -123,40 +152,9 @@ Existing users who move to a developer (editable) installation, please note the 
 * As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and will be used as a metapackage for the labscript suite.
 
 
-### Versioning
+### Versioning (developer installation)
 
 Aside from the maintenance branches documented [here](https://labscript-suite.github.io/contributing.html#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
-
-
-### Secure communication
-
-Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0). 
-
-As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret as follows:
-
-1. Run `python -m zprocess.makesecret` from the labconfig directory.
-
-2. Specify the path of the resulting private key as the `shared_secret` in your labconfig:
-
-    ```ini
-    [security]
-    shared_secret = %(labscript_suite)s/labconfig/zpsecret-09f6dfa0.key
-    allow_insecure = False
-    ```
-
-3. Copy the same private key to all computers running the *labscript suite* that need to communicate with each other, repeating step 2 for each of them.
- 
-Treat this file like a password: it allows anyone on the same network access to
-*labscript suite* programs. 
-
-If you are on a trusted network and don't want to use encrypted communication, you may instead set:
-
-```ini
-[security]
-allow_insecure = True
-```
-
-*Note*: There is an outstanding issue   with the ZMQ Python bindings whereby encryption on Windows for Python distributions other than [Anaconda](https://www.anaconda.com) is significantly slower ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
 
 
 ## BitBucket archive
@@ -214,11 +212,11 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
   <summary>P. T. Starkey, <em><a href="https://doi.org/10.26180/5d1db8ffe29ef">A software framework for control and automation of precisely timed experiments</a>.</em>  PhD thesis, Monash University (2019).</summary>
 
   ```bibtex
-    @phdthesis{starkey_phd_2019, 
-      title = {State-dependent forces in cold quantum gases}, 
+    @phdthesis{starkey_phd_2019,
+      title = {State-dependent forces in cold quantum gases},
       author = {Starkey, P. T.},
       year = {2019},
-      url = {https://doi.org/10.26180/5d1db8ffe29ef}, 
+      url = {https://doi.org/10.26180/5d1db8ffe29ef},
       doi = {10.26180/5d1db8ffe29ef},
       school = {Monash University},
     }
@@ -229,11 +227,11 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
   <summary>C. J. Billington, <em><a href="https://doi.org/10.26180/5bd68acaf0696">State-dependent forces in cold quantum gases</a>.</em>  PhD thesis, Monash University (2018).</summary>
 
   ```bibtex
-    @phdthesis{billington_phd_2018, 
-      title = {State-dependent forces in cold quantum gases}, 
+    @phdthesis{billington_phd_2018,
+      title = {State-dependent forces in cold quantum gases},
       author = {Billington, C. J.},
       year = {2018},
-      url = {https://doi.org/10.26180/5bd68acaf0696}, 
+      url = {https://doi.org/10.26180/5bd68acaf0696},
       doi = {10.26180/5bd68acaf0696},
       school = {Monash University},
     }
