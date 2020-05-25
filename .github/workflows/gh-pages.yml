@@ -28,7 +28,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install Sphinx==3.0.1 sphinx-rtd-theme==0.4.3 recommonmark==0.6.0 m2r==0.2.1
           pip install setuptools_scm
-          sphinx-build -b html docs/source docs/html
+          sphinx-build -b dirhtml docs/source docs/html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

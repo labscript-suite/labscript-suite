@@ -95,11 +95,11 @@ Operating-system menu shortcuts, correct taskbar behaviour, and environment acti
 
 Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
 
-As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret as follows:
+As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret(or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
 
 1. Run `python -m zprocess.makesecret` from the labconfig directory.
 
-2. Specify the path of the resulting [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key) as the `shared_secret` in your labconfig. For example:
+2. Specify the path of the resulting `shared_secret` in your labconfig. For example:
 
     ```ini
     [security]
