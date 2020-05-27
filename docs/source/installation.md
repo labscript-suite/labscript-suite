@@ -169,7 +169,7 @@ Development versions will be suffixed with `devN`, i.e.
 
 ### Developer installation (for those who want to customize the _labscript suite_)
 
-_Note:_ You do not necessarily need not fork, clone, and install editable versions of all _labscript suite _repositories to customise your installation and/or contribute these changes back to the base repositories. For example, if you only want to develop custom labscript device drivers, you might only fork and clone the labscript-devices repository. Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
+_Note:_ You do not necessarily need not fork, clone, and install editable versions of all _labscript suite_ repositories to customise your installation and/or contribute these changes back to the base repositories. For example, if you only want to develop custom labscript device drivers, you might only fork and clone the labscript-devices repository. Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
 #### Quick start

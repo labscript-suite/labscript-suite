@@ -59,12 +59,12 @@ Upon migrating the code base to GitHub and publishing distributions on PyPI in A
 
 ### Profile directories
 
-The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user’s home directory, e.g.
+The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user’s home directory, e.g. for a local user named `wkheisenberg` this is:
 
 * `C:\Users\wkheisenberg\labscript-suite` on Windows.
 * `~/labscript-suite` or `/home/wkheisenberg/labscript-suite` on Linux and Mac OS X.
 
-A typical structure is:
+A typical structure of the profile directory is:
 
 ```
     ~/labscript-suite/
