@@ -3,7 +3,9 @@ name: github pages
 on:
   push:
     branches:
-      - sphinx-docs
+      - master
+      - maintenance/*
+      - metapackage
 
 jobs:
   deploy:
