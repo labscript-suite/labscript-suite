@@ -21,7 +21,7 @@ jobs:
       PACKAGE_NAME: labscript-suite
       SCM_VERSION_SCHEME: release-branch-semver
       SCM_LOCAL_SCHEME: no-local-version
-    if: github.repository == 'rpanderson/labscript-suite' && (github.event_name != 'create' || github.event.ref_type != 'branch')
+    if: github.repository == 'labscript-suite/labscript-suite' && (github.event_name != 'create' || github.event.ref_type != 'branch')
     steps:
       - name: Checkout
         uses: actions/checkout@v2
