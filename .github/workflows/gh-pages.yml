@@ -1,0 +1,43 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - master
+      - maintenance/*
+      - metapackage
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Unshallow
+        if: github.event.ref_type != 'tag'
+        run: |
+          git fetch --prune --unshallow --tags
+          git tag -d $(git tag --points-at HEAD)
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Build Docs
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install Sphinx==3.0.1 sphinx-rtd-theme==0.4.3 recommonmark==0.6.0 m2r==0.2.1
+          pip install setuptools_scm
+          sphinx-build -b dirhtml docs/source docs/html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: labscript-suite/labscript-suite.github.io
+          publish_branch: master
+          publish_dir: ./docs/html
+          force_orphan: true

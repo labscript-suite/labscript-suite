@@ -1,0 +1,82 @@
+name: Build and release
+on:
+  push:
+    branches:
+      - master
+      - maintenance/*
+      - metapackage
+  create:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: labscript-suite
+      SCM_VERSION_SCHEME: release-branch-semver
+      SCM_LOCAL_SCHEME: no-local-version
+    if: github.repository == 'rpanderson/labscript-suite' && (github.event_name != 'create' || github.event.ref_type != 'branch')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Unshallow
+        if: github.event.ref_type != 'tag'
+        run: |
+          git fetch --prune --unshallow
+          git tag -d $(git tag --points-at HEAD)
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Build Distributions
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -U git+https://github.com/pypa/setuptools_scm.git@8e6aa2b5fd42cb257c86e6dbe720eaee6d1e2c9b
+          python setup.py sdist bdist_wheel
+          SCM_VERSION=$(python setup.py --version)
+          echo "::set-env name=SCM_VERSION::$SCM_VERSION"
+      - name: Publish on TestPyPI
+        if: github.event.ref_type == 'tag' || contains(env.SCM_VERSION, 'dev')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.testpypi }}
+          repository_url: https://test.pypi.org/legacy/
+      - name: Get Version Number
+        if: github.event.ref_type == 'tag'
+        run: |
+          VERSION="${GITHUB_REF/refs\/tags\/v/}"
+          echo "::set-env name=VERSION::$VERSION"
+      - name: Create GitHub Release
+        if: github.event.ref_type == 'tag'
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.ref }}
+          release_name: ${{ env.PACKAGE_NAME }} ${{ env.VERSION }}
+          draft: true
+          prerelease: ${{ contains(github.event.ref, 'rc') }}
+      - name: Upload Release Asset
+        if: github.event.ref_type == 'tag'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/${{ env.PACKAGE_NAME }}-${{ env.VERSION }}.tar.gz
+          asset_name: ${{ env.PACKAGE_NAME }}-${{ env.VERSION }}.tar.gz
+          asset_content_type: application/gzip
+      - name: Publish on PyPI
+        if: github.event.ref_type == 'tag'
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.pypi }}
