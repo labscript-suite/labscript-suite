@@ -117,7 +117,11 @@ If you are on a trusted network and don't want to use secure communication, you 
 allow_insecure = True
 ```
 
-*Note*: There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
+*Notes*:
+
+* Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed.
+
+* There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
 
 
 ### Source code structure (developer installation)
