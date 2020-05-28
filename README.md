@@ -59,7 +59,7 @@ Upon migrating the code base to GitHub and publishing distributions on PyPI in A
 
 ### Profile directories
 
-The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user’s home directory, e.g. for a local user named `wkheisenberg` this is:
+The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user's home directory, e.g. for a local user named `wkheisenberg` this is:
 
 * `C:\Users\wkheisenberg\labscript-suite` on Windows.
 * `~/labscript-suite` or `/home/wkheisenberg/labscript-suite` on Linux and Mac OS X.
@@ -190,13 +190,13 @@ We are very grateful for all the contributions users have made in the past decad
 
 The issue tracking on GitHub is very similar to BitBucket, with the added advantage that you can add inter-repository issue references, e.g. referring to [labscript-suite/runmanager#68](https://github.com/labscript-suite/runmanager/issues/68) in any issue or pull request will link to the corresponding issue. We have imported all issues from the BitBucket repositories into the GitHub repositories. This import is not perfect (as each comment is now posted by Phil Starkey) but the comments have been modified to contain the original author attribution. We have also updated all links to files, pull requests, issues, and commits so that they point to the equivalent GitHub location and/or the archived copy of the data (as discussed above).
 
-Please use the GitHub issue tracker (rather than the mailing list) for:
+Please use the issue tracker of the relevant GitHub repository for:
 
-* Reporting **bugs** (when something doesn’t work or works ina way you didn’t expect);
+* Reporting **bugs** (when something doesn't work or works in a way you didn't expect);
 * Suggesting **enhancements**: new features or requests;
 * Issues relating to **installation**, **performance**, or **documentation**.
 
-However, advice for how to do something with the existing functionality of the _labscript suite_ is better suited to the mailing list.
+For advice on _how_ to use the existing functionality of the _labscript suite_, please use our [mailing list](http://groups.google.com/group/labscriptsuite).
 
 
 ### Request for developers

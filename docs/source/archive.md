@@ -1,6 +1,6 @@
 ## BitBucket archive
 
-Some repository metadata (such as pull request discussions) could not be migrated directly from BitBucket to GitHub. As such, we have created an archived copy of everything that was on BitBucket. This includes:
+In April–May 2020 the _labscript suite_ code base was migrated from BitBucket to GitHub. All commit history and issues was preserved, however some repository metadata (such as pull request discussions) could not be migrated directly. As such, we have created an archived copy of everything that was on BitBucket. This includes:
 
 * Issues (as they appear on BitBucket);
 * Pull requests discussions;

@@ -10,7 +10,7 @@ This makes it far easier to get started using the _labscript suite_, as you no l
 
 ### Virtual environments
 
-We recommend installing labscript (regular or developer mode) in a [virtual environment](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments). This helps sandbox the codebase without interfering with (or being interfered with) your system Python installation, or Python environments used for other purposes. There are a number of ways to configure a virtual environment. If you are unfamiliar with doing so, we recommend using the [venv module](https://docs.python.org/3/library/venv.html), part of the Python Standard Library. Here’s an example (on Windows):
+We recommend installing labscript (regular or developer mode) in a [virtual environment](https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments). This helps sandbox the codebase without interfering with (or being interfered with) your system Python installation, or Python environments used for other purposes. There are a number of ways to configure a virtual environment. If you are unfamiliar with doing so, we recommend using the [venv module](https://docs.python.org/3/library/venv.html), part of the Python Standard Library. Here's an example (on Windows):
 
 
 #### Quick start
@@ -46,7 +46,7 @@ Once activated, the name of the virtual environment (in this case, `.venv`) will
     C:\labscript-suite> .venv\Scripts\activate
     ```
 
-    _Note:_ This step is OS specific, e.g. on Linux it’s `source .venv/bin/activate`.
+    _Note:_ This step is OS specific, e.g. on Linux it's `source .venv/bin/activate`.
 
 4. Update the Python package installer and other installation packages of your virtual environment.
 
@@ -74,7 +74,7 @@ C:\labscript-suite> .venv\Scripts\activate
 
 #### Detailed instructions
 
-1. Activate the virtual environment (this step is OS specific, e.g. on Linux it’s `source .venv/bin/activate`).
+1. Activate the virtual environment (this step is OS specific, e.g. on Linux it's `source .venv/bin/activate`).
 
     ```
     C:\labscript-suite> .venv\Scripts\activate

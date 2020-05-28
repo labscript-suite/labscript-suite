@@ -7,13 +7,13 @@ We are very grateful for all the contributions users have made in the past decad
 
 The issue tracking on GitHub is very similar to BitBucket, with the added advantage that you can add inter-repository issue references, e.g. referring to [labscript-suite/runmanager#68](https://github.com/labscript-suite/runmanager/issues/68) in any issue or pull request will link to the corresponding issue. We have imported all issues from the BitBucket repositories into the GitHub repositories. This import is not perfect (as each comment is now posted by Phil Starkey) but the comments have been modified to contain the original author attribution. We have also updated all links to files, pull requests, issues, and commits so that they point to the equivalent GitHub location and/or the archived copy of the data (as discussed above).
 
-Please use the GitHub issue tracker (rather than the mailing list) for:
+Please use the issue tracker of the relevant GitHub repository for:
 
-* Reporting **bugs** (when something doesn’t work or works ina way you didn’t expect);
+* Reporting **bugs** (when something doesn't work or works in a way you didn't expect);
 * Suggesting **enhancements**: new features or requests;
 * Issues relating to **installation**, **performance**, or **documentation**.
 
-However, advice for how to do something with the existing functionality of the _labscript suite_ is better suited to the mailing list.
+For advice on _how_ to use the existing functionality of the _labscript suite_, please use our [mailing list](http://groups.google.com/group/labscriptsuite).
 
 
 ### Request for developers
@@ -46,7 +46,7 @@ You can learn more about this branching model at:
 
 ### Learning Git
 
-As our former development, installation, and upgrading practices involved Mercurial revision-control, some of you may not be familiar with Git. While you no longer need to use _any_ revision control system to use the _labscript suite_, those of you wanting to contribute to development who aren’t acquainted with Git may benefit from these resources:
+As our former development, installation, and upgrading practices involved Mercurial revision-control, some of you may not be familiar with Git. While you no longer need to use _any_ revision control system to use the _labscript suite_, those of you wanting to contribute to development who aren't acquainted with Git may benefit from these resources:
 
 * NumPy: [Getting started with Git development](https://numpy.org/doc/stable/dev/gitwash/development_setup.html)
 * [GitHub Guides](https://guides.github.com/): Very cogent information for beginners. We recommend starting with:
