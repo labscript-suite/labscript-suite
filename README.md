@@ -51,7 +51,7 @@ This makes it far easier to get started using the _labscript suite_, as you no l
 * [`pip`](https://packaging.python.org/tutorials/installing-packages): the standard package manager common to all Python distributions; or
 * [`conda`](https://anaconda.org/anaconda/conda): a binary package and environment manager, part of the [Anaconda Python](https://www.anaconda.com) distribution.
 
-For further information, please see the [documentation](https://labscript-suite.github.io/installation.html), which includes information about both regular and developer (editable) installations of the *labscript suite*.
+For further information, please see the [documentation](https://labscript-suite.github.io/installation), which includes information about both regular and developer (editable) installations of the *labscript suite*.
 
 ## Recent changes to the _labscript suite_
 
@@ -158,7 +158,7 @@ Existing users who move to a developer (editable) installation, please note the 
 
 ### Versioning (developer installation)
 
-Aside from the maintenance branches documented [here](https://labscript-suite.github.io/contributing.html#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
+Aside from the maintenance branches documented [here](https://labscript-suite.github.io/contributing/#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version  2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
 
 
 ## BitBucket archive
@@ -203,7 +203,7 @@ However, advice for how to do something with the existing functionality of the _
 
 We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please [reach out to us](mailto:labscriptsuite@gmail.com).
 
-Further guidance on contributing—including the branching model we use, and the procedure for issuing pull requests—can be found in the [documentation](https://labscript-suite.github.io/contributing.html).
+Further guidance on contributing—including the branching model we use, and the procedure for issuing pull requests—can be found in the [documentation](https://labscript-suite.github.io/contributing).
 
 
 ## Citing the _labscript suite_
