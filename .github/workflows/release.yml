@@ -3,9 +3,8 @@ name: Build and Release
 on:
   push:
     branches:
-      - conda
-      # - master
-      # - maintenance/*
+      - master
+      - maintenance/*
   create:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
@@ -201,12 +200,12 @@ jobs:
           name: conda_packages
           path: ./conda_packages
 
-      # - name: Publish on TestPyPI
-      #   uses: pypa/gh-action-pypi-publish@master
-      #   with:
-      #     user: __token__
-      #     password: ${{ secrets.testpypi }}
-      #     repository_url: https://test.pypi.org/legacy/
+      - name: Publish on TestPyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.testpypi }}
+          repository_url: https://test.pypi.org/legacy/
 
       - name: Get Version Number
         if: github.event.ref_type == 'tag'
@@ -252,17 +251,17 @@ jobs:
           conda activate
           conda install anaconda-client
 
-      # - name: Publish to Anaconda test label
-      #   if: github.event.ref_type != 'tag'
-      #   run: |
-      #     source .miniconda/etc/profile.d/conda.sh
-      #     conda activate
-      #     anaconda \
-      #       --token ${{ secrets.ANACONDA_API_TOKEN }} \
-      #       upload \
-      #       --user $ANACONDA_USER \
-      #       --label test \
-      #       conda_packages/*/*
+      - name: Publish to Anaconda test label
+        if: github.event.ref_type != 'tag'
+        run: |
+          source .miniconda/etc/profile.d/conda.sh
+          conda activate
+          anaconda \
+            --token ${{ secrets.ANACONDA_API_TOKEN }} \
+            upload \
+            --user $ANACONDA_USER \
+            --label test \
+            conda_packages/*/*
 
       - name: Publish to Anaconda main label
         if: github.event.ref_type == 'tag'
