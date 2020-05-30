@@ -77,7 +77,7 @@ intersphinx_mapping = {
 #
 # html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
-html_logo = "../../art/labscript-suite-rectangular-transparant_140.png"
+html_logo = "../../art/labscript-suite-rectangular-transparent_140.png"
 html_favicon = "../../art/labscript.ico"
 html_title = "labscript suite | experiment control and automation"
 html_short_title = "labscript suite"
