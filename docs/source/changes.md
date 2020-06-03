@@ -24,9 +24,7 @@ A typical structure of the profile directory is:
         └── user_devices/
 ```
 
-This structure is created by calling the command `labscript-profile-create`.
-
-in a terminal after installing `labscript-utils` (per the [installation instructions](/installation#regular-installation-from-the-python-package-index)).
+This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](/installation#regular-installation-from-the-python-package-index)).
 
 _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) this can be the same directory as an editable installation.
 
@@ -35,7 +33,7 @@ _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-
 
 Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
 
-As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret(or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
+As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret (or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
 
 1. Run `python -m zprocess.makesecret` from the labconfig directory.
 
@@ -48,7 +46,7 @@ As of labscript-utils 2.16.0, **encryted interprocess communication will be the 
 
 3. Copy the same pre-shared key to all computers running the *labscript suite* that need to communicate with each other, repeating step 2 for each of them.
 
-Treat this file like a password: it allows anyone on the same network access to *labscript suite* programs.
+Treat this file like a password; it allows anyone on the same network access to *labscript suite* programs.
 
 If you are on a trusted network and don't want to use secure communication, you may instead set:
 
@@ -59,7 +57,7 @@ allow_insecure = True
 
 *Notes*:
 
-* Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed.
+* Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed to ensure the same public-key is used by all hosts running *labscript suite* programs.
 
 * There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
 
@@ -95,10 +93,10 @@ Existing users who move to a developer (editable) installation, please note the 
 
 
 * Package names (shared by repositories and top-level folders) are now hyphenated, e.g. labscript-devices and labscript-utils.
-* Module names remain underscored, i.e. labscript_devices and labscript_utils.
+* Module names remain underscored, e.g. labscript_devices and labscript_utils.
 * The mixing of hyphen and underscores is inelegant but conventional.
 * All references to blacs are now lowercase.
-* As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and will be used as a metapackage for the labscript suite.
+* As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and is a metapackage for the *labscript suite* (installing it via `pip`/`conda` installs the suite).
 
 
 ### Versioning (developer installation)
