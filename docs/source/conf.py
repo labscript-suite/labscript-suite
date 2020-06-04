@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    'sphinx.ext.todo',
     "sphinx.ext.viewcode",
     "sphinx_rtd_theme",
     "recommonmark",
@@ -69,6 +70,15 @@ intersphinx_mapping = {
     # 'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
     # 'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None)
 }
+
+# Make `some code` equivalent to :code:`some code`
+default_role = 'code'
+
+# hide todo notes if on readthedocs and not building the latest
+if os.environ.get('READTHEDOCS') and os.environ.get('READTHEDOCS_VERSION') == 'latest':
+    todo_include_todos = False
+else:
+    todo_include_todos = True
 
 # -- Options for HTML output -------------------------------------------------
 
