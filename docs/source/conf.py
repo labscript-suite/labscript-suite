@@ -107,7 +107,7 @@ for ls_prog in labscript_suite_programs:
 default_role = 'code'
 
 # hide todo notes if on readthedocs and not building the latest
-if os.environ.get('READTHEDOCS') and os.environ.get('READTHEDOCS_VERSION') == 'latest':
+if os.environ.get('READTHEDOCS') and (os.environ.get('READTHEDOCS_VERSION') != 'latest' or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'):
     todo_include_todos = False
 else:
     todo_include_todos = True
