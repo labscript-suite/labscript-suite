@@ -4,11 +4,13 @@
    :maxdepth: 2
    :hidden:
 
-   installation
+   installation/index
    changes
    contributing
    archive
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
+
+.. todolist:: 
 
 .. mdinclude:: main.md

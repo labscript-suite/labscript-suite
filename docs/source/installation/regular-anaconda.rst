@@ -1,0 +1,2 @@
+Regular installation (Anaconda Cloud)
+=====================================

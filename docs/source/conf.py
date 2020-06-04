@@ -37,9 +37,9 @@ release = version
 
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    'sphinx.ext.todo',
     "sphinx.ext.viewcode",
     "sphinx_rtd_theme",
     "recommonmark",
@@ -50,25 +50,67 @@ autodoc_typehints = 'description'
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-# The suffix(es) of source filenames.
-source_suffix = ['.rst', '.md']
-
-# Custom parsers of source files.
-# source_parsers = {'.md': 'recommonmark.parser.CommonMarkParser'}
-
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# The suffix(es) of source filenames.
+source_suffix = ['.rst', '.md']
+
+# The master toctree document.
+master_doc = 'index'
+
 # intersphinx allows us to link directly to other repos sphinxdocs.
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/3', None),
-    # 'numpy': ('https://numpy.org/doc/stable/', None),
-    # 'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
-    # 'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None)
+    'python': ('https://docs.python.org/3/', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
+    'qtutils': ('https://qtutils.readthedocs.io/en/stable/', None),
+    'pyqtgraph': ('https://pyqtgraph.readthedocs.io/en/latest/', None), # change to stable once v0.11 is published
+    'matplotlib': ('https://matplotlib.org/', None),
+    'h5py': ('http://docs.h5py.org/en/stable/', None),
+    'pydaqmx': ('https://pythonhosted.org/PyDAQmx/', None),
+    'qt': ('', 'pyqt5-modified-objects.inv') # from https://github.com/MSLNZ/msl-qt/blob/master/docs/create_pyqt_objects.py under MIT License
+    # TODO
+    # desktop-app
+    # spinapi/pynivision/etc
 }
+
+# list of all labscript suite components that have docs
+labscript_suite_programs = [
+    'labscript',
+    'runmanager',
+    'runviewer',
+    'blacs',
+    'lyse',
+    'labscript-utils',
+    'labscript-devices',
+]
+# remove this current repo from the list
+if project in labscript_suite_programs:
+    labscript_suite_programs.remove(project)
+
+# whether to use stable or latest version
+labscript_suite_doc_version = 'stable' # 'stable' or 'latest'
+
+# add intersphinx references for each component
+for ls_prog in labscript_suite_programs:
+    intersphinx_mapping[ls_prog] = ('https://docs.labscript_suite.org/projects/{}/en/{}/'.format(ls_prog, labscript_suite_doc_version), None)
+
+# add intersphinx reference for the metapackage
+# intersphinx_mapping['labscript-suite'] = ('https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version), None)
+
+# Make `some code` equivalent to :code:`some code`
+default_role = 'code'
+
+# hide todo notes if on readthedocs and not building the latest
+if os.environ.get('READTHEDOCS') and (os.environ.get('READTHEDOCS_VERSION') != 'latest' or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'):
+    todo_include_todos = False
+else:
+    todo_include_todos = True
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -85,10 +127,7 @@ html_short_title = "labscript suite"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
-
-# The name of the Pygments (syntax highlighting) style to use.
-# pygments_style = "sphinx"
+html_static_path = ['_static']
 
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
