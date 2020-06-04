@@ -1,7 +1,7 @@
 Installing the *labscript suite*
 ================================
 
-TODO: discussion on python vs. conda and regular vs. developer install
+.. todo:: discussion on python vs. conda and regular vs. developer install
 
 .. toctree::
     :maxdepth: 2

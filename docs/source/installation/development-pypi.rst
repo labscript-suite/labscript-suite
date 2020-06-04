@@ -11,6 +11,8 @@ Developer installation installations are useful for those who want to customize 
 Quick start
 -----------
 
+.. todo:: Write the PyPi-Development quick-start section
+
 *Coming soon!*
 
 
