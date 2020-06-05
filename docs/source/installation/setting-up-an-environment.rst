@@ -9,7 +9,7 @@ Below we outline how to create and activate a virtual environment for Anaconda P
 Anaconda Python
 ---------------
 Anaconda Python includes a `virtual environment manager <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ as part of the `conda` executable.
-Here is an example (on Windows):
+Here's an example (on Windows):
 
 .. note::
 
@@ -28,11 +28,9 @@ Quickstart
 
 .. code-block:: console
 
-    (base) C:\> mkdir labscript-suite
-    (base) C:\> cd labscript-suite
-    (base) C:\labscript-suite> conda create -n py38 python=3.8
-    (base) C:\labscript-suite> conda activate py38
-    (py38) C:\labscript-suite>
+    (base) C:\> conda create -n py38 python=3.8
+    (base) C:\> conda activate py38
+    (py38) C:\>
 
 Once activated, the name of the virtual environment (in this case, `py38` ) will prefix the command line.
 
@@ -40,23 +38,15 @@ Once activated, the name of the virtual environment (in this case, `py38` ) will
 Detailed Instructions
 *********************
 
-1. From a new terminal, create the installation directory and enter it. Here we use `C:\labscript-suite` but this can be whatever you like:
-
-  .. code-block:: console
-
-    (base) C:\> mkdir labscript-suite
-    (base) C:\> cd labscript-suite
-
-
-2. Create a virtual environment.
-   Here we name it `py38` and ask conda to use Python 3.8 within the virtual environment (name and python version are also variable but these are conventional choices):
+1. Create a virtual (conda) environment.
+   Here we name it `py38` and ask conda to use Python 3.8 within the virtual environment (name and Python version are variable but these are conventional choices):
 
   .. code-block:: console
 
     (base) C:\labscript-suite> conda create -n py38 python=3.8
 
 
-3. Activate the virtual environment:
+2. Activate the virtual (conda) environment:
 
   .. code-block:: console
 
