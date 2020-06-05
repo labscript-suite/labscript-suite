@@ -11,7 +11,7 @@ Anaconda Python
 Anaconda Python includes a virtual environment manager as part of the `conda` executable.
 Here is an example (on Windows):
 
-.. note:: Make sure you have opened the "Anaconda Prompt" on Windows (available in your start menu). 
+.. note:: Make sure you have opened the "Anaconda Prompt" on Windows (available in your start menu).
          `conda` is not available from the standard terminal by default.
          Launching "Anaconda Prompt" will activate the `base` conda environment.
 
@@ -26,9 +26,9 @@ Quickstart
 
     (base) C:\> mkdir labscript-suite
     (base) C:\> cd labscript-suite
-    (base) C:\labscript-suite> conda create -n labscript_suite_py38 python=3.8 
+    (base) C:\labscript-suite> conda create -n labscript_suite_py38 python=3.8
     (base) C:\labscript-suite> conda activate labscript_suite_py38
-    (labscript_suite_py38) C:\labscript-suite> 
+    (labscript_suite_py38) C:\labscript-suite>
 
 Once activated, the name of the virtual environment (in this case, `labscript_suite_py38` ) will prefix the command line.
 
@@ -44,20 +44,20 @@ Detailed Instructions
     (base) C:\> cd labscript-suite
 
 
-2. Create a virtual environment. 
+2. Create a virtual environment.
    Here we name it `labscript_suite_py38` and ask conda to use Python 3.8 within the virtual environment (name and python version are also variable but these are conventional choices):
 
   .. code-block:: console
 
-    (base) C:\labscript-suite> conda create -n labscript_suite_py38 python=3.8 
-    
+    (base) C:\labscript-suite> conda create -n labscript_suite_py38 python=3.8
+
 
 3. Activate the virtual environment:
 
   .. code-block:: console
 
     (base) C:\labscript-suite> conda activate labscript_suite_py38
-    (labscript_suite_py38) C:\labscript-suite> 
+    (labscript_suite_py38) C:\labscript-suite>
 
 
 Regular Python
@@ -90,15 +90,15 @@ Detailed Instructions
 
     C:\> mkdir labscript-suite
     C:\> cd labscript-suite
-    
 
-2. Create a virtual environment. 
+
+2. Create a virtual environment.
    Here we name it `.venv`, located inside the installation directory (name and location are also variable but these are conventional choices).
 
   .. code-block:: console
 
     C:\labscript-suite> python -m venv .venv
-    
+
 
 3. Activate the virtual environment:
 

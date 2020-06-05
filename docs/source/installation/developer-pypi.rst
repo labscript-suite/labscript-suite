@@ -1,19 +1,30 @@
 Developer installation (Python Package Index)
 =============================================
 
-Developer installation installations are useful for those who want to customize the *labscript suite*
+Developer installations are useful for those who want to customise the *labscript suite*.
 
-.. note:: You do not necessarily need not fork, clone, and install editable versions of all *labscript suite* repositories to customise your installation and/or contribute these changes back to the base repositories. 
-    For example, if you only want to develop custom labscript device drivers, you might only fork and clone the labscript-devices repository. 
+.. note:: You need not fork, clone, and install editable versions of all *labscript suite* repositories to customise your installation and/or contribute changes back to the base repositories.
+    For example, if you only want to develop custom labscript device drivers, you might only fork and clone the labscript-devices repository.
     Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
 Quick start
 -----------
 
-.. todo:: Write the PyPi-Development quick-start section
+.. code-block:: console
 
-*Coming soon!*
+    $ source .venv/bin/activate
+    (.venv) $ pip install \
+            --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs \
+            --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript \
+            --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices \
+            --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils \
+            --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
+            --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
+            --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
+    (.venv) $ pip install PyQt5
+    (.venv) $ labscript-profile-create
+    (.venv) $ desktop-app install blacs lyse runmanager runviewer
 
 
 Detailed instructions
@@ -40,7 +51,7 @@ Detailed instructions
         --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
         --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
         --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
-    
+
 
    .. note::
         * This will set your forked repository(ies) to be the ‘origin’ remote.
@@ -52,7 +63,7 @@ Detailed instructions
 
         $ pip install -e blacs -e labscript -e labscript-devices -e labscript-utils \
             -e lyse -e runmanager -e runviewer
-    
+
 
    For a single package, this would look like:
 
@@ -60,7 +71,7 @@ Detailed instructions
 
         $ git clone https://github.com/wkheisenberg/runmanager.git
         $ pip install -e runmanager
-    
+
 
 3. For each repository, set the upstream remote to the base labscript-suite repository:
 
@@ -70,7 +81,7 @@ Detailed instructions
         $ cd blacs
         $ git remote add upstream https://github.com/labscript-suite/blacs.git
         $ cd ..
-    
+
 
    Repeat for the other repositories.
 
@@ -96,7 +107,7 @@ This assumes you have already completed the developer installation above and hav
         $ git checkout master
         $ git fetch upstream master --tags
         $ git merge upstream/master
-    
+
 
    Or using `Git Pull <https://help.github.com/en/github/using-git/getting-changes-from-a-remote-repository#pulling-changes-from-a-remote-repository>`_:
 
@@ -104,14 +115,14 @@ This assumes you have already completed the developer installation above and hav
 
         $ git checkout master
         $ git pull upstream master --tags
-    
+
 
    Or using `hub sync <https://hub.github.com/>`_ command-line extension (does not require current local working branch to be master):
 
    .. code-block:: console
 
         $ hub sync
-    
+
 
 2. Update your feature branches by merging them with master or rebasing them to master:
 
@@ -119,7 +130,7 @@ This assumes you have already completed the developer installation above and hav
 
         $ git checkout your-feature-name
         $ git merge master <OR> git rebase master --autostash
-    
+
 
 3. Update your fork by `pushing <https://help.github.com/en/github/using-git/pushing-commits-to-a-remote-repository>`_ any changes resulting from steps 1–2 and/or subsequent local development:
 
@@ -129,34 +140,34 @@ This assumes you have already completed the developer installation above and hav
         $ git push origin master --tags
         $ git checkout your-feature-name
         $ git push origin your-feature-name master
-    
+
 
    .. note:: If the feature branch has not yet been created on your fork, you need to include `-u` above, i.e.
 
         .. code-block:: console
 
             $ git push -u origin your-feature-name
-    
+
 
 4. Checkout the commit you want to install. This might be a specific release version (which can be specified by tag):
 
    .. code-block:: console
 
         $ git checkout v0.3.2
-    
+
 
    or using the commit SHA:
 
    .. code-block:: console
 
         $ git checkout 59651b5
-    
+
 
 5. (Optional) Update the package using (from within the root of a repository):
 
    .. code-block:: console
 
         $ pip install -e .
-    
+
 
    As the installations are in editable mode and the version is being introspected at runtime, this step is not always necessary, but is required for any change requiring setup.py to be run to take effect, e.g. dependency changes, console entry points, etc.
