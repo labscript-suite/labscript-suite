@@ -69,11 +69,18 @@ intersphinx_mapping = {
     'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
     'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
     'qtutils': ('https://qtutils.readthedocs.io/en/stable/', None),
-    'pyqtgraph': ('https://pyqtgraph.readthedocs.io/en/latest/', None), # change to stable once v0.11 is published
+    'pyqtgraph': (
+        'https://pyqtgraph.readthedocs.io/en/latest/',
+        None,
+    ),  # change to stable once v0.11 is published
     'matplotlib': ('https://matplotlib.org/', None),
     'h5py': ('http://docs.h5py.org/en/stable/', None),
     'pydaqmx': ('https://pythonhosted.org/PyDAQmx/', None),
-    'qt': ('', 'pyqt5-modified-objects.inv') # from https://github.com/MSLNZ/msl-qt/blob/master/docs/create_pyqt_objects.py under MIT License
+    'qt': (
+        '',
+        'pyqt5-modified-objects.inv',
+    )  # from https://github.com/MSLNZ/msl-qt/blob/master/docs/create_pyqt_objects.py
+    # under MIT License
     # TODO
     # desktop-app
     # spinapi/pynivision/etc
@@ -94,11 +101,16 @@ if project in labscript_suite_programs:
     labscript_suite_programs.remove(project)
 
 # whether to use stable or latest version
-labscript_suite_doc_version = 'stable' # 'stable' or 'latest'
+labscript_suite_doc_version = 'stable'  # 'stable' or 'latest'
 
 # add intersphinx references for each component
 for ls_prog in labscript_suite_programs:
-    intersphinx_mapping[ls_prog] = ('https://docs.labscript_suite.org/projects/{}/en/{}/'.format(ls_prog, labscript_suite_doc_version), None)
+    intersphinx_mapping[ls_prog] = (
+        'https://docs.labscript_suite.org/projects/{}/en/{}/'.format(
+            ls_prog, labscript_suite_doc_version
+        ),
+        None,
+    )
 
 # add intersphinx reference for the metapackage
 # intersphinx_mapping['labscript-suite'] = ('https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version), None)
@@ -107,7 +119,10 @@ for ls_prog in labscript_suite_programs:
 default_role = 'code'
 
 # hide todo notes if on readthedocs and not building the latest
-if os.environ.get('READTHEDOCS') and (os.environ.get('READTHEDOCS_VERSION') != 'latest' or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'):
+if os.environ.get('READTHEDOCS') and (
+    os.environ.get('READTHEDOCS_VERSION') != 'latest'
+    or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'
+):
     todo_include_todos = False
 else:
     todo_include_todos = True
@@ -129,6 +144,10 @@ html_short_title = "labscript suite"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# Customize the html_theme
+html_theme_options = {'navigation_depth': 3}
+
+
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
 def setup(app):
@@ -146,3 +165,4 @@ def setup(app):
     app.add_config_value('m2r_anonymous_references', False, 'env')
     app.add_config_value('m2r_disable_inline_math', False, 'env')
     app.add_directive('mdinclude', MdInclude)
+    app.add_stylesheet('custom.css')

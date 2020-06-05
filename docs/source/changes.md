@@ -24,7 +24,7 @@ A typical structure of the profile directory is:
         └── user_devices/
 ```
 
-This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](/installation#regular-installation-from-the-python-package-index)).
+This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](../installation)).
 
 _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) this can be the same directory as an editable installation.
 

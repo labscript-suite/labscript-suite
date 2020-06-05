@@ -120,5 +120,5 @@ Once you have a virtual environment up and running, choose from one of the follo
 
 1. :doc:`regular-pypi`,
 2. :doc:`regular-anaconda`,
-3. :doc:`development-pypi`, or
-4. :doc:`development-anaconda`.
+3. :doc:`developer-pypi`, or
+4. :doc:`developer-anaconda`.

@@ -1,0 +1,9 @@
+/* Add space between collapsible details HTML tags */
+details {
+    margin-bottom: 1em;
+}
+
+/* Darker pygment highlighing of console input/output */
+.highlight .go {
+    color: #404040;
+}
