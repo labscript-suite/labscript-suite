@@ -54,7 +54,7 @@ Detailed instructions
 
 
    .. note::
-        * This will set your forked repository(ies) to be the ‘origin’ remote.
+        * This will set your forked repository(ies) to be the 'origin' remote.
         * On Windows the line continuation character is `^` rather than ``\``.
 
    Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` by running the following from the common parent directory:
@@ -95,8 +95,8 @@ This assumes you have already completed the developer installation above and hav
 
 *   Forked a *labscript suite* repository on GitHub;
 *   Cloned the repository;
-*   Set your fork to be the ‘origin’ remote; and
-*   Set the labscript-suite base repository to be the ‘upstream’ remote.
+*   Set your fork to be the 'origin' remote; and
+*   Set the labscript-suite base repository to be the 'upstream' remote.
 
 1. Use one of the following to keep your repository (and feature branches) up-to-date:
 

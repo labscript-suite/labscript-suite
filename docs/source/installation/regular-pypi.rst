@@ -1,8 +1,8 @@
 Regular installation (Python Package Index)
 ===========================================
 
-If you are using a virtual environment (see :doc:`setting-up-an-environment`), activate it before executing the following commands.
-In this example, we will use the installation directory `C:\labscript-suite` with an existing virtual environment, not yet activated (skip the first two lines/steps if continuing on from the previous page).
+In this example, we will use an existing virtual environment named `.venv` located in `C:\labscript-suite`.
+Skip the first two lines/steps if continuing on from the instructions to :ref:`set up this environment <installation/setting-up-an-environment:Regular Python>`.
 
 
 Quick start
@@ -35,8 +35,8 @@ Detailed instructions
     (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
 
 
-3. Install the meta-package from PyPI.
-   This will install blacs, labscript, labscript-devices, labscript-utils, lyse, runmanager, runviewer, and all dependencies (except the bindings to the GUI toolkit and device-driver specific packages):
+3. Install the meta-package (`labscript-suite`) from PyPI.
+   This will install blacs, labscript, labscript-devices, labscript-utils, lyse, runmanager, runviewer, and all dependencies:
 
   .. code-block:: console
 
@@ -50,7 +50,7 @@ Detailed instructions
     (.venv) C:\labscript-suite> pip install PyQt5
 
 
-5. Create a profile directory in your home directory (the new location of user data, see :doc:`/changes`):
+5. Create a profile directory in your home directory (the location of user data; see :doc:`/changes`):
 
   .. code-block:: console
 
@@ -64,12 +64,14 @@ Detailed instructions
        (.venv) C:\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
-   These will be named, e.g. ‘runmanager – the labcript suite’ which when clicked on will:
+   These will be named, e.g. 'runmanager – the labcript suite' which when clicked on will:
 
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
 
-   Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. ‘runmanager – the labscript suite (py38)’ for a virtual environment named `py38`.
+.. note::
+
+    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. 'runmanager – the labscript suite (py38)' for a virtual environment named `py38`.
 
 Alternatively, you can launch the applications from a terminal, e.g.
 
@@ -107,7 +109,7 @@ To upgrade to a pre-release version, you can use the `--pre` (pre-relase) flag:
     (.venv) C:\labscript-suite> pip install -U --pre runmanager
 
 
-If updating multiple components, use a single pip install command for this to ensure dependency resolution is best dealt with:
+If updating multiple components, use a single `pip install` command to assist dependency resolution:
 
 .. code-block:: console
 
@@ -121,11 +123,10 @@ You can also update (or downgrade) to a specific version:
     (.venv) C:\labscript-suite> pip install runmanager==2.5.0
 
 
-.. TODO:: The below needs updating. I updated the first word to be "prerelease" instead of development (so that it wasn't confused with development installations). However, we should document the format of prerelease versions ("b1"? "rc1"?). Also, "devN" versions are on test PyPI which needs additional arguments to `pip`.
+.. TODO::
 
+    Development versions will be suffixed with `devN`, i.e.
 
-Prerelease versions will be suffixed with `devN`, i.e.
+    .. code-block:: console
 
-.. code-block:: console
-
-    (.venv) C:\labscript-suite> pip install runmanager==2.6.0dev3
+        (.venv) C:\labscript-suite> pip install -i https://test.pypi.org/simple runmanager==2.6.0dev3

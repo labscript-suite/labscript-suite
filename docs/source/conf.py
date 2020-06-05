@@ -37,6 +37,7 @@ release = version
 
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     'sphinx.ext.todo',
@@ -46,6 +47,9 @@ extensions = [
 ]
 
 autodoc_typehints = 'description'
+
+# Prefix each autosectionlabel with the name of the document it is in and a colon
+autosectionlabel_prefix_document = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
