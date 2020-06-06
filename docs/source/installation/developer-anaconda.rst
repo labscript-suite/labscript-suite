@@ -22,18 +22,21 @@ Quick start
 
     (base) C:\Users\wkheisenberg> mkdir labscript-suite
     (base) > cd labscript-suite
-    (base) > git clone https://github.com/labscript-suite/labscript
-    (base) > git clone https://github.com/labscript-suite/runmanager
-    (base) > git clone https://github.com/labscript-suite/blacs
-    (base) > git clone https://github.com/labscript-suite/lyse
-    (base) > git clone https://github.com/labscript-suite/runviewer
-    (base) > git clone https://github.com/labscript-suite/labscript-devices
-    (base) > git clone https://github.com/labscript-suite/labscript-utils
+    (base) > git clone https://github.com/wkheisenberg/labscript
+    (base) > git clone https://github.com/wkheisenberg/runmanager
+    (base) > git clone https://github.com/wkheisenberg/blacs
+    (base) > git clone https://github.com/wkheisenberg/lyse
+    (base) > git clone https://github.com/wkheisenberg/runviewer
+    (base) > git clone https://github.com/wkheisenberg/labscript-devices
+    (base) > git clone https://github.com/wkheisenberg/labscript-utils
     (base) > conda activate py38
     (py38) > conda config --add channels labscript-suite
     (py38) > conda install setuptools-conda pyqt pip desktop-app
-    (py38) > setuptools-conda install-requirements labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
-    (py38) > pip install --no-deps -e labscript -e runmanager -e blacs -e lyse -e runviewer -e labscript-devices -e labscript-utils
+    (py38) > setuptools-conda install-requirements ^ 
+             labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
+    (py38) > pip install --no-build-isolation --no-deps ^
+             -e labscript -e runmanager -e blacs -e lyse ^
+             -e runviewer -e labscript-devices -e labscript-utils
     (py38) > labscript-profile-create
     (py38) > desktop-app install blacs lyse runmanager runviewer
 
