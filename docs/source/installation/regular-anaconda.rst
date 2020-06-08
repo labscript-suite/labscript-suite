@@ -11,7 +11,8 @@ Quick start
 .. code-block:: console
 
     (base) C:\> conda activate py38
-    (py38) C:\> conda install -c labscript-suite labscript-suite pyqt
+    (base) C:\> conda config --env --add channels labscript-suite
+    (py38) C:\> conda install labscript-suite pyqt
     (py38) C:\> labscript-profile-create
     (py38) C:\> desktop-app install blacs lyse runmanager runviewer
 
@@ -25,23 +26,28 @@ Detailed instructions
 
     (base) C:\> conda activate py38
 
+2. Add the `labscript-suite` channel on `Anaconda Cloud <https://anaconda.org/labscript-suite>`_ to the current conda environment:
 
-2. Install the meta-package (`labscript-suite`) and bindings to the GUI toolkit (`pyqt`) from Anaconda Cloud.
+  .. code-block:: console
+
+    (py38) C:\> conda config --env --add channels labscript-suite
+
+3. Install the meta-package (`labscript-suite`) and bindings to the GUI toolkit (`pyqt`) from Anaconda Cloud.
    This will install blacs, labscript, labscript-devices, labscript-utils, lyse, runmanager, runviewer, and all dependencies:
 
   .. code-block:: console
 
-    (py38) C:\> conda install -c labscript-suite labscript-suite pyqt
+    (py38) C:\> conda install labscript-suite pyqt
 
 
-3. Create a profile directory in your home directory (the location of user data; see :doc:`/changes`):
+4. Create a profile directory in your home directory (the location of user data; see :doc:`/changes`):
 
   .. code-block:: console
 
     (py38) C:\> labscript-profile-create
 
 
-4. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).
+5. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).
 
    .. code-block:: console
 
@@ -76,7 +82,7 @@ To launch the applications detached from the console, suffix the application nam
 .. note::
 
     * You must have activated the conda environment in which the *labscript suite* was installed to use these commands.
-    * For the `-gui` entry points to function in Anaconda Python, Step 4 (above) must be completed.
+    * For the `-gui` entry points to function in Anaconda Python, Step 5 (above) must be completed.
 
 
 Updating a regular installation
