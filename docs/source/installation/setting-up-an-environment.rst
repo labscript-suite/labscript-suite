@@ -43,15 +43,15 @@ Detailed Instructions
 
   .. code-block:: console
 
-    (base) C:\labscript-suite> conda create -n py38 python=3.8
+    (base) C:\> conda create -n py38 python=3.8
 
 
 2. Activate the virtual (conda) environment:
 
   .. code-block:: console
 
-    (base) C:\labscript-suite> conda activate py38
-    (py38) C:\labscript-suite>
+    (base) C:\> conda activate py38
+    (py38) C:\>
 
 
 Regular Python
@@ -67,11 +67,11 @@ Quickstart
 
 .. code-block:: console
 
-    C:\> mkdir labscript-suite
-    C:\> cd labscript-suite
-    C:\labscript-suite> python -m venv .venv
-    C:\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    C:\Users\wkheisenberg> mkdir labscript-suite
+    C:\Users\wkheisenberg> cd labscript-suite
+    C:\Users\wkheisenberg\labscript-suite> python -m venv .venv
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
 
 Once activated, the name of the virtual environment (in this case, `.venv` ) will prefix the command line.
 
@@ -79,27 +79,27 @@ Once activated, the name of the virtual environment (in this case, `.venv` ) wil
 Detailed Instructions
 *********************
 
-1. From a new terminal, create the installation directory and enter it. Here we use `C:\labscript-suite` but this can be whatever you like:
+1. From a new terminal, create a directory for the virtual environment and enter it. Here we use a directory named `labscript-suite` in the user's home directory, also the location of the labscript suite profile directory. You need create the virtual environment here, but it is a convenient choice.
 
   .. code-block:: console
 
-    C:\> mkdir labscript-suite
-    C:\> cd labscript-suite
+    C:\Users\wkheisenberg> mkdir labscript-suite
+    C:\Users\wkheisenberg> cd labscript-suite
 
 
 2. Create a virtual environment.
-   Here we name it `.venv`, located inside the installation directory (name and location are also variable but these are conventional choices).
+   Here we name it `.venv`, located inside the labscript suite profile directory.
 
   .. code-block:: console
 
-    C:\labscript-suite> python -m venv .venv
+    C:\Users\wkheisenberg\labscript-suite> python -m venv .venv
 
 
 3. Activate the virtual environment:
 
   .. code-block:: console
 
-    C:\labscript-suite> .venv\Scripts\activate
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
 
   .. note:: This step is OS specific, e.g. on Linux it's `source .venv/bin/activate`.
 
@@ -107,7 +107,7 @@ Detailed Instructions
 
   .. code-block:: console
 
-    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
 
 
 Choosing an installation method

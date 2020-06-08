@@ -13,8 +13,8 @@ Quick start
 
 .. code-block:: console
 
-    $ source .venv/bin/activate
-    (.venv) $ pip install \
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install \
             --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs \
             --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript \
             --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices \
@@ -22,9 +22,9 @@ Quick start
             --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
             --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
             --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
-    (.venv) $ pip install PyQt5
-    (.venv) $ labscript-profile-create
-    (.venv) $ desktop-app install blacs lyse runmanager runviewer
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
 Detailed instructions
@@ -39,38 +39,38 @@ Detailed instructions
 .. _GitClone: https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
 
-2. Use `pip` to both clone these forks locally and install them into your environment. In this example (on Linux), the forks are owned by the (non-existent) GitHub user wkheisenberg.
+2. Use `pip` to both clone these forks locally and install them into your environment. In this example (on Windows), the forks are owned by the (non-existent) GitHub user wkheisenberg.
 
    .. code-block:: console
 
-        $ pip install \
-        --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs \
-        --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript \
-        --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices \
-        --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils \
-        --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
-        --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
+        C:\Users\wkheisenberg\labscript-suite> pip install ^
+        --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs ^
+        --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript ^
+        --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices ^
+        --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils ^
+        --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager ^
+        --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer ^
         --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
 
 
    .. note::
         * This will set your forked repository(ies) to be the 'origin' remote.
-        * On Windows the line continuation character is `^` rather than ``\``.
+        * On Linux / macOS the line continuation character is ``\`` rather than `^`.
 
    Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` by running the following from the common parent directory:
 
    .. code-block:: console
 
-        $ pip install -e blacs -e labscript -e labscript-devices -e labscript-utils \
-            -e lyse -e runmanager -e runviewer
+        C:\Users\wkheisenberg\labscript-suite> pip install -e blacs -e labscript \ 
+            -e labscript-devices -e labscript-utils -e lyse -e runmanager -e runviewer
 
 
    For a single package, this would look like:
 
    .. code-block:: console
 
-        $ git clone https://github.com/wkheisenberg/runmanager.git
-        $ pip install -e runmanager
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runmanager.git
+        C:\Users\wkheisenberg\labscript-suite> pip install -e runmanager
 
 
 3. For each repository, set the upstream remote to the base labscript-suite repository:
@@ -78,9 +78,9 @@ Detailed instructions
 
    .. code-block:: console
 
-        $ cd blacs
-        $ git remote add upstream https://github.com/labscript-suite/blacs.git
-        $ cd ..
+        C:\Users\wkheisenberg\labscript-suite> cd blacs
+        C:\Users\wkheisenberg\labscript-suite> git remote add upstream https://github.com/labscript-suite/blacs.git
+        C:\Users\wkheisenberg\labscript-suite> cd ..
 
 
    Repeat for the other repositories.
@@ -104,70 +104,70 @@ This assumes you have already completed the developer installation above and hav
 
    .. code-block:: console
 
-        $ git checkout master
-        $ git fetch upstream master --tags
-        $ git merge upstream/master
+        > git checkout master
+        > git fetch upstream master --tags
+        > git merge upstream/master
 
 
    Or using `Git Pull <https://help.github.com/en/github/using-git/getting-changes-from-a-remote-repository#pulling-changes-from-a-remote-repository>`_:
 
    .. code-block:: console
 
-        $ git checkout master
-        $ git pull upstream master --tags
+        > git checkout master
+        > git pull upstream master --tags
 
 
    Or using `hub sync <https://hub.github.com/>`_ command-line extension (does not require current local working branch to be master):
 
    .. code-block:: console
 
-        $ hub sync
+        > hub sync
 
 
 2. Update your feature branches by merging them with master or rebasing them to master:
 
    .. code-block:: console
 
-        $ git checkout your-feature-name
-        $ git merge master <OR> git rebase master --autostash
+        > git checkout your-feature-name
+        > git merge master <OR> git rebase master --autostash
 
 
 3. Update your fork by `pushing <https://help.github.com/en/github/using-git/pushing-commits-to-a-remote-repository>`_ any changes resulting from steps 1–2 and/or subsequent local development:
 
    .. code-block:: console
 
-        $ git checkout master
-        $ git push origin master --tags
-        $ git checkout your-feature-name
-        $ git push origin your-feature-name master
+        > git checkout master
+        > git push origin master --tags
+        > git checkout your-feature-name
+        > git push origin your-feature-name master
 
 
    .. note:: If the feature branch has not yet been created on your fork, you need to include `-u` above, i.e.
 
         .. code-block:: console
 
-            $ git push -u origin your-feature-name
+            > git push -u origin your-feature-name
 
 
 4. Checkout the commit you want to install. This might be a specific release version (which can be specified by tag):
 
    .. code-block:: console
 
-        $ git checkout v0.3.2
+        > git checkout v0.3.2
 
 
    or using the commit SHA:
 
    .. code-block:: console
 
-        $ git checkout 59651b5
+        > git checkout 59651b5
 
 
 5. (Optional) Update the package using (from within the root of a repository):
 
    .. code-block:: console
 
-        $ pip install -e .
+        > pip install -e .
 
 
    As the installations are in editable mode and the version is being introspected at runtime, this step is not always necessary, but is required for any change requiring setup.py to be run to take effect, e.g. dependency changes, console entry points, etc.

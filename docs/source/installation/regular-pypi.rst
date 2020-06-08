@@ -1,7 +1,7 @@
 Regular installation (Python Package Index)
 ===========================================
 
-In this example, we will use an existing virtual environment named `.venv` located in `C:\labscript-suite`.
+In this example, we will use an existing virtual environment named `.venv` located in `C:\Users\wkheisenberg\labscript-suite`.
 Skip the first two lines/steps if continuing on from the instructions to :ref:`set up this environment <installation/setting-up-an-environment:Regular Python>`.
 
 
@@ -10,12 +10,12 @@ Quick start
 
 .. code-block:: console
 
-    C:\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
-    (.venv) C:\labscript-suite> pip install labscript-suite
-    (.venv) C:\labscript-suite> pip install PyQt5
-    (.venv) C:\labscript-suite> labscript-profile-create
-    (.venv) C:\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
 Detailed instructions
@@ -25,14 +25,14 @@ Detailed instructions
 
   .. code-block:: console
 
-    C:\labscript-suite> .venv\Scripts\activate
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
 
 
 2. Update the Python package installer and other installation packages of your virtual environment.
 
   .. code-block:: console
 
-    (.venv) C:\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
 
 
 3. Install the meta-package (`labscript-suite`) from PyPI.
@@ -40,28 +40,28 @@ Detailed instructions
 
   .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install labscript-suite
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
 
 
 4. Install PyQt5, the bindings to the GUI toolkit (not installed above for licensing reasons):
 
   .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
 
 
-5. Create a profile directory in your home directory (the location of user data; see :doc:`/changes`):
+5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/changes`):
 
   .. code-block:: console
 
-    (.venv) C:\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
 
 
 6. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).
 
    .. code-block:: console
 
-       (.venv) C:\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+       (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
    These will be named, e.g. 'runmanager – the labcript suite' which when clicked on will:
@@ -99,28 +99,28 @@ Individual components of the labscript suite can be updated using the `--upgrade
 
 .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install -U runmanager
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -U runmanager
 
 
 To upgrade to a pre-release version, you can use the `--pre` (pre-relase) flag:
 
 .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install -U --pre runmanager
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -U --pre runmanager
 
 
 If updating multiple components, use a single `pip install` command to assist dependency resolution:
 
 .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install -U labscript lyse runmanager
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -U labscript lyse runmanager
 
 
 You can also update (or downgrade) to a specific version:
 
 .. code-block:: console
 
-    (.venv) C:\labscript-suite> pip install runmanager==2.5.0
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install runmanager==2.5.0
 
 
 .. TODO::
@@ -129,4 +129,4 @@ You can also update (or downgrade) to a specific version:
 
     .. code-block:: console
 
-        (.venv) C:\labscript-suite> pip install -i https://test.pypi.org/simple runmanager==2.6.0dev3
+        (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -i https://test.pypi.org/simple runmanager==2.6.0dev3
