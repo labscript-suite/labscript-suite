@@ -1,2 +1,0 @@
-Developer installation (Anaconda Cloud)
-=======================================
