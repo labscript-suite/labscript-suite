@@ -22,7 +22,7 @@ copyright = "2020, labscript suite"
 author = "labscript suite contributors"
 
 sys.path.insert(0, os.path.abspath("../.."))
-from labscript_suite import __version__ as version
+from labscript_suite import __version__ as version  # noqa: E402
 
 release = version
 
@@ -155,6 +155,7 @@ html_static_path = ['_static']
 
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
+
 
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
