@@ -12,35 +12,35 @@
 #
 import os
 import sys
-import sphinx_rtd_theme
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify
 
-sys.path.insert(0, os.path.abspath('../..'))
-from labscript_suite.__version__ import __version__
+# -- Project information (unique to each project) -------------------------------------
 
+project = "the labscript suite"
+copyright = "2020, labscript suite"
+author = "labscript suite contributors"
 
-# -- Project information -----------------------------------------------------
+sys.path.insert(0, os.path.abspath("../.."))
+from labscript_suite import __version__ as version  # noqa: E402
 
-project = 'the labscript suite'
-copyright = '2020, labscript suite'
-author = 'labscript suite contributors'
-
-version = __version__
 release = version
 
-# -- General configuration ---------------------------------------------------
+# HTML icons
+html_logo = "../../art/labscript-suite-rectangular-transparent_276x140.svg"
+html_favicon = "../../art/labscript.ico"
+
+# -- General configuration (should be identical across all projects) ------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    'sphinx.ext.todo',
+    "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx_rtd_theme",
     "recommonmark",
@@ -117,7 +117,11 @@ for ls_prog in labscript_suite_programs:
     )
 
 # add intersphinx reference for the metapackage
-# intersphinx_mapping['labscript-suite'] = ('https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version), None)
+if project != "the labscript suite":
+    intersphinx_mapping['labscript-suite'] = (
+        'https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version),
+        None,
+    )
 
 # Make `some code` equivalent to :code:`some code`
 default_role = 'code'
@@ -125,7 +129,10 @@ default_role = 'code'
 # hide todo notes if on readthedocs and not building the latest
 if os.environ.get('READTHEDOCS') and (
     os.environ.get('READTHEDOCS_VERSION') != 'latest'
-    or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'
+    or (
+        os.environ.get('READTHEDOCS_PROJECT') == project
+        or os.environ.get('READTHEDOCS_PROJECT') == 'labscriptsuite'
+    )
 ):
     todo_include_todos = False
 else:
@@ -138,8 +145,6 @@ else:
 #
 # html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
-html_logo = "../../art/labscript-suite-rectangular-transparent_276x140.svg"
-html_favicon = "../../art/labscript.ico"
 html_title = "labscript suite | experiment control and automation"
 html_short_title = "labscript suite"
 
