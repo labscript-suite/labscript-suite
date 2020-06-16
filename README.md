@@ -6,6 +6,15 @@
 
 ### Experiment control and automation system
 
+[![Actions Status](https://github.com/labscript-suite/labscript-suite/workflows/Build%20and%20Release/badge.svg)](https://github.com/labscript-suite/labscript-suite/actions)
+[![Documentation Status](https://readthedocs.org/projects/labscriptsuite/badge/?version=latest)](https://docs.labscriptsuite.org)
+[![License](https://img.shields.io/pypi/l/labscript-suite.svg)](https://github.com/labscript-suite/labscript-suite/raw/master/LICENSE.txt)
+[![Python Version](https://img.shields.io/pypi/pyversions/labscript-suite.svg)](https://python.org)
+[![PyPI](https://img.shields.io/pypi/v/labscript-suite.svg)](https://pypi.org/project/labscript-suite)
+[![Conda Version](https://img.shields.io/conda/v/labscript-suite/labscript-suite)](https://anaconda.org/labscript-suite/labscript-suite)
+[![Google Group](https://img.shields.io/badge/Google%20Group-labscriptsuite-blue.svg)](https://groups.google.com/forum/#!forum/labscriptsuite)
+[![DOI](http://img.shields.io/badge/DOI-10.1063%2F1.4817213-0F79D0.svg)](https://doi.org/10.1063/1.4817213)
+
 ___
 
 The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
@@ -79,23 +88,16 @@ A typical structure of the profile directory is:
         └── user_devices/
 ```
 
-This structure is created by calling the command `labscript-profile-create`.
-
-in a terminal after installing `labscript-utils` (per the [installation instructions](http://docs.labscriptsuite.org/en/latest/installation#regular-installation-from-the-python-package-index)).
+This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](http://docs.labscriptsuite.org/en/latest/installation#regular-installation-from-the-python-package-index)).
 
 _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) this can be the same directory as an editable installation.
-
-
-### Application shortcuts
-
-Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
 
 
 ### Secure communication
 
 Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
 
-As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret(or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
+As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret (or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
 
 1. Run `python -m zprocess.makesecret` from the labconfig directory.
 
@@ -119,9 +121,14 @@ allow_insecure = True
 
 *Notes*:
 
-* Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed.
+* Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed to ensure the same public-key is used by all hosts running *labscript suite* programs.
 
 * There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
+
+
+### Application shortcuts
+
+Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
 
 
 ### Source code structure (developer installation)
@@ -175,7 +182,12 @@ This archive can be found at [bitbucket-archive.labscriptsuite.org](https://bitb
 
 ### What to do if you had custom code in a fork on BitBucket
 
-_Coming soon!_
+labscript experiment scripts and lyse analysis scripts can be copied or moved to the new labscriptlib/analysislib folders. We deem these user-side code as they are not within the codebase of the labcript suite programs, and thus do not require a [developer (editable) installation](https://docs.labscriptsuite.org/en/latest/installation).
+
+Customisations of the labscript suite will need to be reintegrated into the new package structure, using a developer installation. For example, to include your own custom labscript devices, you should undertake the developer installation procedure for the [labscript-devices](https://github.com/labscript-suite/labscript-devices) repository, and copy your custom or modified device files into the labscript_devices folder alongside the existing device files. Please also consider contributing these back to the main project by pushing them to your fork and [issuing a pull request](https://docs.labscriptsuite.org/en/latest/contributing/#pull-requests).
+
+The procedure for migrating customisations of other components will depend on how up-to-date your fork is. Please open a thread on the [mailing list](http://groups.google.com/group/labscriptsuite) to discuss with us how to migrate your custom features and/or how to contribute them back to the base _labscript suite_ repositories.
+
 
 ### Migrating other repositories to GitHub
 
