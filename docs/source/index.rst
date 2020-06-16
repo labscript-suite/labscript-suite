@@ -71,8 +71,9 @@
    installation/index
    changes
    contributing
-   archive
+   component_docs
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
+   archive
 
 .. todolist:: 

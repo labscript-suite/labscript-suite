@@ -105,7 +105,9 @@ if project in labscript_suite_programs:
     labscript_suite_programs.remove(project)
 
 # whether to use stable or latest version
-labscript_suite_doc_version = 'stable'  # 'stable' or 'latest'
+labscript_suite_doc_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
+if labscript_suite_doc_version not in ['stable', 'latest']:
+    labscript_suite_doc_version = 'stable'
 
 # add intersphinx references for each component
 for ls_prog in labscript_suite_programs:
@@ -143,9 +145,10 @@ else:
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
-html_title = "labscript suite | experiment control and automation"
+html_title = "labscript suite | {project}".format(
+    project=project if project != "labscript-suite" else "experiment control and automation"
+)
 html_short_title = "labscript suite"
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -175,3 +178,22 @@ def setup(app):
     app.add_config_value('m2r_disable_inline_math', False, 'env')
     app.add_directive('mdinclude', MdInclude)
     app.add_stylesheet('custom.css')
+
+    with open(
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), 'component_docs.rst'),
+        'w',
+    ) as f:
+        f.write("labscript suite components\n")
+        f.write("==========================\n")
+        f.write("    \n")
+        f.write(".. toctree::\n")
+        f.write("    :maxdepth: 2\n")
+        f.write("    \n")
+        if project != "the labscript suite":
+            f.write(
+                "    labscript suite (metapackage)<{}>\n".format(
+                    intersphinx_mapping['labscript-suite'][0]
+                )
+            )
+        for ls_prog in labscript_suite_programs:
+            f.write("    {} <{}>\n".format(ls_prog, intersphinx_mapping[ls_prog][0]))
