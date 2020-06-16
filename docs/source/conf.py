@@ -147,7 +147,9 @@ else:
 #
 html_theme = "sphinx_rtd_theme"
 html_title = "labscript suite | {project}".format(
-    project=project if project != "labscript-suite" else "experiment control and automation"
+    project=project
+    if project != "labscript-suite"
+    else "experiment control and automation"
 )
 html_short_title = "labscript suite"
 
