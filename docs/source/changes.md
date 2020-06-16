@@ -67,6 +67,11 @@ allow_insecure = True
 Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
 
 
+### Lab configuration
+
+The `experiment_name` item has been renamed to `apparatus_name` in the labconfig (.ini) file, to better reflect the distinciton between the infrasturcture that experiment shots are executed on. The old keyword can still be used for this item, but a [warning](https://docs.python.org/3/library/exceptions.html#FutureWarning) will be issued to remind you to update your labconfig.
+
+
 ### Source code structure (developer installation)
 
 Existing users who move to a developer (editable) installation, please note the following structural changes to the _labscript suite_ source code:
