@@ -1,12 +1,10 @@
 # the _labscript suite_
 
-<!-- ![labscript logo](https://raw.githubusercontent.com/rpanderson/labscript-suite/readme/suite_logo_white_bg.png "labscript suite logo") -->
-
 <a href="https://github.com/labscript-suite/labscript"><img src="https://raw.githubusercontent.com/labscript-suite/labscript-suite/master/art/labscript_32nx32n.svg" height="96" alt="the labscript suite – labscript"></a> <a href="https://github.com/labscript-suite/runmanager"><img src="https://raw.githubusercontent.com/labscript-suite/labscript-suite/master/art/runmanager_32nx32n.svg" height="96" alt="the labscript suite – runmanager"></a> <a href="https://github.com/labscript-suite/blacs"><img src="https://raw.githubusercontent.com/labscript-suite/labscript-suite/master/art/blacs_32nx32n.svg" height="96" alt="the labscript suite – blacs"></a> <a href="https://github.com/labscript-suite/lyse"><img src="https://raw.githubusercontent.com/labscript-suite/labscript-suite/master/art/lyse_32nx32n.svg" height="96" alt="the labscript suite – lyse"></a> <a href="https://github.com/labscript-suite/runviewer"><img src="https://raw.githubusercontent.com/labscript-suite/labscript-suite/master/art/runviewer_32nx32n.svg" height="96" alt="the labscript suite – runviewer"></a>
 
 ### Experiment control and automation system
 
-[![Actions Status](https://github.com/labscript-suite/labscript-suite/workflows/Build%20and%20Release/badge.svg)](https://github.com/labscript-suite/labscript-suite/actions)
+[![Actions Status](https://github.com/labscript-suite/labscript-suite/workflows/Build%20and%20Release/badge.svg?branch=maintenance%2F3.0.x)](https://github.com/labscript-suite/labscript-suite/actions)
 [![Documentation Status](https://readthedocs.org/projects/labscriptsuite/badge/?version=latest)](https://docs.labscriptsuite.org)
 [![License](https://img.shields.io/pypi/l/labscript-suite.svg)](https://github.com/labscript-suite/labscript-suite/raw/master/LICENSE.txt)
 [![Python Version](https://img.shields.io/pypi/pyversions/labscript-suite.svg)](https://python.org)
@@ -15,7 +13,6 @@
 [![Google Group](https://img.shields.io/badge/Google%20Group-labscriptsuite-blue.svg)](https://groups.google.com/forum/#!forum/labscriptsuite)
 [![DOI](http://img.shields.io/badge/DOI-10.1063%2F1.4817213-0F79D0.svg)](https://doi.org/10.1063/1.4817213)
 
-___
 
 The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
@@ -39,13 +36,11 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 - [Installing the _labscript suite_](#installing-the-labscript-suite)
 - [Recent changes to the _labscript suite_](#recent-changes-to-the-labscript-suite)
   - [Profile directories](#profile-directories)
-  - [Application shortcuts](#application-shortcuts)
   - [Secure communication](#secure-communication)
+  - [Application shortcuts](#application-shortcuts)
   - [Source code structure (developer installation)](#source-code-structure-developer-installation)
   - [Versioning (developer installation)](#versioning-developer-installation)
 - [BitBucket archive](#bitbucket-archive)
-  - [What to do if you had custom code in a fork on BitBucket](#what-to-do-if-you-had-custom-code-in-a-fork-on-bitbucket)
-  - [Migrating other repositories to GitHub](#migrating-other-repositories-to-github)
 - [Contributing to the _labscript suite_](#contributing-to-the-labscript-suite)
   - [Issue tracking](#issue-tracking)
   - [Request for developers](#request-for-developers)
@@ -53,7 +48,7 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 
 ## Installing the _labscript suite_
 
-We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/anaconda/conda).
+We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/labscript-suite).
 
 This makes it far easier to get started using the _labscript suite_, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
 
@@ -110,7 +105,7 @@ As of labscript-utils 2.16.0, **encryted interprocess communication will be the 
 
 3. Copy the same pre-shared key to all computers running the *labscript suite* that need to communicate with each other, repeating step 2 for each of them.
 
-Treat this file like a password: it allows anyone on the same network access to *labscript suite* programs.
+Treat this file like a password; it allows anyone on the same network access to *labscript suite* programs.
 
 If you are on a trusted network and don't want to use secure communication, you may instead set:
 
@@ -157,10 +152,10 @@ Existing users who move to a developer (editable) installation, please note the 
 
 
 * Package names (shared by repositories and top-level folders) are now hyphenated, e.g. labscript-devices and labscript-utils.
-* Module names remain underscored, i.e. labscript_devices and labscript_utils.
+* Module names remain underscored, e.g. labscript_devices and labscript_utils.
 * The mixing of hyphen and underscores is inelegant but conventional.
 * All references to blacs are now lowercase.
-* As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and will be used as a metapackage for the labscript suite.
+* As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and is a metapackage for the *labscript suite* (installing it via `pip`/`conda` installs the suite).
 
 
 ### Versioning (developer installation)
@@ -170,7 +165,7 @@ Aside from the maintenance branches documented [here](http://docs.labscriptsuite
 
 ## BitBucket archive
 
-Some repository metadata (such as pull request discussions) could not be migrated directly from BitBucket to GitHub. As such, we have created an archived copy of everything that was on BitBucket. This includes:
+In April–May 2020 the _labscript suite_ code base was migrated from BitBucket to GitHub. All commit history and issues was preserved, however some repository metadata (such as pull request discussions) could not be migrated directly. As such, we have created an archived copy of everything that was on BitBucket. This includes:
 
 * Issues (as they appear on BitBucket);
 * Pull requests discussions;
@@ -179,19 +174,8 @@ Some repository metadata (such as pull request discussions) could not be migrate
 
 This archive can be found at [bitbucket-archive.labscriptsuite.org](https://bitbucket-archive.labscriptsuite.org/) (this page can take some time to load for the first time). Copies of every public fork of our repositories are at [github.com/labscript-suite-bitbucket-archive](https://github.com/labscript-suite-bitbucket-archive). As this is an archive, we will not be transferring ownership of these repositories back to their original owners. However, should you wish to continue development on one of those repositories you can fork it into your own account through the GitHub web interface. Should you have uncommitted changes (or changes made after 1st February, 2020) that you wish to have archived, please contact us to discuss the best approach to including these. Please note that we are not recommending continuing development in such forks long term, due to the changes in package structure outlined above.
 
+Further information about migrating your own customisations of the labscript suite can be found [here](https://docs.labscriptsuite.org/en/latest/archive/).
 
-### What to do if you had custom code in a fork on BitBucket
-
-labscript experiment scripts and lyse analysis scripts can be copied or moved to the new labscriptlib/analysislib folders. We deem these user-side code as they are not within the codebase of the labcript suite programs, and thus do not require a [developer (editable) installation](https://docs.labscriptsuite.org/en/latest/installation).
-
-Customisations of the labscript suite will need to be reintegrated into the new package structure, using a developer installation. For example, to include your own custom labscript devices, you should undertake the developer installation procedure for the [labscript-devices](https://github.com/labscript-suite/labscript-devices) repository, and copy your custom or modified device files into the labscript_devices folder alongside the existing device files. Please also consider contributing these back to the main project by pushing them to your fork and [issuing a pull request](https://docs.labscriptsuite.org/en/latest/contributing/#pull-requests).
-
-The procedure for migrating customisations of other components will depend on how up-to-date your fork is. Please open a thread on the [mailing list](http://groups.google.com/group/labscriptsuite) to discuss with us how to migrate your custom features and/or how to contribute them back to the base _labscript suite_ repositories.
-
-
-### Migrating other repositories to GitHub
-
-Should you have other repositories on BitBucket such as labscriptlib, analysislib, userlib, or labconfig (or any project unrelated to the _labscript suite_) we strongly suggest using the tools we developed to migrate the _labscript suite_. These are [philipstarkey/bitbucket-hg-exporter](https://github.com/philipstarkey/bitbucket-hg-exporter) and [chrisjbillington/hg-export-tool](https://github.com/chrisjbillington/hg-export-tool) which can be used together. See the documentation of those projects for further details.
 
 ## Contributing to the _labscript suite_
 
