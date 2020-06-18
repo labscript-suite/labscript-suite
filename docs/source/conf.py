@@ -29,8 +29,8 @@ release = version
 
 # HTML icons
 img_path = "../../art"
-html_logo = img_path+"/labscript-suite-rectangular-transparent_276x140.svg"
-html_favicon = img_path+"/labscript.ico"
+html_logo = img_path + "/labscript-suite-rectangular-transparent_276x140.svg"
+html_favicon = img_path + "/labscript.ico"
 
 # -- General configuration (should be identical across all projects) ------------------
 
@@ -96,37 +96,37 @@ intersphinx_mapping = {
 labscript_suite_programs = {
     'labscript': {
         'desc': 'Expressive composition of hardware-timed experiments',
-        'img': img_path+'/labscript_32nx32n.svg',
+        'img': img_path + '/labscript_32nx32n.svg',
         'type': 'lib',
     },
     'labscript-devices': {
         'desc': 'Plugin architecture for controlling experiment hardware',
-        'img': img_path+'/labscript_32nx32n.svg',
+        'img': img_path + '/labscript_32nx32n.svg',
         'type': 'lib',
     },
     'labscript-utils': {
         'desc': 'Shared modules used by the *labscript suite*',
-        'img': img_path+'/labscript_32nx32n.svg',
+        'img': img_path + '/labscript_32nx32n.svg',
         'type': 'lib',
     },
     'runmanager': {
         'desc': 'Graphical and remote interface to parameterized experiments',
-        'img': img_path+'/runmanager_32nx32n.svg',
+        'img': img_path + '/runmanager_32nx32n.svg',
         'type': 'gui',
     },
     'blacs': {
         'desc': 'Graphical interface to scientific instruments and experiment supervision',
-        'img': img_path+'/blacs_32nx32n.svg',
+        'img': img_path + '/blacs_32nx32n.svg',
         'type': 'gui',
     },
     'lyse': {
         'desc': 'Online analysis of live experiment data',
-        'img': img_path+'/lyse_32nx32n.svg',
+        'img': img_path + '/lyse_32nx32n.svg',
         'type': 'gui',
     },
     'runviewer': {
         'desc': 'Visualize hardware-timed experiment instructions',
-        'img': img_path+'/runviewer_32nx32n.svg',
+        'img': img_path + '/runviewer_32nx32n.svg',
         'type': 'gui',
     },
 }
@@ -199,6 +199,15 @@ components_rst_template = \
 
 The *labscript suite* is modular by design, and is comprised of:
 
+.. list-table:: Metapackage
+    :widths: 10 90
+    :header-rows: 0
+
+    * - .. image:: {metapackage_img}
+             :target: https://docs.labscriptsuite.org/en/{labscript_suite_doc_version}/
+             :class: labscript-suite-icon
+      - |labscriptsuite|_ --- The metapackage for the *labscript suite*
+
 .. list-table:: Python libraries
     :widths: 10 90
     :header-rows: 0
@@ -218,19 +227,21 @@ The *labscript suite* is modular by design, and is comprised of:
 {toctree_entires}
 
 
+.. |labscriptsuite| replace:: **labscriptsuite**
+.. _labscriptsuite: https://docs.labscriptsuite.org/en/{labscript_suite_doc_version}/
 {rst_defs}
 """
 
 components_rst_table_template = \
 """    * - .. image:: {img}
-             :target: https://docs.labscriptsuite.org/projects/{prog}/en/latest/
+             :target: {target}
              :class: labscript-suite-icon
       - |{prog}|_ --- {desc}
 """
 
 components_rst_link_template = \
 """.. |{prog}| replace:: **{prog}**
-.. _{prog}: https://docs.labscriptsuite.org/projects/{prog}/en/latest/
+.. _{prog}: {target}
 """
 # fmt:on
 
@@ -261,15 +272,35 @@ def setup(app):
     }
     components_rst_link = ""
     components_rst_toctree = ""
+    if project != 'the labscript suite':
+        components_rst_toctree += "*labscript suite* metapackage <{}>\n".format(
+            intersphinx_mapping['labscript-suite'][0]
+        )
+    metapackage_img = img_path + "/labscript-suite-rectangular-transparent_138nx70n.svg"
     for ls_prog, data in labscript_suite_programs.items():
         components_rst_table[data['type']] += components_rst_table_template.format(
-            prog=ls_prog, **data
+            prog=ls_prog,
+            labscript_suite_doc_version=labscript_suite_doc_version,
+            target=intersphinx_mapping[ls_prog][0],
+            **data
         )
-        components_rst_link += components_rst_link_template.format(prog=ls_prog)
+        components_rst_link += components_rst_link_template.format(
+            prog=ls_prog,
+            labscript_suite_doc_version=labscript_suite_doc_version,
+            target=intersphinx_mapping[ls_prog][0],
+        )
     for ls_prog in sorted(labscript_suite_programs):
-        components_rst_toctree += "    {} <{}>\n".format(ls_prog, intersphinx_mapping[ls_prog][0])
-    
-    components_rst = components_rst_template.format(toctree_entires=components_rst_toctree, rst_defs=components_rst_link, **components_rst_table)
+        components_rst_toctree += "    {} <{}>\n".format(
+            ls_prog, intersphinx_mapping[ls_prog][0]
+        )
+
+    components_rst = components_rst_template.format(
+        toctree_entires=components_rst_toctree,
+        rst_defs=components_rst_link,
+        metapackage_img=metapackage_img,
+        labscript_suite_doc_version=labscript_suite_doc_version,
+        **components_rst_table
+    )
 
     with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
         f.write(components_rst)
