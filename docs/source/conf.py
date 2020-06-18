@@ -130,9 +130,6 @@ labscript_suite_programs = {
         'type': 'gui',
     },
 }
-# remove this current repo from the list
-if project in labscript_suite_programs:
-    labscript_suite_programs.remove(project)
 
 # whether to use stable or latest version
 labscript_suite_doc_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
@@ -194,19 +191,13 @@ html_theme_options = {'navigation_depth': 3}
 # Template for generating the components.rst file
 # fmt:off
 components_rst_template = \
-"""*labscript suite* components
+"""
+{metapackage_toctree}
+
+*labscript suite* components
 ============================
 
 The *labscript suite* is modular by design, and is comprised of:
-
-.. list-table:: Metapackage
-    :widths: 10 90
-    :header-rows: 0
-
-    * - .. image:: {metapackage_img}
-             :target: https://docs.labscriptsuite.org/en/{labscript_suite_doc_version}/
-             :class: labscript-suite-icon
-      - |labscriptsuite|_ --- The metapackage for the *labscript suite*
 
 .. list-table:: Python libraries
     :widths: 10 90
@@ -226,9 +217,6 @@ The *labscript suite* is modular by design, and is comprised of:
 
 {toctree_entires}
 
-
-.. |labscriptsuite| replace:: **labscriptsuite**
-.. _labscriptsuite: https://docs.labscriptsuite.org/en/{labscript_suite_doc_version}/
 {rst_defs}
 """
 
@@ -242,6 +230,14 @@ components_rst_table_template = \
 components_rst_link_template = \
 """.. |{prog}| replace:: **{prog}**
 .. _{prog}: {target}
+"""
+
+components_rst_metapackage_template = \
+""".. toctree::
+    :maxdepth: 2
+    :hidden:
+
+    Metapackage documentation <{}>
 """
 # fmt:on
 
@@ -272,8 +268,9 @@ def setup(app):
     }
     components_rst_link = ""
     components_rst_toctree = ""
+    components_rst_metapackage = ""
     if project != 'the labscript suite':
-        components_rst_toctree += "*labscript suite* metapackage <{}>\n".format(
+        components_rst_metapackage = components_rst_metapackage_template.format(
             intersphinx_mapping['labscript-suite'][0]
         )
     metapackage_img = img_path + "/labscript-suite-rectangular-transparent_138nx70n.svg"
@@ -290,15 +287,16 @@ def setup(app):
             target=intersphinx_mapping[ls_prog][0],
         )
     for ls_prog in sorted(labscript_suite_programs):
-        components_rst_toctree += "    {} <{}>\n".format(
-            ls_prog, intersphinx_mapping[ls_prog][0]
-        )
+        if ls_prog != project:
+            components_rst_toctree += "    {} <{}>\n".format(
+                ls_prog, intersphinx_mapping[ls_prog][0]
+            )
 
     components_rst = components_rst_template.format(
         toctree_entires=components_rst_toctree,
         rst_defs=components_rst_link,
-        metapackage_img=metapackage_img,
         labscript_suite_doc_version=labscript_suite_doc_version,
+        metapackage_toctree=components_rst_metapackage,
         **components_rst_table
     )
 
