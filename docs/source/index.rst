@@ -71,7 +71,7 @@
    installation/index
    changes
    contributing
-   component_docs
+   components
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
    archive

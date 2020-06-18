@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+from pathlib import Path
 import sys
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify
@@ -112,7 +113,7 @@ if labscript_suite_doc_version not in ['stable', 'latest']:
 # add intersphinx references for each component
 for ls_prog in labscript_suite_programs:
     intersphinx_mapping[ls_prog] = (
-        'https://docs.labscript_suite.org/projects/{}/en/{}/'.format(
+        'https://docs.labscriptsuite.org/projects/{}/en/{}/'.format(
             ls_prog, labscript_suite_doc_version
         ),
         None,
@@ -121,7 +122,7 @@ for ls_prog in labscript_suite_programs:
 # add intersphinx reference for the metapackage
 if project != "the labscript suite":
     intersphinx_mapping['labscript-suite'] = (
-        'https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version),
+        'https://docs.labscriptsuite.org/en/{}/'.format(labscript_suite_doc_version),
         None,
     )
 
@@ -181,12 +182,9 @@ def setup(app):
     app.add_directive('mdinclude', MdInclude)
     app.add_stylesheet('custom.css')
 
-    with open(
-        os.path.join(os.path.dirname(os.path.realpath(__file__)), 'component_docs.rst'),
-        'w',
-    ) as f:
-        f.write("labscript suite components\n")
-        f.write("==========================\n")
+    with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
+        f.write("*labscript suite* components\n")
+        f.write("============================\n")
         f.write("    \n")
         f.write(".. toctree::\n")
         f.write("    :maxdepth: 2\n")

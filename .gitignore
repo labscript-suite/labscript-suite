@@ -1,3 +1,16 @@
+# Editors
+.vscode/
+
+# dynamically generated docs
+docs/source/components.rst
+
+#
+# The above is custom entries for the labscript suite project
+#
+# The below is the standard GitHub Python .gitignore list. This contains no custom
+# entries and can be updated with copy/paste in the future
+#
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,9 +140,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# Editors
-.vscode/
-
-# dynamically generated docs
-docs/source/component_docs.rst
