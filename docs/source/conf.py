@@ -15,6 +15,7 @@ from pathlib import Path
 import sys
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify
+from jinja2 import FileSystemLoader, Environment
 
 # -- Project information (unique to each project) -------------------------------------
 
@@ -188,59 +189,6 @@ html_static_path = ['_static']
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
 
-# Template for generating the components.rst file
-# fmt:off
-components_rst_template = \
-"""
-{metapackage_toctree}
-
-*labscript suite* components
-============================
-
-The *labscript suite* is modular by design, and is comprised of:
-
-.. list-table:: Python libraries
-    :widths: 10 90
-    :header-rows: 0
-
-{lib}
-
-.. list-table:: Graphical applications
-    :widths: 10 90
-    :header-rows: 0
-
-{gui}
-
-.. toctree::
-    :maxdepth: 2
-    :hidden:
-
-{toctree_entires}
-
-{rst_defs}
-"""
-
-components_rst_table_template = \
-"""    * - .. image:: {img}
-             :target: {target}
-             :class: labscript-suite-icon
-      - |{prog}|_ --- {desc}
-"""
-
-components_rst_link_template = \
-""".. |{prog}| replace:: **{prog}**
-.. _{prog}: {target}
-"""
-
-components_rst_metapackage_template = \
-""".. toctree::
-    :maxdepth: 2
-    :hidden:
-
-    Metapackage documentation <{}>
-"""
-# fmt:on
-
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
 def setup(app):
@@ -262,43 +210,30 @@ def setup(app):
 
     # generate the components.rst file dynamically so it points to stable/latest
     # of subprojects correctly
-    components_rst_table = {
-        "lib": "",
-        "gui": "",
-    }
-    components_rst_link = ""
-    components_rst_toctree = ""
-    components_rst_metapackage = ""
-    if project != 'the labscript suite':
-        components_rst_metapackage = components_rst_metapackage_template.format(
-            intersphinx_mapping['labscript-suite'][0]
-        )
-    metapackage_img = img_path + "/labscript-suite-rectangular-transparent_138nx70n.svg"
-    for ls_prog, data in labscript_suite_programs.items():
-        components_rst_table[data['type']] += components_rst_table_template.format(
-            prog=ls_prog,
-            labscript_suite_doc_version=labscript_suite_doc_version,
-            target=intersphinx_mapping[ls_prog][0],
-            **data
-        )
-        components_rst_link += components_rst_link_template.format(
-            prog=ls_prog,
-            labscript_suite_doc_version=labscript_suite_doc_version,
-            target=intersphinx_mapping[ls_prog][0],
-        )
-    for ls_prog in sorted(labscript_suite_programs):
-        if ls_prog != project:
-            components_rst_toctree += "    {} <{}>\n".format(
-                ls_prog, intersphinx_mapping[ls_prog][0]
-            )
-
-    components_rst = components_rst_template.format(
-        toctree_entires=components_rst_toctree,
-        rst_defs=components_rst_link,
-        labscript_suite_doc_version=labscript_suite_doc_version,
-        metapackage_toctree=components_rst_metapackage,
-        **components_rst_table
-    )
-
+    loader = FileSystemLoader(Path(__file__).resolve().parent / templates_path[0])
+    env = Environment(loader=loader)
+    template = env.get_template('components.rst')
     with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
-        f.write(components_rst)
+        f.write(
+            template.render(
+                metapackage_toctree=project != 'the labscript suite',
+                intersphinx_mapping=intersphinx_mapping,
+                libs=dict(
+                    filter(
+                        lambda x: x[1]['type'] == 'lib',
+                        labscript_suite_programs.items(),
+                    )
+                ),
+                guis=dict(
+                    filter(
+                        lambda x: x[1]['type'] == 'gui',
+                        labscript_suite_programs.items(),
+                    )
+                ),
+                toctree_entries=list(
+                    filter(lambda x: x != project, sorted(labscript_suite_programs))
+                ),
+                rst_defs=labscript_suite_programs,
+            )
+        )
+

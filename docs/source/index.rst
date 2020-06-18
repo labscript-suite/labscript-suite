@@ -71,6 +71,12 @@
    installation/index
    changes
    contributing
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: LINKS
+   
    components
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
