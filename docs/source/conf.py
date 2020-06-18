@@ -28,8 +28,9 @@ from labscript_suite import __version__ as version  # noqa: E402
 release = version
 
 # HTML icons
-html_logo = "../../art/labscript-suite-rectangular-transparent_276x140.svg"
-html_favicon = "../../art/labscript.ico"
+img_path = "../../art"
+html_logo = img_path+"/labscript-suite-rectangular-transparent_276x140.svg"
+html_favicon = img_path+"/labscript.ico"
 
 # -- General configuration (should be identical across all projects) ------------------
 
@@ -92,15 +93,43 @@ intersphinx_mapping = {
 }
 
 # list of all labscript suite components that have docs
-labscript_suite_programs = [
-    'labscript',
-    'runmanager',
-    'runviewer',
-    'blacs',
-    'lyse',
-    'labscript-utils',
-    'labscript-devices',
-]
+labscript_suite_programs = {
+    'labscript': {
+        'desc': 'Expressive composition of hardware-timed experiments',
+        'img': img_path+'/labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'labscript-devices': {
+        'desc': 'Plugin architecture for controlling experiment hardware',
+        'img': img_path+'/labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'labscript-utils': {
+        'desc': 'Shared modules used by the *labscript suite*',
+        'img': img_path+'/labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'runmanager': {
+        'desc': 'Graphical and remote interface to parameterized experiments',
+        'img': img_path+'/runmanager_32nx32n.svg',
+        'type': 'gui',
+    },
+    'blacs': {
+        'desc': 'Graphical interface to scientific instruments and experiment supervision',
+        'img': img_path+'/blacs_32nx32n.svg',
+        'type': 'gui',
+    },
+    'lyse': {
+        'desc': 'Online analysis of live experiment data',
+        'img': img_path+'/lyse_32nx32n.svg',
+        'type': 'gui',
+    },
+    'runviewer': {
+        'desc': 'Visualize hardware-timed experiment instructions',
+        'img': img_path+'/runviewer_32nx32n.svg',
+        'type': 'gui',
+    },
+}
 # remove this current repo from the list
 if project in labscript_suite_programs:
     labscript_suite_programs.remove(project)
@@ -162,6 +191,48 @@ html_static_path = ['_static']
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
 
+# Template for generating the components.rst file
+# fmt:off
+components_rst_template = \
+"""*labscript suite* components
+============================
+
+The *labscript suite* is modular by design, and is comprised of:
+
+.. list-table:: Python libraries
+    :widths: 10 90
+    :header-rows: 0
+
+{lib}
+
+.. list-table:: Graphical applications
+    :widths: 10 90
+    :header-rows: 0
+
+{gui}
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+
+{toctree_entires}
+
+
+{rst_defs}
+"""
+
+components_rst_table_template = \
+"""    * - .. image:: {img}
+             :target: https://docs.labscriptsuite.org/projects/{prog}/en/latest/
+             :class: labscript-suite-icon
+      - |{prog}|_ --- {desc}
+"""
+
+components_rst_link_template = \
+""".. |{prog}| replace:: **{prog}**
+.. _{prog}: https://docs.labscriptsuite.org/projects/{prog}/en/latest/
+"""
+# fmt:on
 
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
@@ -182,18 +253,23 @@ def setup(app):
     app.add_directive('mdinclude', MdInclude)
     app.add_stylesheet('custom.css')
 
+    # generate the components.rst file dynamically so it points to stable/latest
+    # of subprojects correctly
+    components_rst_table = {
+        "lib": "",
+        "gui": "",
+    }
+    components_rst_link = ""
+    components_rst_toctree = ""
+    for ls_prog, data in labscript_suite_programs.items():
+        components_rst_table[data['type']] += components_rst_table_template.format(
+            prog=ls_prog, **data
+        )
+        components_rst_link += components_rst_link_template.format(prog=ls_prog)
+    for ls_prog in sorted(labscript_suite_programs):
+        components_rst_toctree += "    {} <{}>\n".format(ls_prog, intersphinx_mapping[ls_prog][0])
+    
+    components_rst = components_rst_template.format(toctree_entires=components_rst_toctree, rst_defs=components_rst_link, **components_rst_table)
+
     with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
-        f.write("*labscript suite* components\n")
-        f.write("============================\n")
-        f.write("    \n")
-        f.write(".. toctree::\n")
-        f.write("    :maxdepth: 2\n")
-        f.write("    \n")
-        if project != "the labscript suite":
-            f.write(
-                "    labscript suite (metapackage)<{}>\n".format(
-                    intersphinx_mapping['labscript-suite'][0]
-                )
-            )
-        for ls_prog in labscript_suite_programs:
-            f.write("    {} <{}>\n".format(ls_prog, intersphinx_mapping[ls_prog][0]))
+        f.write(components_rst)
