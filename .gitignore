@@ -76,7 +76,7 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/html/
+docs/_build/
 
 # PyBuilder
 target/
@@ -142,5 +142,7 @@ dmypy.json
 # Editors
 .vscode/
 
-# dynamically generated docs
+# Sphinx documentation
+docs/html/
+docs/source/_build/
 docs/source/components.rst
