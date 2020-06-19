@@ -3,7 +3,7 @@
     :maxdepth: 2
     :hidden:
 
-    The labscript suite <{{intersphinx_mapping['labscript-suite'][0]}}>
+    the labscript suite <{{intersphinx_mapping['labscript-suite'][0]}}>
 
 {% endif %}
 *labscript suite* components
@@ -16,7 +16,7 @@ The *labscript suite* is modular by design, and is comprised of:
     :header-rows: 0
 
     {% for prog, item in programs.items() if item.type == 'lib' %}
-    * - .. image:: {{item.img}}
+    * - .. image:: {{img_path}}/{{item.icon}}
              :target: {{intersphinx_mapping['%s' | format(prog)][0]}}
              :class: labscript-suite-icon
       - |{{prog}}|_ --- {{item.desc}}
@@ -27,7 +27,7 @@ The *labscript suite* is modular by design, and is comprised of:
     :header-rows: 0
 
     {% for prog, item in programs.items() if item.type == 'gui' %}
-    * - .. image:: {{item.img}}
+    * - .. image:: {{img_path}}/{{item.icon}}
              :target: {{intersphinx_mapping['%s' | format(prog)][0]}}
              :class: labscript-suite-icon
       - |{{prog}}|_ --- {{item.desc}}

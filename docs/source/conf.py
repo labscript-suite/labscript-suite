@@ -97,37 +97,37 @@ intersphinx_mapping = {
 labscript_suite_programs = {
     'labscript': {
         'desc': 'Expressive composition of hardware-timed experiments',
-        'img': img_path + '/labscript_32nx32n.svg',
+        'icon': 'labscript_32nx32n.svg',
         'type': 'lib',
     },
     'labscript-devices': {
         'desc': 'Plugin architecture for controlling experiment hardware',
-        'img': img_path + '/labscript_32nx32n.svg',
+        'icon': 'labscript_32nx32n.svg',
         'type': 'lib',
     },
     'labscript-utils': {
         'desc': 'Shared modules used by the *labscript suite*',
-        'img': img_path + '/labscript_32nx32n.svg',
+        'icon': 'labscript_32nx32n.svg',
         'type': 'lib',
     },
     'runmanager': {
         'desc': 'Graphical and remote interface to parameterized experiments',
-        'img': img_path + '/runmanager_32nx32n.svg',
+        'icon': 'runmanager_32nx32n.svg',
         'type': 'gui',
     },
     'blacs': {
         'desc': 'Graphical interface to scientific instruments and experiment supervision',
-        'img': img_path + '/blacs_32nx32n.svg',
+        'icon': 'blacs_32nx32n.svg',
         'type': 'gui',
     },
     'lyse': {
         'desc': 'Online analysis of live experiment data',
-        'img': img_path + '/lyse_32nx32n.svg',
+        'icon': 'lyse_32nx32n.svg',
         'type': 'gui',
     },
     'runviewer': {
         'desc': 'Visualize hardware-timed experiment instructions',
-        'img': img_path + '/runviewer_32nx32n.svg',
+        'icon': 'runviewer_32nx32n.svg',
         'type': 'gui',
     },
 }
@@ -219,5 +219,6 @@ def setup(app):
                 intersphinx_mapping=intersphinx_mapping,
                 programs=labscript_suite_programs,
                 current_project=project,
+                img_path=img_path
             )
         )
