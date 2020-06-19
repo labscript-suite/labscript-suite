@@ -11,9 +11,11 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+from pathlib import Path
 import sys
 from m2r import MdInclude
 from recommonmark.transform import AutoStructify
+from jinja2 import FileSystemLoader, Environment
 
 # -- Project information (unique to each project) -------------------------------------
 
@@ -27,8 +29,9 @@ from labscript_suite import __version__ as version  # noqa: E402
 release = version
 
 # HTML icons
-html_logo = "../../art/labscript-suite-rectangular-transparent_276x140.svg"
-html_favicon = "../../art/labscript.ico"
+img_path = "../../art"
+html_logo = img_path + "/labscript-suite-rectangular-transparent_276x140.svg"
+html_favicon = img_path + "/labscript.ico"
 
 # -- General configuration (should be identical across all projects) ------------------
 
@@ -91,26 +94,53 @@ intersphinx_mapping = {
 }
 
 # list of all labscript suite components that have docs
-labscript_suite_programs = [
-    'labscript',
-    'runmanager',
-    'runviewer',
-    'blacs',
-    'lyse',
-    'labscript-utils',
-    'labscript-devices',
-]
-# remove this current repo from the list
-if project in labscript_suite_programs:
-    labscript_suite_programs.remove(project)
+labscript_suite_programs = {
+    'labscript': {
+        'desc': 'Expressive composition of hardware-timed experiments',
+        'icon': 'labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'labscript-devices': {
+        'desc': 'Plugin architecture for controlling experiment hardware',
+        'icon': 'labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'labscript-utils': {
+        'desc': 'Shared modules used by the *labscript suite*',
+        'icon': 'labscript_32nx32n.svg',
+        'type': 'lib',
+    },
+    'runmanager': {
+        'desc': 'Graphical and remote interface to parameterized experiments',
+        'icon': 'runmanager_32nx32n.svg',
+        'type': 'gui',
+    },
+    'blacs': {
+        'desc': 'Graphical interface to scientific instruments and experiment supervision',
+        'icon': 'blacs_32nx32n.svg',
+        'type': 'gui',
+    },
+    'lyse': {
+        'desc': 'Online analysis of live experiment data',
+        'icon': 'lyse_32nx32n.svg',
+        'type': 'gui',
+    },
+    'runviewer': {
+        'desc': 'Visualize hardware-timed experiment instructions',
+        'icon': 'runviewer_32nx32n.svg',
+        'type': 'gui',
+    },
+}
 
 # whether to use stable or latest version
-labscript_suite_doc_version = 'stable'  # 'stable' or 'latest'
+labscript_suite_doc_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
+if labscript_suite_doc_version not in ['stable', 'latest']:
+    labscript_suite_doc_version = 'stable'
 
 # add intersphinx references for each component
 for ls_prog in labscript_suite_programs:
     intersphinx_mapping[ls_prog] = (
-        'https://docs.labscript_suite.org/projects/{}/en/{}/'.format(
+        'https://docs.labscriptsuite.org/projects/{}/en/{}/'.format(
             ls_prog, labscript_suite_doc_version
         ),
         None,
@@ -119,7 +149,7 @@ for ls_prog in labscript_suite_programs:
 # add intersphinx reference for the metapackage
 if project != "the labscript suite":
     intersphinx_mapping['labscript-suite'] = (
-        'https://docs.labscript_suite.org/en/{}/'.format(labscript_suite_doc_version),
+        'https://docs.labscriptsuite.org/en/{}/'.format(labscript_suite_doc_version),
         None,
     )
 
@@ -143,9 +173,12 @@ else:
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
-html_title = "labscript suite | experiment control and automation"
+html_title = "labscript suite | {project}".format(
+    project=project
+    if project != "labscript-suite"
+    else "experiment control and automation"
+)
 html_short_title = "labscript suite"
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -155,7 +188,6 @@ html_static_path = ['_static']
 
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
-
 
 # Use m2r only for mdinclude and recommonmark for everything else
 # https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
@@ -175,3 +207,18 @@ def setup(app):
     app.add_config_value('m2r_disable_inline_math', False, 'env')
     app.add_directive('mdinclude', MdInclude)
     app.add_stylesheet('custom.css')
+
+    # generate the components.rst file dynamically so it points to stable/latest
+    # of subprojects correctly
+    loader = FileSystemLoader(Path(__file__).resolve().parent / templates_path[0])
+    env = Environment(loader=loader)
+    template = env.get_template('components.rst')
+    with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
+        f.write(
+            template.render(
+                intersphinx_mapping=intersphinx_mapping,
+                programs=labscript_suite_programs,
+                current_project=project,
+                img_path=img_path
+            )
+        )

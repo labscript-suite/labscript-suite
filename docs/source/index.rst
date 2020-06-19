@@ -67,12 +67,28 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
+   :caption: DOCUMENTATION
 
    installation/index
    changes
    contributing
    archive
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: FURTHER DOCUMENTATION
+
+   components
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: LINKS
+
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
+   PyPI <https://pypi.org/project/labscript-suite/>
+   Anaconda Cloud <https://anaconda.org/labscript-suite/labscript-suite>
 
 .. todolist:: 
