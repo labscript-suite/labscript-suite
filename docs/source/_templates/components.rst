@@ -1,9 +1,9 @@
-{% if metapackage_toctree %}
+{% if current_project != 'the labscript suite' %}
 .. toctree::
     :maxdepth: 2
     :hidden:
 
-    Metapackage documentation <{{intersphinx_mapping['labscript-suite'][0]}}>
+    The labscript suite <{{intersphinx_mapping['labscript-suite'][0]}}>
 
 {% endif %}
 *labscript suite* components
@@ -15,7 +15,7 @@ The *labscript suite* is modular by design, and is comprised of:
     :widths: 10 90
     :header-rows: 0
 
-    {% for prog, item in libs.items() %}
+    {% for prog, item in programs.items() if item.type == 'lib' %}
     * - .. image:: {{item.img}}
              :target: {{intersphinx_mapping['%s' | format(prog)][0]}}
              :class: labscript-suite-icon
@@ -26,7 +26,7 @@ The *labscript suite* is modular by design, and is comprised of:
     :widths: 10 90
     :header-rows: 0
 
-    {% for prog, item in guis.items() %}
+    {% for prog, item in programs.items() if item.type == 'gui' %}
     * - .. image:: {{item.img}}
              :target: {{intersphinx_mapping['%s' | format(prog)][0]}}
              :class: labscript-suite-icon
@@ -37,11 +37,11 @@ The *labscript suite* is modular by design, and is comprised of:
     :maxdepth: 2
     :hidden:
 
-    {% for prog in toctree_entries %}
+    {% for prog in programs|sort if prog != current_project %}
     {{prog}} <{{intersphinx_mapping['%s' | format(prog)][0]}}>
     {% endfor %}
 
-{% for prog in rst_defs %}
+{% for prog in programs %}
 .. |{{prog}}| replace:: **{{prog}}**
 .. _{{prog}}: {{intersphinx_mapping['%s' | format(prog)][0]}}
 {% endfor %}

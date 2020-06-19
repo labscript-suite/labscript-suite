@@ -75,9 +75,15 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: LINKS
-   
+   :caption: FURTHER DOCUMENTATION
+
    components
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: LINKS
+
    Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
    archive

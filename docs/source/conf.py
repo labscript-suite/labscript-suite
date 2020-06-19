@@ -216,24 +216,8 @@ def setup(app):
     with open(Path(__file__).resolve().parent / 'components.rst', 'w') as f:
         f.write(
             template.render(
-                metapackage_toctree=project != 'the labscript suite',
                 intersphinx_mapping=intersphinx_mapping,
-                libs=dict(
-                    filter(
-                        lambda x: x[1]['type'] == 'lib',
-                        labscript_suite_programs.items(),
-                    )
-                ),
-                guis=dict(
-                    filter(
-                        lambda x: x[1]['type'] == 'gui',
-                        labscript_suite_programs.items(),
-                    )
-                ),
-                toctree_entries=list(
-                    filter(lambda x: x != project, sorted(labscript_suite_programs))
-                ),
-                rst_defs=labscript_suite_programs,
+                programs=labscript_suite_programs,
+                current_project=project,
             )
         )
-
