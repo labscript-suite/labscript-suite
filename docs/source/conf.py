@@ -134,8 +134,10 @@ labscript_suite_programs = {
 
 # whether to use stable or latest version
 labscript_suite_doc_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
-if labscript_suite_doc_version not in ['stable', 'latest']:
+if '.' in labscript_suite_doc_version:
     labscript_suite_doc_version = 'stable'
+elif labscript_suite_doc_version not in ['stable', 'latest']:
+    labscript_suite_doc_version = 'latest'
 
 # add intersphinx references for each component
 for ls_prog in labscript_suite_programs:
@@ -206,7 +208,7 @@ def setup(app):
     app.add_config_value('m2r_anonymous_references', False, 'env')
     app.add_config_value('m2r_disable_inline_math', False, 'env')
     app.add_directive('mdinclude', MdInclude)
-    app.add_stylesheet('custom.css')
+    app.add_css_file('custom.css')
 
     # generate the components.rst file dynamically so it points to stable/latest
     # of subprojects correctly
