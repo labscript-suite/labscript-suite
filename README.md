@@ -14,7 +14,7 @@
 [![DOI](https://img.shields.io/badge/DOI-10.1063%2F1.4817213-0F79D0.svg)](https://doi.org/10.1063/1.4817213)
 
 
-The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
+The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering; deployable in laboratory and in-field devices. Also applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
 This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ installer repository, prior to the packages being installable via [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/labscript-suite).
 
@@ -29,7 +29,7 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 - Dynamic visualisation of experiment composition and results.
 - Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
 - Auto-generating user-interfaces.
-- High-level scripting: all user-interface interaction can be programatically synthesised.
+- High-level scripting: user-interface interaction can be programatically synthesised.
 
 ## Table of contents
 
@@ -85,7 +85,7 @@ A typical structure of the profile directory is:
 
 This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](http://docs.labscriptsuite.org/en/latest/installation#regular-installation-from-the-python-package-index)).
 
-_Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) this can be the same directory as an editable installation.
+_Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) an editable installation can be located within the labscript-suite profile directory.
 
 
 ### Secure communication
