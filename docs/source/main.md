@@ -4,7 +4,7 @@
 
 ___
 
-The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering, from laboratory to in-field devices. Applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
+The _labscript suite_ is a powerful and extensible framework for experiment [composition](https://github.com/labscript-suite/labscript), [control](https://github.com/labscript-suite/runmanager), [execution](https://github.com/labscript-suite/blacs), and [analysis](https://github.com/labscript-suite/lyse). Developed for quantum science and quantum engineering; deployable in laboratory and in-field devices. Also applicable to optics, microscopy, materials engineering, biophysics, and any application predicated on the repetition of parameterised, hardware-timed experiments.
 
 
 ## Features
@@ -18,7 +18,7 @@ The _labscript suite_ is a powerful and extensible framework for experiment [com
 * Dynamic visualisation of experiment composition and results.
 * Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
 * Auto-generating user-interfaces.
-* High-level scripting: all user-interface interaction can be programatically synthesised.
+* High-level scripting: user-interface interaction can be programatically synthesised.
 
 
 ## Citing the _labscript suite_
