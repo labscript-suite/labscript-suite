@@ -1,3 +1,10 @@
+# This gitignore file consists of 2 parts:
+#   * The standard Python .gitignore rules from GitHub
+#   * custom ignore rules for the labscript suite.
+#
+# These should be kept separate so that the generic rules can be updated with a
+# copy/paste without having to worry about whether we are removing custom rules
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -20,7 +27,6 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -50,6 +56,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+cover/
 
 # Translations
 *.mo
@@ -69,9 +76,10 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/html/
+docs/_build/
 
 # PyBuilder
+.pybuilder/
 target/
 
 # Jupyter Notebook
@@ -82,6 +90,8 @@ profile_default/
 ipython_config.py
 
 # pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
 .python-version
 
 # pipenv
@@ -128,5 +138,20 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+#
+# Custom labscript suite .gitignore rules start below
+#
+
 # Editors
 .vscode/
+
+# Sphinx documentation
+docs/html/
+docs/source/_build/
+docs/source/components.rst
