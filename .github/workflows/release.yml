@@ -15,8 +15,6 @@ defaults:
 
 env:
   PACKAGE_NAME: labscript-suite
-  SCM_VERSION_SCHEME: release-branch-semver
-  SCM_LOCAL_SCHEME: no-local-version
   ANACONDA_USER: labscript-suite
 
   # Configuration for a package with compiled extensions:
