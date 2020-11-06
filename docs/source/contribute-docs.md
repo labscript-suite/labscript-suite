@@ -253,3 +253,5 @@ request`.
 
 Title and document your pull request! The syntax is also in markdown. Be sure to
 merge with `master` on the parent labscript-repo.
+
+Congratulations, you helped make the world a better place!
