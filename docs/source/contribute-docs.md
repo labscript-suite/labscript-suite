@@ -77,16 +77,19 @@ The Anaconda instructions are repeated here for explicitness and reproducibility
 
 Create our environment for the sole purpose of documentation `lsdocs`.
 
-`conda create -n lsdocs python=3.8`
-`conda activate lsdocs`
+```
+conda create -n lsdocs python=3.8
+conda activate lsdocs
+```
 
 #### Removing the Virtual Environment.
 
 If you make a mistake
 
-`conda deactivate`
-
-`conda remove --name lsdocs --all`
+```
+conda deactivate
+conda remove --name lsdocs --all
+```
 
 #### Clone your Forked Repositories.
 
@@ -196,6 +199,7 @@ Install the other modules needed:
 * Mac Install: `brew install sphinx-doc`
 * Ubuntu/Debian (untested): `apt-get install python3-sphinx`
 * `cd ~/labscript-suite/docs/`
+* `conda activate lsdocs`
 * `make html`
 
 On Mac, this pulled up a notification asking about python3.8 accepting incoming 
