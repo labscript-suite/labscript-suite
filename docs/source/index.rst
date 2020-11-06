@@ -72,6 +72,7 @@
    installation/index
    changes
    contributing
+   contribute-docs
    archive
 
 .. toctree::
