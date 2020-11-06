@@ -241,3 +241,15 @@ button that exists in the top right of each docs page.
 
 
 ## Push your Edits to the Main Repo
+
+Once you're happy with the progress in your branch, ensure it is pushed to your 
+remote fork.
+
+Once that's the case, you can easily make a pull request on the website.
+You just need to select the branch you wish to merge on the main page. For us, 
+it's `tut-contributing-docs`. Just underneath the branch selector, a message will
+appear: `This branch is 4 commits ahead of labscript-suite:master.` Select `Pull
+request`.
+
+Title and document your pull request! The syntax is also in markdown. Be sure to
+merge with `master` on the parent labscript-repo.
