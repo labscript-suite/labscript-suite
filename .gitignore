@@ -5,6 +5,23 @@
 # These should be kept separate so that the generic rules can be updated with a
 # copy/paste without having to worry about whether we are removing custom rules
 
+#ignore labscript sub-gits
+/labscript
+/labscript-devices
+/labscript-utils
+/lyse
+/runmanager
+/runviewer
+/blacs
+
+#ignore installed labscript files
+/labconfig
+/userlib
+/app_saved_configs
+
+#ignore mac files
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
