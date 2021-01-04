@@ -111,8 +111,8 @@ jobs:
           else
               CONDA_BUILD_ARGS=""
           fi
-          echo "::set-env name=CONDA_INSTALLER::$CONDA_INSTALLER"
-          echo "::set-env name=CONDA_BUILD_ARGS::$CONDA_BUILD_ARGS"
+          echo "CONDA_INSTALLER=$CONDA_INSTALLER" >> $GITHUB_ENV
+          echo "CONDA_BUILD_ARGS=$CONDA_BUILD_ARGS" >> $GITHUB_ENV
 
       - name: Conda package (Unix)
         if: runner.os != 'Windows'
@@ -211,7 +211,7 @@ jobs:
         if: github.event.ref_type == 'tag'
         run: |
           VERSION="${GITHUB_REF/refs\/tags\/v/}"
-          echo "::set-env name=VERSION::$VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         if: github.event.ref_type == 'tag'
