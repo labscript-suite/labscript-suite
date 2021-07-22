@@ -70,6 +70,7 @@
    :caption: DOCUMENTATION
 
    installation/index
+   configuration
    changes
    contributing
    archive
