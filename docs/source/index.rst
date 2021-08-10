@@ -71,6 +71,7 @@
 
    installation/index
    configuration
+   building_docs
    changes
    contributing
    archive
