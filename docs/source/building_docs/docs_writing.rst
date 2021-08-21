@@ -1,6 +1,9 @@
 Writing Docs
 ============
 
+Documentation for the **labscript-suite** is generally written at two levels: manually created top-level and automatically introspected API docstrings.
+These two types of documentation live in different places within the code repository and have different purposes.
+
 Top-Level
 ---------
 

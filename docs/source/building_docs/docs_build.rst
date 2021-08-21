@@ -25,6 +25,11 @@ Note that the build on Read the Docs uses the closely related `make dirhtml` com
 This build command organizes the html documentation in a way suitable for web hosting.
 For locally inspecting the documentation, the `make html` command is preferred to preserve normal inter-page links.
 
+.. note::
+
+	Some cross-referencing used in the markdwon files are not cross-compatible between the `html` and `dirthtml` build commands.
+	When using markdown source files, please ensure cross-references actually work when built on Read the Docs.
+
 latexpdf
 --------
 
@@ -58,17 +63,3 @@ It is built using the command
 .. code-block:: bash
 
 	make epub
-
-Read the Docs
--------------
-
-Whenever a pull request is created or merged on GitHub, the documentation is automatically built by Read the Docs.
-The result of this build can be viewed online by looking at the details of the automated checks.
-If the build is completed, this link will take you directly to the home page of your built documentation.
-If the build is still in progress, this link will take you to the build progress which shows the commands being run and their outputs.
-If you wish to see this progress after the build succeeds, you can find it by clicking the bottom left corner of the Read the Docs page.
-This will bring up a small window pane.
-Selecting builds will bring up the build logs for all of the online builds.
-
-Note that Read the Docs will only build the html documentation for a pull request.
-When the pull request is merged, Read the Docs will build the html documentation again, as well as downloadable pdf and epub versions.
