@@ -4,16 +4,16 @@ Building the Docs
 The **labscript-suite** documentation is built one repository at a time.
 To build the documentation for a single repository:
 
-#. Activate the environment where the **labscript-suite** and the sphinx dependencies are installed.
+#. Activate the environment where the **labscript-suite** and sphinx dependencies are installed.
 #. Change directories to the `docs` subfolder of the repository.
 #. Run the appropriate `make` command, described below.
 
-Assuming the appropriate dependencies are installed, the documentation will be build and placed in the `docs/build` folder corresponding to the build command used.
+Assuming the appropriate dependencies are installed, the documentation will be built and placed in a subfolder of `docs/build` corresponding to the build command used.
 
 html
 ----
 
-The web-based documentation, which is what is hosted at `<https://docs.labscriptsuite.org/en/latest/>`_ by Read the Docs, is built using the command
+The web-based documentation, which is what is hosted at `<https://docs.labscriptsuite.org/en/latest/>`_ by Read the Docs, is built locally using the command
 
 .. code-block:: bash
 
@@ -27,7 +27,7 @@ For locally inspecting the documentation, the `make html` command is preferred t
 
 .. note::
 
-	Some cross-referencing used in the markdwon files are not cross-compatible between the `html` and `dirthtml` build commands.
+	Some cross-referencing used in the markdown files are not cross-compatible between the `html` and `dirthtml` build commands.
 	When using markdown source files, please ensure cross-references actually work when built on Read the Docs.
 
 latexpdf
@@ -40,7 +40,7 @@ Normally it would be done by running the command
 
 	make latexpdf
 
-This would build latex source files which are compiled using a local installation of latex.
+This would create latex source files which are automatically compiled using an existing, local installation of latex.
 The latex compilation requires `perl` and the `latexmk` latex package. 
 It also requires a great many other latex dependencies.
 Successfully building the pdf documentation locally is made easier if your latex installation can install dependencies as required.

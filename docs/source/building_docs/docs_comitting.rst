@@ -60,7 +60,7 @@ If the build is completed, this link will take you directly to the home page of 
 If the build is still in progress, this link will take you to the build progress which shows the commands being run and their outputs.
 If you wish to see this progress after the build succeeds, you can find it by clicking the bottom left corner of the Read the Docs page.
 This will bring up a small window pane.
-Selecting builds will bring up the build logs for all of the online builds.
+Selecting 'builds' will bring up the build logs for all of the online builds.
 
 Note that Read the Docs will only build the html documentation for a pull request.
 When the pull request is merged, Read the Docs will build the html documentation again, as well as downloadable pdf and epub versions.
