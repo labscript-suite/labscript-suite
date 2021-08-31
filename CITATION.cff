@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+message: "If you use the labscript suite to control your experiment or perform analysis, please cite the article from preferred-citation and the software itself."
+title: The labscripte suite
+authors:
+  - name: "The labscript-suite development team"
+abstract: "A powerful and extensible framework for experiment composition, control, execution, and analysis that implements repeated, parameterised, hardware-time experiments."
+keywords:
+  - research
+  - "experiment composition"
+  - "experiment control"
+  - "experiment analysis"
+  - "quantum science"
+  - "quantum engineering"
+  - hardware-timed
+license: BSD-2-Clause
+repository-code: "https://github.com/labscript-suite"
+url: "https://docs.labscriptsuite.org/en/latest/"
+
+references:
+- type: software
+  authors:
+    - family-names: Billington
+      given-names: Chris J.
+  title: zprocess
+  repository-code: "https://github.com/chrisjbillington/zprocess"
+
+preferred-citation:
+  type: article
+  title: A scripted control system for autonomous hardware-timed experiments
+  authors:
+    - family-names: Starkey
+      given-names: Philip T.
+    - family-names: Billington
+      given-names: Christopher J.
+      orcid: "https://orcid.org/0000-0002-8067-6400"
+    - family-names: Johnstone
+      given-names: Shawn P.
+      orcid: "https://orcid.org/0000-0002-4704-9552"
+    - family-names: Jasperse
+      given-names: M.
+    - family-names: Helmerson
+      given-names: K.
+    - family-names: Turner
+      given-names: Lincoln D.
+    - family-names: Anderson
+      given-names: Russel P.
+      orcid: "https://orcid.org/0000-0002-4495-7926"
+  doi: "10.1063/1.4817213"
+  journal: "Review of Scientific Instruments"
+  month: 8
+  year: 2013
+  start: 085111 # page number
+  issue: 84
