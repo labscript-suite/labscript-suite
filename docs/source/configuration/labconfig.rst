@@ -1,2 +1,0 @@
-The *labconfig.ini* File
-========================
