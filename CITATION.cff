@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use the labscript suite to control your experiment or perform analysis, please cite the article from preferred-citation and the software itself."
-title: The labscripte suite
+title: The labscript suite
 authors:
   - name: "The labscript-suite development team"
 abstract: "A powerful and extensible framework for experiment composition, control, execution, and analysis that implements repeated, parameterised, hardware-time experiments."
@@ -34,7 +34,7 @@ preferred-citation:
       given-names: Christopher J.
       orcid: "https://orcid.org/0000-0002-8067-6400"
     - family-names: Johnstone
-      given-names: Shawn P.
+      given-names: Shaun P.
       orcid: "https://orcid.org/0000-0002-4704-9552"
     - family-names: Jasperse
       given-names: M.
@@ -43,7 +43,7 @@ preferred-citation:
     - family-names: Turner
       given-names: Lincoln D.
     - family-names: Anderson
-      given-names: Russel P.
+      given-names: Russell P.
       orcid: "https://orcid.org/0000-0002-4495-7926"
   doi: "10.1063/1.4817213"
   journal: "Review of Scientific Instruments"
