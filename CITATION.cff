@@ -23,6 +23,33 @@ references:
       given-names: Chris J.
   title: zprocess
   repository-code: "https://github.com/chrisjbillington/zprocess"
+- type: software
+  authors:
+    - family-names: Starkey
+      given-names: Philip
+    - family-names: Billington
+      given-names: Chris J.
+  title: qtutils
+  repository-code: "https://github.com/philipstarkey/qtutils"
+  url: "https://qtutils.readthedocs.io/en/stable/"
+- type: phdthesis
+  authors:
+    - family-names: Billington
+      given-names: Chris J.
+  title: "State-dependent forces in cold quantum gases"
+  school: "Monash University"
+  year: 2018
+  doi: 10.26180/5bd68acaf0696
+  scope: "Chapter 4 provides an excellent, detailed overview of the labscript-suite"
+- type: phdthesis
+  authors:
+    - family-names: Starkey
+      given-names: Philip
+  title: "A software framework for control and automation of precisely timed experiments"
+  school: "Monash University"
+  year: 2019
+  doi: 10.26180/5d1db8ffe29ef
+  scope: "This provides an in-depth description of the labscript-suite, circa 2019"
 
 preferred-citation:
   type: article
