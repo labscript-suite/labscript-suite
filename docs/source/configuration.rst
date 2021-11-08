@@ -63,7 +63,7 @@ A general description of the connection table can be found :doc:`here <labscript
 In short, the connection table defines the hardware devices connected to BLACS and are available for use in an experiment shot.
 The connection table should be considered a super-set of devices for use in experiment shots (i.e. not all devices connected to BLACS must be used in an experiment shot run by that BLACS).
 
-The connection table is defined by writing a `connectiontable.py` file that is essentially an experiment run without any instructions.
+The connection table is defined by writing a `connection_table.py` file that is essentially an experiment run without any instructions.
 This involves importing the specific device code and instantiating each device you wish to connect to.
 At the end of the file, you will call the **labscript** functions `start` and `stop`, without any actual instructions commanded to any device in the shot.
 This file must be saved as the name defined and location specified by the `connection_table_py` key of the labconfig file.
@@ -101,10 +101,10 @@ More specific examples of connection tables can be fould in the **labscript-devi
 	However, connection tables with identical devices with different names are considered unique by **labscript**.
 	The connection table used by an individual shot must be a subset of the connection table used by BLACS.
 
-With the `connectiontable.py` file written, you will then need to compile it using runmanager.
+With the `connection_table.py` file written, you will then need to compile it using runmanager.
 You will then need to take the output compiled file and save it by the name and in the location specified by the `connection_table_h5` key of the labconfig file.
-The default name of the file is `connectiontable.h5` and it is located in the experiment shot storage for `apparatus_name`.
+The default name of the file is `connection_table.h5` and it is located in the experiment shot storage for `apparatus_name`.
 
 With the connection table in place, you can now open BLACS.
-Changes to `connectiontable.py` will now be recognized by BLACS, and BLACS will prompt you to recompile the connection table using a prompt within BLACS itself.
+Changes to `connection_table.py` will now be recognized by BLACS, and BLACS will prompt you to recompile the connection table using a prompt within BLACS itself.
  
