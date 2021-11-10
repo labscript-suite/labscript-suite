@@ -75,18 +75,24 @@ A very simple connection table that defines a PrawnBlaster pseudoclock and an NI
 
    from labscript import *
 
+   # Import classes needed for the devices which will be used
    from labscript_devices.PrawnBlaster.labscript_devices import PrawnBlaster
    from labscript_devices.NI_DAQmx.models.NI_USB_6363 import NI_USB_6363
 
+   # Create a PrawnBlaster, saved to the variable 'prawn', 
+   # It will be used as the single pseudoclock that triggers other devices
    PrawnBlaster(name='prawn', com_port='COM6', num_pseudoclocks=1)
 
+   # Create a NI USB-6363 multifunction I/O device, clocked by the PrawnBlaster
    NI_USB_6363(name='daq', MAX_name='Dev1',
                parent_device=prawn.clocklines[0], clock_terminal='/Dev1/PFI0',
                acquisition_rate=100e3)
 
+   # Add analog output channels to the USB-6363
    AnalogOut('ao0', daq, 'ao0')
    AnalogOut('ao1', daq, 'ao1')
 
+   # The following is standard boilerplate necessary for the file to compile
    if __name__ == '__main__':
 
       start(0)
