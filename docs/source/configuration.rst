@@ -99,7 +99,7 @@ A very simple connection table that defines a PrawnBlaster pseudoclock and an NI
 
       stop(1)
 
-More specific examples of connection tables can be fould in the **labscript-devices** repository :doc:`here <labscript-devices:ex_conn_table>`.
+More specific examples of connection tables can be fould in the **labscript-devices** repository :doc:`here <labscript-devices:ex_conn_tables>`.
 
 .. note:: 
 
