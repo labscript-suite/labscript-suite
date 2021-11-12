@@ -75,6 +75,7 @@
    building_docs
    changes
    contributing
+   community
    archive
 
 .. toctree::
