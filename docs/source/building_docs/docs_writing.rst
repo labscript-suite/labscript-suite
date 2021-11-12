@@ -2,7 +2,11 @@ Writing Docs
 ============
 
 Documentation for the **labscript-suite** is generally written at two levels: manually created top-level narrative docs and automatically introspected API docstrings.
-These two types of documentation live in different places within the code repository and have different purposes.
+These two types of documentation live in different places within the code repository and have different purposes, as described in the following sections.
+
+As a general guideline for writing documentation, please ensure no more than one sentence is on a line in the source file.
+This ensures diffs will only highlight the changed senstences of the paragraph, instead of large blocks of text.
+Note that paragraph breaks require a blank line between lines of text.
 
 Top-Level
 ---------
@@ -13,14 +17,14 @@ Specific details for writing documentation in both formats is given below.
 
 The navigational structure of the documentation is governed by `toctree` rst directives, where each file included in a `toctree` forms the basis of a new page.
 It is considered good practice to organise documentation logically by subject into individual files and sub-directories.
-Examples of documentation sources can be readily found by clicking the `View page source` link at the top right corner of any page in the on-line html documentation.
+Examples of documentation sources can be readily found by clicking the `Edit on GitHub` link at the top right corner of any page in the on-line html documentation.
 
 ReStructuredText
 ****************
 
 ReStructuredText is the native language for writting documention in a sphinx-based system.
 As such, most documentation should be written in rst.
-Examples and syntax guides are available via links :doc:`here <docs_minutia>`.
+Examples and syntax guides are available via links :doc:`here <docs_resources>`.
 
 An important note when creating new rst doc files is to try to use unique filenames within a single repository.
 These filenames are ultimately used in the html page paths and are used when cross-referencing pages within the documentation.
