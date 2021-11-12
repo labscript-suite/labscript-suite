@@ -2,6 +2,8 @@ Configuring the *labscript suite* for first run
 ===============================================
 
 Once installed, the **labscript suite** requires some manual configuration to successfully start all of the components the first time.
+The following sections detail the required steps necessary for all components of the suite to run for the first time.
+Further details on how to use each component can be found in the documentation for that component via the *labscript suite* components link in the left side bar.
 
 The *labconfig.ini* File
 ------------------------
