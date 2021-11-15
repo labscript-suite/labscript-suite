@@ -46,7 +46,7 @@ API/Docstrings
 Docstrings are written within the source code itself.
 Their purpose is to document the inputs, outputs, and usage details of the classes, functions, and attributes in the API.
 The **labscript-suite** uses Google style formatting for the docstrings.
-A detailed example of the syntax is `here <https://www.sphinx-doc.org/en/master/usage/extensions/example_google.html>`_ and details can be found in other places on-line.
+A detailed example of the syntax is `here <https://www.sphinx-doc.org/en/master/usage/extensions/example_google.html>`_ and further details can be found in other places on-line.
 
 Docstring Coverage
 ******************

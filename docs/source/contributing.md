@@ -39,12 +39,12 @@ We will continue the same feature-branch workflow as before.
    This can be done at any time in this process, but it must be done at least once at the end to ensure your changes are made available on GitHub for the PR. 
 6. **With changes complete, tested and pushed to your fork, you create the PR**.
    This can be done in a few ways, but here we describe (briefly) how this is done via the web interface.
-   Detailed documenation of this process is available at the link above.
+   Detailed documenation of this process is available at the links below.
 
    1. When you go the home page of your fork, you will see a notice that there are new changes to a branch on your fork, do you want to merge?
       You can also access the PR creation menu by going to the original **labscript-suite** component and selecting Pull Request.
    2. You next select which branch of your fork you would like to merge into which branch of the upstream fork.
-      Ensure you select your fork you wish to commit and the master branch of of the upstream **labscript-suite** component repository.
+      Ensure you select your fork that you wish to commit and the master branch of of the upstream **labscript-suite** component repository.
    3. Fill in a descriptive title for your proposed changes and a description of the changes you have made.
    4. Select "Create Pull Request".
       Your PR is now created and the **labscript-suite** core developers will be notified.

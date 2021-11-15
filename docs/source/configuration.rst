@@ -1,9 +1,9 @@
 Configuring the *labscript suite* for first run
 ===============================================
 
-Once installed, the **labscript suite** requires some manual configuration to successfully start all of the components the first time.
+Once installed, the **labscript suite** requires some manual configuration.
 The following sections detail the required steps necessary for all components of the suite to run for the first time.
-Further details on how to use each component can be found in the documentation for that component via the *labscript suite* components link in the left side bar.
+Further details on how to use each component can be found in the documentation for that component via the :doc:`*labscript suite* components <components>` link in the left side bar.
 
 The *labconfig.ini* File
 ------------------------
@@ -32,14 +32,16 @@ Once the appropriate changes have been made, save the file.
      If these sub-directories do not exist, the suite will create them and populate them with the bare minimum of requirements to function.
      The relative paths for the items are described by the other keys in the `DEFAULT` section, and can be modified if desired.
      Note that while multiple apparatus names can exist for the same installation, only one can be used at a time.
-     To change the `apparatus_name`, you will need to reload **labscript-suite** components.
+     In order for a changed `apparatus_name` to take effect, you will need to reload **labscript-suite** components.
   * `shared_drive` is the path to where the individual shots are stored and accessed by the **labscript-suite** components.
-     If your installation spreads the **labscript-suite** components across multiple separate computers, setting this value to the path to the common network location where shots are stored allows all components seamless access to the same shots.
+     If your installation spreads the **labscript-suite** components across multiple separate computers, set this value to the path to the common network location where shots are stored.
+     This allows all components seamless access to the same shots.
 
 * `[servers]`
   
   * `zlock` should be set to the network address of the computer that runs the common zlock server.
-     In an installation spanning multiple computers, only one computer runs the zlock server that ensures only one device can access files at a time.
+     In an installation spanning multiple computers, only one computer runs the zlock server.
+     This ensures only one device can access files at a time.
      At least one computer in an installation must be set to `localhost`, indicating it is the zlock server.
   * `runmanager` should be set to the network address of the computer that runs a common runmanager server for compiling shots.
      Rules to set it are the same as `zlock`.
@@ -68,7 +70,7 @@ The connection table should be considered a super-set of devices for use in expe
 The connection table is defined by writing a `connection_table.py` file that is essentially an experiment run without any instructions.
 This involves importing the specific device code and instantiating each device you wish to connect to.
 At the end of the file, you will call the **labscript** functions `start` and `stop`, without any actual instructions commanded to any device in the shot.
-This file must be saved as the name defined and location specified by the `connection_table_py` key of the labconfig file.
+This file must be saved as the name defined and at the location specified by the `connection_table_py` key of the labconfig file.
 The defaul location is in the `apparatus_name/labscriptlib` sub-folder of the userlib.
 
 A very simple connection table that defines a PrawnBlaster pseudoclock and an NI DAQ with two named channels is as follows.
@@ -106,11 +108,11 @@ More specific examples of connection tables can be fould in the **labscript-devi
 .. note:: 
 
 	BLACS will instantiate a control for all available hardware channels on a device, even if they are not specifically named in the connection table.
-	However, connection tables with identical devices with different names are considered unique by **labscript**.
-	The connection table used by an individual shot must be a subset of the connection table used by BLACS.
+	However, connection tables with identical devices but different names for the attached channels are considered unique by **labscript**.
+	Remember that the connection table used by an individual shot must be a subset of the connection table used by BLACS, so chaning channel names will require re-compiling the connection table.
 
 With the `connection_table.py` file written, you will then need to compile it using runmanager.
-You will then need to take the output compiled file and save it by the name and in the location specified by the `connection_table_h5` key of the labconfig file.
+Take the output compiled file and save it by the name and in the location specified by the `connection_table_h5` key of the labconfig file.
 The default name of the file is `connection_table.h5` and it is located in the experiment shot storage for `apparatus_name`.
 
 With the connection table in place, you can now open BLACS.

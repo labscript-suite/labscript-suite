@@ -10,8 +10,8 @@ I clicked the launch icon for *component* and nothing happened!
 ---------------------------------------------------------------
 
 This occurs when there is a stopping error that prevents the GUI from loading (when standard error handling would take over).
-In order to see the error that is preventing the compoenent from launching, you should launch the program from the command line.
-Run the following command in the python environment you installed the **labscript-suite** into.
+In order to see the error that is preventing the component from launching, you should launch the program from the command line.
+To do so, run the following command in the python environment you installed the **labscript-suite** into.
 
 .. code-block:: shell
 
@@ -32,8 +32,8 @@ These problems can often be fixed by restarting the background processes.
 You can stop the these processes by either:
 
  - Restarting the host computer.
- - You can also kill the processes running `zlock` and `zlog` manually using a task manager.
+ - Killing the processes running `zlock` and `zlog` manually using a task manager.
    The processes display as a python executable.
    You can determine which python processes are running these components by inspecting their command line arguments.
  
- You restart the two processes by either by either starting a **labscript-suite** component or starting them by hand at the command line as described in the API documentation.
+ You restart the two processes by either starting a **labscript-suite** component or starting them by hand at the command line as described in the API documentation in *labscript-utils*.

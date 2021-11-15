@@ -43,7 +43,7 @@ This specific error can be overcome by instructing sphinx to not publish the val
 intersphinx references won't link
 ---------------------------------
 
-Using intersphinx links to reference documentation in other packages can be tricky.
+Using intersphinx links to reference documentation in other packages (or even the same package) can be tricky.
 This is because the exact convention for referring to things is not guaranteed between projects.
 The best way to determine the exact reference label to use is to introspect the intersphinx object inventory for that project (the `objects.inv` file).
 This can be done by calling, for example,

@@ -11,7 +11,7 @@ The main difference is that documentation changes necessitate checking the read 
 Making a PR
 -----------
 
-The general steps for creating the PR are outlined in :doc:` here </contributing>`. 
+The general steps for creating the PR are outlined in :doc:`here <contributing>`. 
 When making PRs with documentation changes, a few extra checks are required.
 In particular, it is a good idea to locally build the documentation as described :doc:`here <docs_build>`.
 If you cannot build locally, the docs will be built automatically for your PR by Read the Docs and can be viewed there (described below).
@@ -19,13 +19,14 @@ If you cannot build locally, the docs will be built automatically for your PR by
 Checking the RTD Builds
 -----------------------
 
-When a PR is created or updated with new commits, an automated check of the documentation build is performed by Read The Docs.
+When a PR is created or updated with new commits, an automated check of the documentation build is performed by Read the Docs.
 The result of this build can be viewed online by looking at the details of the automated checks.
 If the build is completed, this link will take you directly to the home page of your built documentation.
 If the build is still in progress, this link will take you to the build progress which shows the commands being run and their outputs.
 If you wish to see this progress after the build succeeds, you can find it by clicking the bottom left corner of the Read the Docs page.
 This will bring up a small window pane.
 Selecting 'Builds' will bring up the build logs for all of the online builds.
+If the build did not succeed, this link takes you to the build progress stage with the failing command and corresponding outputs displayed.
 
 Note that Read the Docs will only build the html documentation for a pull request.
 When the pull request is merged, Read the Docs will build the html documentation again, as well as downloadable pdf and epub versions.

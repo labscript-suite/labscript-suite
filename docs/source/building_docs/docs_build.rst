@@ -20,6 +20,7 @@ The web-based documentation, which is what is hosted at `<https://docs.labscript
 	make html
 
 The home page is found at `docs/build/html/index.html`.
+Repeated calls of this (and the other) build commands will introspect which source files have changed and only update the corresponding build outputs.
 
 Note that the build on Read the Docs uses the closely related `make dirhtml` command.
 This build command organizes the html documentation in a way suitable for web hosting.
@@ -27,7 +28,7 @@ For locally inspecting the documentation, the `make html` command is preferred t
 
 .. note::
 
-	Some cross-referencing used in the markdown files are not cross-compatible between the `html` and `dirthtml` build commands.
+	Some cross-referencing used in the markdown files is not cross-compatible between the `html` and `dirthtml` build commands.
 	When using markdown source files, please ensure cross-references actually work when built on Read the Docs.
 
 latexpdf
@@ -63,3 +64,15 @@ It is built using the command
 .. code-block:: bash
 
 	make epub
+
+clean
+-----
+
+This make target will clean the entire `build` directory.
+It ensures that a fresh build can be made.
+It is helpful when stale build files are interfering with new changes or you wish to see the :ref:`coverage <building_docs/docs_writing:docstring coverage>`.
+The command is
+
+.. code-block:: bash
+
+	make clean
