@@ -23,13 +23,41 @@ We would like to reaffirm our invitation for users to directly contribute toward
 
 ### Pull requests
 
-We will continue the same feature-branch workflow as before:
+We will continue the same feature-branch workflow as before.
 
-1. [Fork](https://guides.github.com/activities/forking/) one or more of the labscript suite repositories;
-2. Create a branch on your fork for a new feature; 
-3. Make and commit changes to this branch; and 
-4. Make a pull request back to our repository. 
+1. **[Fork](https://guides.github.com/activities/forking/) one or more of the labscript suite repositories.**
+2. **Create a named branch on your fork for a new feature.**
+   It is good practice to use a unique, brief, yet descriptive, name for this branch.
+3. **Check out this branch and commit code to it.**
+   It is good practice to commit often to this branch to avoid very large diffs in a single commit that are hard to analyse.
+   Ideally, your commits should accomplish a single thing at a time.
+   It is also good to include detailed commit messages that explain the intended purpose of the commit and details of any specific usage changes, if necessary.
+4. **Once you feel your changes are complete, please ensure they are well tested**.
+   This includes ensuring your proposed changes actually do what you think they should.
+   It also includes ensuring other components are not negatively affected by your changes.
+5. **Push your commits to your fork.**
+   This can be done at any time in this process, but it must be done at least once at the end to ensure your changes are made available on GitHub for the PR. 
+6. **With changes complete, tested and pushed to your fork, you create the PR**.
+   This can be done in a few ways, but here we describe (briefly) how this is done via the web interface.
+   Detailed documenation of this process is available at the links below.
 
+   1. When you go the home page of your fork, you will see a notice that there are new changes to a branch on your fork, do you want to merge?
+      You can also access the PR creation menu by going to the original **labscript-suite** component and selecting Pull Request.
+   2. You next select which branch of your fork you would like to merge into which branch of the upstream fork.
+      Ensure you select your fork that you wish to commit and the master branch of of the upstream **labscript-suite** component repository.
+   3. Fill in a descriptive title for your proposed changes and a description of the changes you have made.
+   4. Select "Create Pull Request".
+      Your PR is now created and the **labscript-suite** core developers will be notified.
+
+7. **The core dev team will review the changes, and often ask for changes.**
+   By pushing new commits to the same branch as that used by the PR, those changes will automatically be added to the PR.
+8. **Once all concerns are addressed, the PR can be merged by the core dev team.**
+   Note that the dev team may decide that your PR should not be merged, and ultimately reject it.
+   We will do our best to explain the rationale behind this decision.
+   You are obviously welcome to use your code within your own installation of the **labscript-suite**, even if it is not merged into the upstream mainline.
+   Please do not take a rejected PR personally.
+
+The official GitHub documentation outlining this process is available [here](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 These steps are broadly covered in the GitHub [Hello World](https://guides.github.com/activities/hello-world/) guide, and in detail on the [NumPy development workflow](https://numpy.org/doc/stable/dev/development_workflow.html).
 
 

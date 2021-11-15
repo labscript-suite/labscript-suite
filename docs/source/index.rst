@@ -70,8 +70,12 @@
    :caption: DOCUMENTATION
 
    installation/index
+   configuration
+   troubleshooting
+   building_docs
    changes
    contributing
+   community
    archive
 
 .. toctree::

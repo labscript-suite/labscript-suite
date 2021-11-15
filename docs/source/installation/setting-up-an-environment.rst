@@ -22,6 +22,7 @@ Here's an example (on Windows):
     We do not recommend using the `base` conda environment for any project (*labscript suite* or otherwise).
     Working in a separate conda environment ensures any package resolution or update errors (however unlikely) are limited to that environment, and `base` is not compromised.
 
+.. _Conda Quickstart:
 
 Quickstart
 **********
@@ -34,6 +35,7 @@ Quickstart
 
 Once activated, the name of the virtual environment (in this case, `py38` ) will prefix the command line.
 
+.. _Conda Instructions:
 
 Detailed Instructions
 *********************
@@ -61,6 +63,7 @@ There are a number of ways to configure a virtual environment.
 If you are unfamiliar with doing so, we recommend using the `venv module <https://docs.python.org/3/library/venv.html>`_, part of the Python Standard Library.
 Here's an example (on Windows):
 
+.. _Python Quickstart:
 
 Quickstart
 **********
@@ -75,6 +78,7 @@ Quickstart
 
 Once activated, the name of the virtual environment (in this case, `.venv` ) will prefix the command line.
 
+.. _Python Instructions:
 
 Detailed Instructions
 *********************
