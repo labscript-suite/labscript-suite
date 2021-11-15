@@ -32,6 +32,27 @@ references:
   title: qtutils
   repository-code: "https://github.com/philipstarkey/qtutils"
   url: "https://qtutils.readthedocs.io/en/stable/"
+- type: software
+  authors:
+   - family-names: Billington
+     given-names: Chris J.
+  title: spinapi
+  repository-code: "https://github.com/chrisjbillington/spinapi/"
+- type: software
+  authors:
+   - family-names: Cladé
+     given-names: Pierre
+  title: PyDAQmx
+  repository-code: "https://github.com/clade/PyDAQmx"
+  url: "https://pythonhosted.org/PyDAQmx/"
+- type: software
+  authors:
+   - family-names: Johnson
+     given-names: Peter
+   - family-names: Billington
+     given-names: Chris J.
+  title: pynivision
+  repository-code: "https://github.com/chrisjbillington/pynivision"
 - type: phdthesis
   authors:
     - family-names: Billington
