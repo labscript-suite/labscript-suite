@@ -30,6 +30,8 @@ Quick start
 Detailed instructions
 ---------------------
 
+The following is a detailed explanation fo the steps provided in the Quick start section above.
+
 1. Fork the labscript-suite repositories you want to develop using the `GitHub online interface <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>`_. Below we will include all repositories (except the labscript-suite metapackage).
 
 

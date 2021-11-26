@@ -13,6 +13,10 @@ Skip the first line/step if continuing on from the instructions to :ref:`set up 
 
 .. attention:: 
     For the following to work correctly on Windows, you need to use the Anaconda Powershell Prompt, not the Anaconda Prompt.
+    This will be the case until the following bugs are fixed:
+
+    * `conda-build#3813 <https://github.com/conda/conda-build/issues/3813>`_
+    * `conda#9445 <https://github.com/conda/conda/issues/9445>`_
 
 Quick start
 -----------
@@ -45,10 +49,15 @@ Quick start
 Detailed instructions
 ---------------------
 
+The following is a detailed explanation fo the steps provided in the Quick start section above.
+
 #. Fork the labscript-suite repositories you want to develop using the `GitHub online interface <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>`_. 
    Below we will include all repositories (except the labscript-suite metapackage).
 
 #. Manually clone the forked repositories using |GitClone|_.
+
+   .. note::
+        This will set your forked repository(ies) to be the 'origin' remote.
 
 #. Use the `setuptools-conda install-requirements` command to introspect the dependencies from the cloned repositories.
 
@@ -60,8 +69,7 @@ Detailed instructions
       -e labscript -e runmanager -e blacs -e lyse -e runviewer -e labscript-devices -e labscript-utils
 
    .. note::
-        * This will set your forked repository(ies) to be the 'origin' remote.
-        * On Linux / macOS the line continuation character is ``\`` rather than `^`.
+        On Linux / macOS the line continuation character is ``\`` rather than `^`.
 
 #. For each repository, set the upstream remote to the base labscript-suite repository:
 
