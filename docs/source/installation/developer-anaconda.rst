@@ -85,7 +85,7 @@ Detailed instructions
 
        conda remove conda
 
-   Note that this command will only work when using the Anaconda Powershell Prompt and you have installed into a non-base environment as described above.
+   Note that this command will only work if you use the Anaconda Powershell Prompt and have installed the labscript suite into a non-base environment as described above.
 
 Updating a developer installation
 ---------------------------------
