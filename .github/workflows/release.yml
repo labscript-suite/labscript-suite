@@ -124,8 +124,7 @@ jobs:
           conda update -n base -c defaults conda
           conda create -n py${{ matrix.python }} python=${{ matrix.python }}
           conda activate py${{ matrix.python }}
-          conda install -c cbillington setuptools-conda
-          pip install --upgrade setuptools_scm
+          conda install -c labscript-suite setuptools-conda
           setuptools-conda build $CONDA_BUILD_ARGS .
 
       - name: Conda Package (Windows)
@@ -138,8 +137,7 @@ jobs:
           conda update -n base -c defaults conda && ^
           conda create -n py${{ matrix.python }} python=${{ matrix.python }} && ^
           conda activate py${{ matrix.python }} && ^
-          conda install -c cbillington setuptools-conda && ^
-          pip install --upgrade setuptools_scm && ^
+          conda install -c labscript-suite setuptools-conda && ^
           setuptools-conda build %CONDA_BUILD_ARGS% .
 
       - name: Upload Artifact
