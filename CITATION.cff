@@ -1,0 +1,101 @@
+cff-version: 1.2.0
+message: "If you use the labscript suite to control your experiment or perform analysis, please cite the article from preferred-citation and the software itself."
+title: The labscript suite
+authors:
+  - name: "The labscript-suite development team"
+abstract: "A powerful and extensible framework for experiment composition, control, execution, and analysis that implements repeated, parameterised, hardware-time experiments."
+keywords:
+  - research
+  - "experiment composition"
+  - "experiment control"
+  - "experiment analysis"
+  - "quantum science"
+  - "quantum engineering"
+  - hardware-timed
+license: BSD-2-Clause
+repository-code: "https://github.com/labscript-suite"
+url: "https://docs.labscriptsuite.org/en/latest/"
+
+references:
+- type: software
+  authors:
+    - family-names: Billington
+      given-names: Chris J.
+  title: zprocess
+  repository-code: "https://github.com/chrisjbillington/zprocess"
+- type: software
+  authors:
+    - family-names: Starkey
+      given-names: Philip
+    - family-names: Billington
+      given-names: Chris J.
+  title: qtutils
+  repository-code: "https://github.com/philipstarkey/qtutils"
+  url: "https://qtutils.readthedocs.io/en/stable/"
+- type: software
+  authors:
+   - family-names: Billington
+     given-names: Chris J.
+  title: spinapi
+  repository-code: "https://github.com/chrisjbillington/spinapi/"
+- type: software
+  authors:
+   - family-names: Cladé
+     given-names: Pierre
+  title: PyDAQmx
+  repository-code: "https://github.com/clade/PyDAQmx"
+  url: "https://pythonhosted.org/PyDAQmx/"
+- type: software
+  authors:
+   - family-names: Johnson
+     given-names: Peter
+   - family-names: Billington
+     given-names: Chris J.
+  title: pynivision
+  repository-code: "https://github.com/chrisjbillington/pynivision"
+- type: phdthesis
+  authors:
+    - family-names: Billington
+      given-names: Chris J.
+  title: "State-dependent forces in cold quantum gases"
+  school: "Monash University"
+  year: 2018
+  doi: 10.26180/5bd68acaf0696
+  scope: "Chapter 4 provides an excellent, detailed overview of the labscript-suite"
+- type: phdthesis
+  authors:
+    - family-names: Starkey
+      given-names: Philip
+  title: "A software framework for control and automation of precisely timed experiments"
+  school: "Monash University"
+  year: 2019
+  doi: 10.26180/5d1db8ffe29ef
+  scope: "This provides an in-depth description of the labscript-suite, circa 2019"
+
+preferred-citation:
+  type: article
+  title: A scripted control system for autonomous hardware-timed experiments
+  authors:
+    - family-names: Starkey
+      given-names: Philip T.
+    - family-names: Billington
+      given-names: Christopher J.
+      orcid: "https://orcid.org/0000-0002-8067-6400"
+    - family-names: Johnstone
+      given-names: Shaun P.
+      orcid: "https://orcid.org/0000-0002-4704-9552"
+    - family-names: Jasperse
+      given-names: M.
+    - family-names: Helmerson
+      given-names: K.
+    - family-names: Turner
+      given-names: Lincoln D.
+    - family-names: Anderson
+      given-names: Russell P.
+      orcid: "https://orcid.org/0000-0002-4495-7926"
+  doi: "10.1063/1.4817213"
+  journal: "Review of Scientific Instruments"
+  month: 8
+  year: 2013
+  start: 085111 # page number
+  issue: 84
