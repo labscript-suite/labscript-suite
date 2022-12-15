@@ -19,7 +19,7 @@ To do so, run the following command in the python environment you installed the 
 
 Replace `<component>` with the name of the module you wish to run (i.e. `runmanager`, `blacs`, `lyse`, or `runviewer`).
 The blocking error should print to the console you ran the command in.
-You can then use that error to isolate the problem and find the appropriate solution.
+You can then use that error to isolate the problem and find the appropriate solution. If the component starts without any error, try to run the component from the command line with *deactivated* python environment (for that you need to find the path to the executable file from the desktop shortcut).
 
 `zlock`/ `zlog` is preventing *component* from loading!
 -------------------------------------------------------
