@@ -36,7 +36,7 @@ Quick start
     (base) > git clone https://github.com/wkheisenberg/labscript-devices
     (base) > git clone https://github.com/wkheisenberg/labscript-utils
     (base) > conda activate py38
-    (py38) > conda config --env --add channels labscript-suite
+    (py38) > conda config --env --append channels labscript-suite
     (py38) > conda install setuptools-conda pyqt pip desktop-app
     (py38) > setuptools-conda install-requirements ^ 
              labscript runmanager blacs lyse runviewer labscript-devices labscript-utils

@@ -11,7 +11,7 @@ Quick start
 .. code-block:: console
 
     (base) C:\> conda activate py38
-    (base) C:\> conda config --env --add channels labscript-suite
+    (base) C:\> conda config --env --append channels labscript-suite
     (py38) C:\> conda install labscript-suite pyqt
     (py38) C:\> labscript-profile-create
     (py38) C:\> desktop-app install blacs lyse runmanager runviewer
