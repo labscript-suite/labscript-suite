@@ -54,6 +54,18 @@ The following is a detailed explanation of the steps provided in the Quick start
 #. Fork the labscript-suite repositories you want to develop using the `GitHub online interface <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>`_. 
    Below we will include all repositories (except the labscript-suite metapackage).
 
+   .. attention:: 
+
+     Recent `changes in Github's online interface <https://github.blog/changelog/2022-07-27-you-can-now-fork-a-repo-and-copy-only-the-default-branch/>`_
+     mean that version tags are not copied into new forks by default.
+     These tags are necessary to properly resolve component versions when installing from your fork.
+     To override this behavior, ensure the `Copy master branch only` checkbox is **unchecked**.
+
+     .. image:: Copymasterbranchonly.png
+          :width: 400
+          :align: center
+          :alt: Unselect this option to copy version tags too 
+
 #. Manually clone the forked repositories using |GitClone|_.
 
    .. note::
