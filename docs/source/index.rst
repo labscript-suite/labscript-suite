@@ -1,6 +1,7 @@
 .. labscript suite documentation master file
 
-.. mdinclude:: main.md
+.. include:: main.md
+   :parser: myst_parser.sphinx_
 
 .. raw:: html
 

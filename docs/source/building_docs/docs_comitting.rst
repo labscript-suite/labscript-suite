@@ -11,7 +11,7 @@ The main difference is that documentation changes necessitate checking the read 
 Making a PR
 -----------
 
-The general steps for creating the PR are outlined in :doc:`here <contributing>`. 
+The general steps for creating the PR are outlined in :doc:`here </contributing>`. 
 When making PRs with documentation changes, a few extra checks are required.
 In particular, it is a good idea to locally build the documentation as described :doc:`here <docs_build>`.
 If you cannot build locally, the docs will be built automatically for your PR by Read the Docs and can be viewed there (described below).
