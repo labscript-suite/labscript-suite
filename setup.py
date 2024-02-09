@@ -2,7 +2,7 @@ import os
 from setuptools import setup
 
 VERSION_SCHEME = {
-    "version_scheme": "release-branch-semver",
+    "version_scheme": os.getenv("SCM_VERSION_SCHEME", "release-branch-semver"),
     "local_scheme": os.getenv("SCM_LOCAL_SCHEME", "node-and-date"),
 }
 
