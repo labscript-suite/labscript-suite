@@ -36,7 +36,7 @@ though some device drivers may require an older version of python to operate cor
 
 .. code-block:: console
 
-    (base) C:\> conda create -n labscript python=3.12
+    (base) C:\> conda create -n labscript python=3.11
     (base) C:\> conda activate labscript
     (labscript) C:\>
 
