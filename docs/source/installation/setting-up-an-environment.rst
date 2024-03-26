@@ -9,7 +9,8 @@ Below we outline how to create and activate a virtual environment for Anaconda P
 Anaconda Python
 ---------------
 Anaconda Python includes a `virtual environment manager <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ as part of the `conda` executable.
-Here's an example (on Windows):
+Below is an example (on Windows).
+
 
 .. note::
 
@@ -27,13 +28,19 @@ Here's an example (on Windows):
 Quickstart
 **********
 
+When creating a new virtual enviornment, it is preferrable to specify the python version to use.
+You will need to specify a python version that is compatible with the **labscript-suite**.
+The currently compatible versions are |PyPI pyversions|.
+It is recommended to select a newer version of python for a new install,
+though some device drivers may require an older version of python to operate correctly.
+
 .. code-block:: console
 
-    (base) C:\> conda create -n py38 python=3.8
-    (base) C:\> conda activate py38
-    (py38) C:\>
+    (base) C:\> conda create -n labscript python=3.12
+    (base) C:\> conda activate labscript
+    (labscript) C:\>
 
-Once activated, the name of the virtual environment (in this case, `py38` ) will prefix the command line.
+Once activated, the name of the virtual environment (in this case, `labscript` ) will prefix the command line.
 
 .. _Conda Instructions:
 
@@ -41,19 +48,19 @@ Detailed Instructions
 *********************
 
 1. Create a virtual (conda) environment.
-   Here we name it `py38` and ask conda to use Python 3.8 within the virtual environment (name and Python version are variable but these are conventional choices):
+   Here we name it `labscript` and ask conda to use Python 3.8 within the virtual environment (name and Python version are variable but these are conventional choices):
 
   .. code-block:: console
 
-    (base) C:\> conda create -n py38 python=3.8
+    (base) C:\> conda create -n labscript python=3.12
 
 
 2. Activate the virtual (conda) environment:
 
   .. code-block:: console
 
-    (base) C:\> conda activate py38
-    (py38) C:\>
+    (base) C:\> conda activate labscript
+    (labscript) C:\>
 
 
 Regular Python
@@ -122,3 +129,6 @@ Once you have a virtual environment up and running, choose from one of the follo
 2. :doc:`regular-anaconda`;
 3. :doc:`developer-pypi`; or
 4. :doc:`developer-anaconda`.
+
+.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/labscript-suite.svg
+  :target: https://pypi.python.org/pypi/labscript-suite/
