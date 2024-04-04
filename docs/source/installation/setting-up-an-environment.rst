@@ -48,11 +48,11 @@ Detailed Instructions
 *********************
 
 1. Create a virtual (conda) environment.
-   Here we name it `labscript` and ask conda to use Python 3.8 within the virtual environment (name and Python version are variable but these are conventional choices):
+   Here we name it `labscript` and ask conda to use Python 3.11 within the virtual environment (name and Python version are variable but these are conventional choices):
 
   .. code-block:: console
 
-    (base) C:\> conda create -n labscript python=3.12
+    (base) C:\> conda create -n labscript python=3.11
 
 
 2. Activate the virtual (conda) environment:
