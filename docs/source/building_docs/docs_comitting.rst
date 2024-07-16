@@ -5,13 +5,13 @@ Committing documentation updates/fixes is an important way to contribute to the 
 Increasing the amount of technical details in the documentation that are necessary to use the suite but are not obvious from the source is of particular value.
 
 The mechanics of committing documentation to a **labscript-suite** component is nearly identical to committing general code updates/fixes:
-:doc:`a pull request needs to be created </contributing>`.
+:doc:`a pull request needs to be created </reference/contributing>`.
 The main difference is that documentation changes necessitate checking the read the docs builds to confirm what was desired actually makes it into the on-line documentation as intended.
 
 Making a PR
 -----------
 
-The general steps for creating the PR are outlined in :doc:`here </contributing>`. 
+The general steps for creating the PR are outlined in :doc:`here </reference/contributing>`. 
 When making PRs with documentation changes, a few extra checks are required.
 In particular, it is a good idea to locally build the documentation as described :doc:`here <docs_build>`.
 If you cannot build locally, the docs will be built automatically for your PR by Read the Docs and can be viewed there (described below).

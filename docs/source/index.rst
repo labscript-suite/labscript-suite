@@ -68,16 +68,12 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: DOCUMENTATION
+   :caption: INSTALLATION AND SETUP
 
    installation/index
-   configuration
-   troubleshooting
-   building_docs
-   changes
-   contributing
-   community
-   archive
+   setup/configuration
+   setup/troubleshooting
+   
 
 .. toctree::
    :maxdepth: 2
@@ -85,6 +81,17 @@
    :caption: FURTHER DOCUMENTATION
 
    components
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: REFERENCE
+
+   reference/changes
+   reference/contributing
+   building_docs/index
+   reference/community
+   reference/archive
 
 .. toctree::
    :maxdepth: 2

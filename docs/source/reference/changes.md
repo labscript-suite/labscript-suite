@@ -24,7 +24,7 @@ A typical structure of the profile directory is:
         └── user_devices/
 ```
 
-This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](installation/index.rst)).
+This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](../installation/index.rst)).
 
 _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) an editable installation can be located within the labscript-suite profile directory.
 

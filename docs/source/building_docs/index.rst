@@ -12,11 +12,11 @@ The below sections describe how to configure your environment for building docs 
 .. toctree::
     :maxdepth: 2
 
-    building_docs/docs_install
-    building_docs/docs_build
-    building_docs/docs_writing
-    building_docs/docs_comitting
-    building_docs/docs_resources
-    building_docs/docs_minutia
+    docs_install
+    docs_build
+    docs_writing
+    docs_comitting
+    docs_resources
+    docs_minutia
 
     

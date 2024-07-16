@@ -50,7 +50,7 @@ Detailed instructions
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
 
 
-5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/changes`):
+5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`):
 
   .. code-block:: console
 

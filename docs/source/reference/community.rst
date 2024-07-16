@@ -17,5 +17,5 @@ Labscript-Suite-Tutorial
 
 Developed by Josiah Sinclair at the MIT-Harvard Center for Ultracold Atoms (CUA),
 this detailed step-by-step tutorial covers everything from installing python through running your shot.
-It uses :ref:`regular python <installation/setting-up-an-environment:regular python>` with the :doc:`regular pip installation method <installation/regular-pypi>`.
+It uses :ref:`regular python <installation/setting-up-an-environment:regular python>` with the :doc:`regular pip installation method <../installation/regular-pypi>`.
 For hardware it assumes you have a :doc:`PrawnBlaster <labscript-devices:devices/prawnblaster>`, a :doc:`NI DAQ <labscript-devices:devices/ni_daqs>` with analog outputs, and an oscilloscope.
