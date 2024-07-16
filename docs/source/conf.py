@@ -190,8 +190,10 @@ html_static_path = ['_static']
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
 
-# Use m2r only for mdinclude and recommonmark for everything else
-# https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
+# Define the canonical URL for our custom domain on RTD
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+
 def setup(app):
 
     app.add_css_file('custom.css')
