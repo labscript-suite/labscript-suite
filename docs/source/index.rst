@@ -145,7 +145,6 @@ Testimonials
    :hidden:
    :caption: LINKS
 
-   Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
    PyPI <https://pypi.org/project/labscript-suite/>
    Anaconda Cloud <https://anaconda.org/labscript-suite/labscript-suite>
