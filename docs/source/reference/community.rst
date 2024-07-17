@@ -8,7 +8,7 @@ These resources are not specifically developed or maintained by the **labscript-
 They have been graciously provided by community members for the benefit of other **labscript-suite** users in the hope they may be useful.
 Please direct any questions to their respective owners.
 
-If you have something you would like to add to this list, :doc:`please contact us or make a pull request <contributing>`.
+If you have something you would like to add to this list, :doc:`please contact us or make a pull request </project/contributing>`.
 
 Labscript-Suite-Tutorial
 ------------------------

@@ -61,6 +61,7 @@ docs = [
     "Sphinx==7.3.7",
     "sphinx-rtd-theme==2.0.0",
     "myst_parser==3.0.1",
+    "sphinxcontrib-bibtex==2.6.2",
 ]
 pyqt = ["PyQt5"]
 spincore = ["spinapi"]

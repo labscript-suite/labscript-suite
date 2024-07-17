@@ -65,6 +65,36 @@
    </details>
 
 
+Runs on *labscript*
+-------------------
+
+Selected published works by *labscript suite* users.
+For a complete list, see `here <https://scholar.google.com/scholar?hl=en&as_sdt=20000005&sciodt=0,21&cites=468288225916364738&scipsc=&q=>`__.
+
+.. bibliography::
+   :all:
+
+
+Testimonials
+------------
+
+   "We thank the *labscript suite* community for support in implementing state-of-the-art control software for our experiments." :cite:`schlosser_assembled_2020`
+
+   ..
+
+   "A fanless embedded PC running *labscript suite* software packages is able to control all of the optical lattice clock operations,
+   from the hardware interface level and experimental timing to the data analysis sequences." :cite:`morris_development_2019`
+
+   ..
+
+   "*labscript* is amazing! Not only as a project itself but as a good example of software engineering that fosters collaboration."
+
+   ..
+
+   "labscript is a nice upgrade from the program used so far to control different cold atom experiments. 
+   he transition was smooth and we are very happy so far.
+   Thanks to all labscript authors for writing and sharing it!"
+
 .. toctree::
    :maxdepth: 2
    :hidden:
@@ -78,9 +108,27 @@
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: FURTHER DOCUMENTATION
+   :caption: COMPONENT DOCUMENTATION
 
    components
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: HARDWARE
+
+   hardware/index
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: PROJECT INFORMATION
+
+   project/structure
+   project/contributing
+   project/conduct
+   project/license
+   project/about
 
 .. toctree::
    :maxdepth: 2
@@ -88,7 +136,6 @@
    :caption: REFERENCE
 
    reference/changes
-   reference/contributing
    building_docs/index
    reference/community
    reference/archive
