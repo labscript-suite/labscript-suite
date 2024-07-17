@@ -40,7 +40,7 @@ Detailed instructions
     (labscript) C:\> conda install labscript-suite pyqt
 
 
-4. Create a profile directory in your home directory (the location of user data; see :doc:`/changes`):
+4. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`):
 
   .. code-block:: console
 

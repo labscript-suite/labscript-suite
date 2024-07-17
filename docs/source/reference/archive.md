@@ -12,9 +12,9 @@ This archive can be found at [bitbucket-archive.labscriptsuite.org](https://bitb
 
 ## What to do if you had custom code in a fork on BitBucket
 
-labscript experiment scripts and lyse analysis scripts can be copied or moved to the new labscriptlib/analysislib folders. We deem these user-side code as they are not within the codebase of the labcript suite programs, and thus do not require a [developer (editable) installation](installation/index.rst).
+labscript experiment scripts and lyse analysis scripts can be copied or moved to the new labscriptlib/analysislib folders. We deem these user-side code as they are not within the codebase of the labcript suite programs, and thus do not require a [developer (editable) installation](../installation/index.rst).
 
-Customisations of the labscript suite will need to be reintegrated into the new package structure, using a developer installation. For example, to include your own custom labscript devices, you should undertake the developer installation procedure for the [labscript-devices](https://github.com/labscript-suite/labscript-devices) repository, and copy your custom or modified device files into the labscript_devices folder alongside the existing device files. Please also consider contributing these back to the main project by pushing them to your fork and [issuing a pull request](contributing.md/#pull-requests).
+Customisations of the labscript suite will need to be reintegrated into the new package structure, using a developer installation. For example, to include your own custom labscript devices, you should undertake the developer installation procedure for the [labscript-devices](https://github.com/labscript-suite/labscript-devices) repository, and copy your custom or modified device files into the labscript_devices folder alongside the existing device files. Please also consider contributing these back to the main project by pushing them to your fork and [issuing a pull request](/project/contributing_guide.md/#pull-requests).
 
 The procedure for migrating customisations of other components will depend on how up-to-date your fork is. Please open a thread on the [mailing list](http://groups.google.com/group/labscriptsuite) to discuss with us how to migrate your custom features and/or how to contribute them back to the base _labscript suite_ repositories.
 
