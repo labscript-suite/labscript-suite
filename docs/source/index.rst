@@ -92,25 +92,24 @@ Testimonials
    ..
 
    "labscript is a nice upgrade from the program used so far to control different cold atom experiments. 
-   he transition was smooth and we are very happy so far.
+   The transition was smooth and we are very happy so far.
    Thanks to all labscript authors for writing and sharing it!"
 
 .. toctree::
-   :maxdepth: 2
    :hidden:
-   :caption: INSTALLATION AND SETUP
 
-   installation/index
-   setup/configuration
-   setup/troubleshooting
-   
+   self
 
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: COMPONENT DOCUMENTATION
+   :caption: PROJECT INFORMATION
 
-   components
+   project/about
+   project/contributing
+   project/license
+   project/structure
+   project/conduct
 
 .. toctree::
    :maxdepth: 2
@@ -122,13 +121,18 @@ Testimonials
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: PROJECT INFORMATION
+   :caption: INSTALLATION AND SETUP
 
-   project/structure
-   project/contributing
-   project/conduct
-   project/license
-   project/about
+   installation/index
+   setup/configuration
+   setup/troubleshooting
+   
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: COMPONENT DOCUMENTATION
+
+   components
 
 .. toctree::
    :maxdepth: 2

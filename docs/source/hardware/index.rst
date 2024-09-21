@@ -56,6 +56,11 @@ Hardware on this list do not constitute an endorsement.
    
    - Includes most cameras compliant with the GigE Vision interface standard, such as `Allied Vision <https://www.alliedvision.com/en/products/cameras.html>`__ cameras
 
+.. note::
+
+  Some research labs maintain support for other devices not included in this list.
+  See :doc:`3rd party devices <labscript-devices:user_devices>` in the ``labscript-devices`` documenation.
+
 The Monash labs where the *labscript suite* was
 initially developed have used an `Adnaco PCI/PCIe fiber expansion system <http://www.adnaco.com/products/>`__,
 which allows devices to be located close to the
@@ -69,6 +74,6 @@ Custom Developed Hardware
 .. toctree::
     :maxdepth: 2
     
-    pineblaster
     prawnblaster
     prawndo
+    pineblaster

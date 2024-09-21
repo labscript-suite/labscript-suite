@@ -10,8 +10,8 @@ Development Team
 
 The *labscript suite* has been in active development for over 10 years and has had many developers and contributors.
 
-Original Development Team
--------------------------
+Original Development Team (at Monash University)
+------------------------------------------------
 
 - Philip Starkey
 - Chris Billington
@@ -19,25 +19,31 @@ Original Development Team
 - Martijn Jasperse
 - Russell Anderson
 
-Core *labscript suite* Team
----------------------------
+With supervision from:
 
-- Chris Billington
-- Philip Starkey
+- Prof. Kris Helmerson
+- Dr. Lincoln Turner
+- Dr. Russell Anderson
+
+Current Core *labscript suite* Team
+-----------------------------------
+
 - Russell Anderson
+- Chris Billington
+- David Meyer
+- Philip Starkey
 
 Contributors
 ------------
 
-- Jan Werkmann
-- Lars Kohfahl
-- Ian Spielman
-- Danial Barker
-- David Meyer
-- Zak Vendeiro
-- Francisco Salces
-- Lincoln Turner
-- Mikhail Egorov
+- Daniel Barker
 - Michael Doris
 - Matt Earnshaw
-- ReneKolb
+- Mikhail Egorov
+- Lars Kohfahl
+- Rene Kolb
+- Francisco Salces
+- Ian Spielman
+- Lincoln Turner
+- Zak Vendeiro
+- Jan Werkmann
