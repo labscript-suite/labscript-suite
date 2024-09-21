@@ -65,33 +65,90 @@
    </details>
 
 
+Runs on *labscript*
+-------------------
+
+Selected published works by *labscript suite* users.
+For a complete list, see `here <https://scholar.google.com/scholar?hl=en&as_sdt=20000005&sciodt=0,21&cites=468288225916364738&scipsc=&q=>`__.
+
+.. bibliography::
+   :all:
+
+
+Testimonials
+------------
+
+   "We thank the *labscript suite* community for support in implementing state-of-the-art control software for our experiments." :cite:`schlosser_assembled_2020`
+
+   ..
+
+   "A fanless embedded PC running *labscript suite* software packages is able to control all of the optical lattice clock operations,
+   from the hardware interface level and experimental timing to the data analysis sequences." :cite:`morris_development_2019`
+
+   ..
+
+   "*labscript* is amazing! Not only as a project itself but as a good example of software engineering that fosters collaboration."
+
+   ..
+
+   "labscript is a nice upgrade from the program used so far to control different cold atom experiments. 
+   The transition was smooth and we are very happy so far.
+   Thanks to all labscript authors for writing and sharing it!"
+
+.. toctree::
+   :hidden:
+
+   self
+
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: DOCUMENTATION
+   :caption: PROJECT INFORMATION
+
+   project/about
+   project/contributing
+   project/license
+   project/structure
+   project/conduct
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: HARDWARE
+
+   hardware/index
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: INSTALLATION AND SETUP
 
    installation/index
-   configuration
-   troubleshooting
-   building_docs
-   changes
-   contributing
-   community
-   archive
-
+   setup/configuration
+   setup/troubleshooting
+   
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: FURTHER DOCUMENTATION
+   :caption: COMPONENT DOCUMENTATION
 
    components
 
 .. toctree::
    :maxdepth: 2
    :hidden:
+   :caption: REFERENCE
+
+   reference/changes
+   building_docs/index
+   reference/community
+   reference/archive
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
    :caption: LINKS
 
-   Home Page <http://labscriptsuite.org>
    Source Code <https://github.com/labscript-suite/labscript-suite>
    PyPI <https://pypi.org/project/labscript-suite/>
    Anaconda Cloud <https://anaconda.org/labscript-suite/labscript-suite>

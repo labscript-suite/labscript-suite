@@ -44,6 +44,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx_rtd_theme",
+    "sphinxcontrib.bibtex",
     "myst_parser",
 ]
 
@@ -52,6 +53,10 @@ autodoc_typehints = 'description'
 # Prefix each autosectionlabel with the name of the document it is in and a colon
 autosectionlabel_prefix_document = True
 myst_heading_anchors = 2
+
+# bibliography
+bibtex_bibfiles = ["labscript_users.bib"]
+bibtex_default_style = "plain"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
