@@ -117,4 +117,14 @@ The default name of the file is `connection_table.h5` and it is located in the e
 
 With the connection table in place, you can now open BLACS.
 Changes to `connection_table.py` will now be recognized by BLACS, and BLACS will prompt you to recompile the connection table using a prompt within BLACS itself.
- 
+
+Generating a new zprocess secret key
+-------------------------------------------------------
+
+To generate a zprocess secret key, navigate to the `labconfig` directory and run 
+
+.. code-block:: console
+
+    C:\Users\wkheisenberg\labscript-suite\labconfig> python -m zprocess.makesecret
+
+then update the `[security]` section of the `labconfig.ini` to use the new file.
