@@ -12,7 +12,7 @@ Quick start
 
     (base) C:\> conda activate labscript
     (base) C:\> conda config --env --append channels labscript-suite
-    (labscript) C:\> conda install labscript-suite pyqt
+    (labscript) C:\> conda install labscript-suite pyqt<6
     (labscript) C:\> labscript-profile-create
     (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
