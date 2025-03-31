@@ -37,7 +37,7 @@ Quick start
     (base) > git clone https://github.com/wkheisenberg/labscript-utils
     (base) > conda activate labscript
     (labscript) > conda config --env --append channels labscript-suite
-    (labscript) > conda install setuptools-conda pyqt=5.15.10 pip desktop-app
+    (labscript) > conda install setuptools-conda pyqt<6 pip desktop-app
     (labscript) > setuptools-conda install-requirements ^ 
              labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
     (labscript) > pip install --no-build-isolation --no-deps ^
