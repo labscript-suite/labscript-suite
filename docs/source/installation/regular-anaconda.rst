@@ -12,7 +12,7 @@ Quick start
 
     (base) C:\> conda activate labscript
     (base) C:\> conda config --env --append channels labscript-suite
-    (labscript) C:\> conda install labscript-suite pyqt<6
+    (labscript) C:\> conda install labscript-suite "pyqt<6"
     (labscript) C:\> labscript-profile-create
     (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
@@ -37,7 +37,7 @@ Detailed instructions
 
   .. code-block:: console
 
-    (labscript) C:\> conda install labscript-suite pyqt<6
+    (labscript) C:\> conda install labscript-suite "pyqt<6"
 
 
 4. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`):
