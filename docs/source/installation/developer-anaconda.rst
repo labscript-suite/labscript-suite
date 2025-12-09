@@ -43,7 +43,7 @@ Quick start
     (labscript) > pip install --no-build-isolation --no-deps ^
              -e labscript -e runmanager -e blacs -e lyse ^
              -e runviewer -e labscript-devices -e labscript-utils
-    (labscript) > labscript-profile-create
+    (labscript) > labscript-profile-create [-n my_apparatus_name] [-c]
     (labscript) > desktop-app install blacs lyse runmanager runviewer
     (labscript) > conda remove conda # optional but highly recommended
 

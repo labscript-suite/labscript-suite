@@ -13,7 +13,7 @@ Quick start
     (base) C:\> conda activate labscript
     (base) C:\> conda config --env --append channels labscript-suite
     (labscript) C:\> conda install labscript-suite "pyqt<6"
-    (labscript) C:\> labscript-profile-create
+    (labscript) C:\> labscript-profile-create [-n my_apparatus_name] [-c]
     (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
 
@@ -40,11 +40,15 @@ Detailed instructions
     (labscript) C:\> conda install labscript-suite "pyqt<6"
 
 
-4. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`):
+4. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+   Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
+   `-n/--appparatus-name` allows for setting a custom apparatus name for the experiment.
+   `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
+   Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
   .. code-block:: console
 
-    (labscript) C:\> labscript-profile-create
+    (labscript) C:\> labscript-profile-create [-n my_apparatus_name] [-c]
 
 
 5. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).
