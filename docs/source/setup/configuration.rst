@@ -119,13 +119,13 @@ A very simple connection table that defines a PrawnBlaster pseudoclock and an NI
 
       stop(1)
 
-More specific examples of connection tables can be fould in the **labscript-devices** repository :doc:`here <labscript-devices:ex_conn_tables>`.
+More specific examples of connection tables can be found in the **labscript-devices** repository :doc:`here <labscript-devices:ex_conn_tables>`.
 
 .. note:: 
 
 	BLACS will instantiate a control for all available hardware channels on a device, even if they are not specifically named in the connection table.
 	However, connection tables with identical devices but different names for the attached channels are considered unique by **labscript**.
-	Remember that the connection table used by an individual shot must be a subset of the connection table used by BLACS, so chaning channel names will require re-compiling the connection table.
+	Remember that the connection table used by an individual shot must be a subset of the connection table used by BLACS, so changing channel names will require re-compiling the connection table.
 
 With the `connection_table.py` file written, you will then need to compile it using runmanager.
 Take the output compiled file and save it by the name and in the location specified by the `connection_table_h5` key of the labconfig file.

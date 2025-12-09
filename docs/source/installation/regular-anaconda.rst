@@ -58,7 +58,7 @@ Detailed instructions
        (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
 
-   These will be named, e.g. 'runmanager – the labcript suite (py38)' which when clicked on will:
+   These will be named, e.g. 'runmanager – the labcript suite (labscript)' which when clicked on will:
 
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).

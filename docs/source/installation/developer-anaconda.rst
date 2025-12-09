@@ -100,7 +100,7 @@ The following is a detailed explanation of the steps provided in the Quick start
 #. (Optional, but Recommended) Remove `conda` and its dependencies from the `labscript` environment.
    This will allow you to use the standard Anaconda Prompt again with this environment without issues.
    The particular issue being addressed is that `setuptools-conda` installs the `conda` package in a non-base environment, which can cause issues.
-   Once the installation is complete, `setuptools-conda` and its dependices are no longer needed and can be safely removed using:
+   Once the installation is complete, `setuptools-conda` and its dependencies are no longer needed and can be safely removed using:
 
    .. code-block:: console
 

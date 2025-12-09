@@ -62,7 +62,7 @@ This section assumes you followed the :doc:`regular installation directions usin
 Converting an Anaconda Installation
 -----------------------------------
 
-This sectioni assumes you followed the :doc:`regular installation directions using conda <regular-anaconda>`.
+This section assumes you followed the :doc:`regular installation directions using conda <regular-anaconda>`.
 
 #. Activate the conda environment with your labscript installation from the Anaconda Prompt.
 
@@ -74,7 +74,7 @@ This sectioni assumes you followed the :doc:`regular installation directions usi
 
    .. code-block:: console
 
-        (labscript) C:\Users\wkheisenberg> conda remove -f labscript-devices
+        (labscript) C:\Users\wkheisenberg> conda remove --force labscript-devices
 
 #. Install the local editable copy of the component.
 
