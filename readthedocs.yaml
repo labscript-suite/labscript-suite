@@ -9,6 +9,13 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.11"
+  jobs:
+    # ensure full git repo is pulled so setuptools_scm gets versions correctly on install
+    # https://docs.readthedocs.com/platform/stable/build-customization.html#unshallow-git-clone
+    post_checkout:
+      - git fetch --unshallow || true
+      - git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || true
+      - git fetch --all --tags || true
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
