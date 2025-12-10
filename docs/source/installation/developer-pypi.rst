@@ -23,7 +23,7 @@ Quick start
             --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
             --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
-    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
     (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
