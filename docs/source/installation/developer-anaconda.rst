@@ -8,7 +8,7 @@ Developer installations are useful for those who want to customise the *labscrip
     Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
-In this example, we will use an existing conda environment named `py38`.
+In this example, we will use an existing conda environment named `labscript`.
 Skip the first line/step if continuing on from the instructions to :ref:`set up this environment <installation/setting-up-an-environment:Anaconda Python>`.
 
 .. attention:: 
@@ -21,8 +21,8 @@ Skip the first line/step if continuing on from the instructions to :ref:`set up 
 Quick start
 -----------
 
-.. note:: After the first line, the current directory is ommited from the command prompt
-    for brevity.
+.. note:: 
+    After the first line, the current directory is ommited from the command prompt for brevity.
 
 .. code-block:: console
 
@@ -35,16 +35,17 @@ Quick start
     (base) > git clone https://github.com/wkheisenberg/runviewer
     (base) > git clone https://github.com/wkheisenberg/labscript-devices
     (base) > git clone https://github.com/wkheisenberg/labscript-utils
-    (base) > conda activate py38
-    (py38) > conda config --env --add channels labscript-suite
-    (py38) > conda install setuptools-conda pyqt pip desktop-app
-    (py38) > setuptools-conda install-requirements ^ 
+    (base) > conda activate labscript
+    (labscript) > conda config --env --append channels labscript-suite
+    (labscript) > conda install setuptools-conda "pyqt<6" pip desktop-app
+    (labscript) > setuptools-conda install-requirements ^ 
              labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
-    (py38) > pip install --no-build-isolation --no-deps ^
+    (labscript) > pip install --no-build-isolation --no-deps ^
              -e labscript -e runmanager -e blacs -e lyse ^
              -e runviewer -e labscript-devices -e labscript-utils
-    (py38) > labscript-profile-create
-    (py38) > desktop-app install blacs lyse runmanager runviewer
+    (labscript) > labscript-profile-create [-n my_apparatus_name] [-c]
+    (labscript) > desktop-app install blacs lyse runmanager runviewer
+    (labscript) > conda remove conda # optional but highly recommended
 
 Detailed instructions
 ---------------------
@@ -53,6 +54,18 @@ The following is a detailed explanation of the steps provided in the Quick start
 
 #. Fork the labscript-suite repositories you want to develop using the `GitHub online interface <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>`_. 
    Below we will include all repositories (except the labscript-suite metapackage).
+
+   .. attention:: 
+
+     Recent `changes in Github's online interface <https://github.blog/changelog/2022-07-27-you-can-now-fork-a-repo-and-copy-only-the-default-branch/>`_
+     mean that version tags are not copied into new forks by default.
+     These tags are necessary to properly resolve component versions when installing from your fork.
+     To override this behavior, ensure the `Copy master branch only` checkbox is **unchecked**.
+
+     .. image:: Copymasterbranchonly.png
+          :width: 400
+          :align: center
+          :alt: Unselect this option to copy version tags too 
 
 #. Manually clone the forked repositories using |GitClone|_.
 
@@ -84,10 +97,10 @@ The following is a detailed explanation of the steps provided in the Quick start
 
 #. Continue from step 4 (create the labscript profile) in the :doc:`regular-anaconda` instructions.
 
-#. (Optional, but Recommended) Remove `conda` and its dependencies from the `py38` environment.
+#. (Optional, but Recommended) Remove `conda` and its dependencies from the `labscript` environment.
    This will allow you to use the standard Anaconda Prompt again with this environment without issues.
    The particular issue being addressed is that `setuptools-conda` installs the `conda` package in a non-base environment, which can cause issues.
-   Once the installation is complete, `setuptools-conda` and its dependices are no longer needed and can be safely removed using:
+   Once the installation is complete, `setuptools-conda` and its dependencies are no longer needed and can be safely removed using:
 
    .. code-block:: console
 

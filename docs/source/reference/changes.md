@@ -1,8 +1,8 @@
-## Recent changes to the _labscript suite_
+# Changes in _labscript suite_ v3
 
 Upon migrating the code base to GitHub and publishing distributions on PyPI in April–May 2020, existing users should be aware of the following recent changes.
 
-### Profile directories
+## Profile directories
 
 The _labscript suite_ profile directory, containing application configurations, logs, and user-side code, is now located by default in the current user’s home directory, e.g. for a local user named `wkheisenberg` this is:
 
@@ -24,12 +24,12 @@ A typical structure of the profile directory is:
         └── user_devices/
 ```
 
-This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](../installation)).
+This structure is created by calling the command `labscript-profile-create` in a terminal after installing `labscript-utils` (per the [installation instructions](../installation/index.rst)).
 
 _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-suite/labscript-utils/issues/37) an editable installation can be located within the labscript-suite profile directory.
 
 
-### Secure communication
+## Secure communication
 
 Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
 
@@ -62,17 +62,17 @@ allow_insecure = True
 * There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
 
 
-### Application shortcuts
+## Application shortcuts
 
 Operating-system menu shortcuts, correct taskbar behaviour, and environment activation for the Python GUI applications (blacs, lyse, runmanager, and runviewer) is now handled by a standalone Python package [desktop-app](https://github.com/chrisjbillington/desktop-app) (per installation instructions above). This currently supports Windows and Linux (Mac OS X support is forthcoming).
 
 
-### Lab configuration
+## Lab configuration
 
 The `experiment_name` item has been renamed to `apparatus_name` in the labconfig (.ini) file, to better reflect the distinciton between the infrasturcture that experiment shots are executed on. The old keyword can still be used for this item, but a [warning](https://docs.python.org/3/library/exceptions.html#FutureWarning) will be issued to remind you to update your labconfig.
 
 
-### Source code structure (developer installation)
+## Source code structure (developer installation)
 
 Existing users who move to a developer (editable) installation, please note the following structural changes to the _labscript suite_ source code:
 
@@ -104,6 +104,6 @@ Existing users who move to a developer (editable) installation, please note the 
 * As installation no longer requires a separate package, the repository formerly named ‘installer’ has been renamed to ‘[labscript-suite](https://github.com/labscript-suite/labscript-suite/issues)’, and is a metapackage for the *labscript suite* (installing it via `pip`/`conda` installs the suite).
 
 
-### Versioning (developer installation)
+## Versioning (developer installation)
 
-Aside from the maintenance branches described [here](../contributing/#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version 2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
+Aside from the maintenance branches described [here](/project/contributing_guide.md/#branching-modelstrategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version 2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.

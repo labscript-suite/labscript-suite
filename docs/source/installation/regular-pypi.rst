@@ -14,7 +14,7 @@ Quick start
     (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
-    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
     (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
@@ -50,11 +50,15 @@ Detailed instructions
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
 
 
-5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/changes`):
+5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+   Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
+   `-n/--appparatus-name` allows for setting a custom apparatus name for the experiment.
+   `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
+   Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
 
 
 6. (Optional) Create shortcuts for the GUI applications (blacs, lyse, runmanager, and runviewer) and place them in the start-menu (or non-Windows OS equivalent).

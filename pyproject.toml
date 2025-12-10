@@ -1,3 +1,63 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=4.1.0"]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_scheme = "release-branch-semver"
+local_scheme = "no-local-version"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages]
+find = {namespaces = false}
+
+
+[project]
+name = "labscript-suite"
+description = "Meta-package for the labscript suite experiment control and automation system"
+authors = [
+    {name = "The labscript suite community", email = "labscriptsuite@googlegroups.com"},
+]
+keywords = ["experiment control", "automation"]
+license = {file = 'LICENSE.txt'}
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3 :: Only",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "blacs>=3.2.3",
+    "labscript>=3.4.0",
+    "labscript-devices>=3.3.0",
+    "labscript_utils>=3.4.1",
+    "lyse>=3.3.0",
+    "runmanager>=3.3.0",
+    "runviewer>=3.2.4",
+]
+dynamic = ["version"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.urls]
+Homepage = "http://labscriptsuite.org/"
+Documentation = "https://docs.labscriptsuite.org/"
+Repository = "https://github.com/labscript-suite/labscript-suite/"
+Downloads = "https://github.com/labscript-suite/labscript-suite/releases/"
+Tracker = "https://github.com/labscript-suite/labscript-suite/issues/"
+
+[project.optional-dependencies]
+docs = [
+    "Sphinx==8.2.3",
+    "sphinx-rtd-theme==3.0.2",
+    "myst_parser==4.0.1",
+    "sphinxcontrib-bibtex==2.6.2",
+]
+pyqt = ["PyQt5"]
+spincore = ["spinapi"]
+nidaqmx = ["PyDAQmx"]
+nivision = ["PyNIVision"]
+setuptools_scm = ["setuptools_scm>=8"]

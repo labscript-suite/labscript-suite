@@ -19,7 +19,7 @@ This makes it far easier to get started using the *labscript suite*, as you no l
     regular-anaconda
     developer-pypi
     developer-anaconda
-    .. regular-to-developer
+    regular-to-developer
 
 .. |pip| replace:: ``pip``
 .. _pip: https://packaging.python.org/tutorials/installing-packages

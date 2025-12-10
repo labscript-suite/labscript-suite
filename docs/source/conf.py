@@ -13,9 +13,8 @@
 import os
 from pathlib import Path
 import sys
-from m2r import MdInclude
-from recommonmark.transform import AutoStructify
 from jinja2 import FileSystemLoader, Environment
+import importlib.metadata
 
 # -- Project information (unique to each project) -------------------------------------
 
@@ -24,7 +23,7 @@ copyright = "2020, labscript suite"
 author = "labscript suite contributors"
 
 sys.path.insert(0, os.path.abspath("../.."))
-from labscript_suite import __version__ as version  # noqa: E402
+version = importlib.metadata.version('labscript_suite')
 
 release = version
 
@@ -46,13 +45,19 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx_rtd_theme",
-    "recommonmark",
+    "sphinxcontrib.bibtex",
+    "myst_parser",
 ]
 
 autodoc_typehints = 'description'
 
 # Prefix each autosectionlabel with the name of the document it is in and a colon
 autosectionlabel_prefix_document = True
+myst_heading_anchors = 2
+
+# bibliography
+bibtex_bibfiles = ["labscript_users.bib"]
+bibtex_default_style = "plain"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -63,7 +68,10 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 # The suffix(es) of source filenames.
-source_suffix = ['.rst', '.md']
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = 'index'
@@ -84,7 +92,7 @@ intersphinx_mapping = {
     'h5py': ('https://docs.h5py.org/en/stable/', None),
     'pydaqmx': ('https://pythonhosted.org/PyDAQmx/', None),
     'qt': (
-        '',
+        'https://riverbankcomputing.com/static/Docs/PyQt5/',
         'pyqt5-modified-objects.inv',
     )  # from https://github.com/MSLNZ/msl-qt/blob/master/docs/create_pyqt_objects.py
     # under MIT License
@@ -191,23 +199,12 @@ html_static_path = ['_static']
 # Customize the html_theme
 html_theme_options = {'navigation_depth': 3}
 
-# Use m2r only for mdinclude and recommonmark for everything else
-# https://github.com/readthedocs/recommonmark/issues/191#issuecomment-622369992
-def setup(app):
-    config = {
-        # 'url_resolver': lambda url: github_doc_root + url,
-        'auto_toc_tree_section': 'Contents',
-        'enable_eval_rst': True,
-    }
-    app.add_config_value('recommonmark_config', config, True)
-    app.add_transform(AutoStructify)
+# Define the canonical URL for our custom domain on RTD
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
 
-    # from m2r to make `mdinclude` work
-    app.add_config_value('no_underscore_emphasis', False, 'env')
-    app.add_config_value('m2r_parse_relative_links', False, 'env')
-    app.add_config_value('m2r_anonymous_references', False, 'env')
-    app.add_config_value('m2r_disable_inline_math', False, 'env')
-    app.add_directive('mdinclude', MdInclude)
+
+def setup(app):
+
     app.add_css_file('custom.css')
 
     # generate the components.rst file dynamically so it points to stable/latest

@@ -1,11 +1,24 @@
-## Contributing to the _labscript suite_
 
-We are very grateful for all the contributions users have made in the past decade to make the _labscript suite_ the most widely used open-source experiment control and automation system in quantum science. These include development, suggestions, and feedback, and we look forward to this continuing on GitHub.
+The _labscript suite_ is an open-source project developed by passionate volunteers.
+Its success hinges on the contributions provided by the community over the years,
+and we highly encourage users to contribute fixes and improvements they have developed in lab back to the main project.
 
+Below is a high-level guide to contributing to the _labscript suite_.
 
-### Issue tracking
+# Communication
 
-The issue tracking on GitHub is very similar to BitBucket, with the added advantage that you can add inter-repository issue references, e.g. referring to [labscript-suite/runmanager#68](https://github.com/labscript-suite/runmanager/issues/68) in any issue or pull request will link to the corresponding issue. We have imported all issues from the BitBucket repositories into the GitHub repositories. This import is not perfect (as each comment is now posted by Phil Starkey) but the comments have been modified to contain the original author attribution. We have also updated all links to files, pull requests, issues, and commits so that they point to the equivalent GitHub location and/or the archived copy of the data (as discussed above).
+Open-source software development is a highly collaborative exercise that requires a lot of communication.
+It also often involves long delays between messages due the volunteer nature of the work and busy schedules of everyone involved.
+To better serve everyone's time, it is recommended to communicate with the development team as early as is reasonable.
+This can be done via the [mailing list](http://groups.google.com/group/labscriptsuite), github issues/discussions, or by joining the developer Zulip chat.
+
+Early communication is especially important before developing large, sweeping changes.
+In such a case, it is wise to create an issue proposing the change before beginning work on it.
+This allows the core developers a chance to provide feedback and advice before you spend significant time working on the solution is isolation.
+Oftentimes, an alternate solution that already exists can be provided.
+Finally, if the changes are unlikely to be accepted (e.g. they are specific to a single lab's use case and would break others' workflows), the developers can also make that clear before significant effort is put into making a detailed, complete PR.
+
+# Issue tracking
 
 Please use the issue tracker of the relevant GitHub repository for:
 
@@ -13,15 +26,9 @@ Please use the issue tracker of the relevant GitHub repository for:
 * Suggesting **enhancements**: new features or requests;
 * Issues relating to **installation**, **performance**, or **documentation**.
 
-For advice on _how_ to use the existing functionality of the _labscript suite_, please use our [mailing list](http://groups.google.com/group/labscriptsuite).
+For advice on *how* to use the existing functionality of the *labscript suite*, please use our [mailing list](http://groups.google.com/group/labscriptsuite).
 
-
-### Request for developers
-
-We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please [reach out to us](mailto:labscriptsuite@gmail.com).
-
-
-### Pull requests
+# Pull requests
 
 We will continue the same feature-branch workflow as before.
 
@@ -51,7 +58,11 @@ We will continue the same feature-branch workflow as before.
 
 7. **The core dev team will review the changes, and often ask for changes.**
    By pushing new commits to the same branch as that used by the PR, those changes will automatically be added to the PR.
+   As the core devs are busy and generally not paid for their time, we ask for some patience when waiting for responses.
+   If you have not had any responses for a week or two, please make a reminder comment to help remind the core devs of your PR.
 8. **Once all concerns are addressed, the PR can be merged by the core dev team.**
+   Once merged, your changes will be available in the mainline repository and can be used by anyone actively tracking the bleeding edge of development.
+   A proper release will be made with your changes as deemed by the core developers.
    Note that the dev team may decide that your PR should not be merged, and ultimately reject it.
    We will do our best to explain the rationale behind this decision.
    You are obviously welcome to use your code within your own installation of the **labscript-suite**, even if it is not merged into the upstream mainline.
@@ -61,7 +72,7 @@ The official GitHub documentation outlining this process is available [here](htt
 These steps are broadly covered in the GitHub [Hello World](https://guides.github.com/activities/hello-world/) guide, and in detail on the [NumPy development workflow](https://numpy.org/doc/stable/dev/development_workflow.html).
 
 
-### Branching model/strategy
+# Branching model/strategy
 
 The move to GitHub for source control and PyPI for distribution is accompanied by a slight change in the branching strategy, to improve deployment and stability of the _labscript suite_. Whereas before all versions corresponded to single commits on the master branch; dedicated branches will be used to release and service minor versions. For example, releasing v0.1.0 would see the creation of a branch named maintenance/0.1.x, used to service all 0.1 versions. As we adhere to [semantic versioning](https://semver.org/), bug-fixes would be applied in this branch, bumping the minor (final) version number each time, e.g. 0.1.1, 0.1.2, etc. No development will occur in these branches; new features are merged into master, and bug-fixes are cherry-picked from master.
 
@@ -72,7 +83,7 @@ You can learn more about this branching model at:
 * [Release Flow – Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/learn/devops-at-microsoft/release-flow)
 
 
-### Learning Git
+# Learning Git
 
 As our former development, installation, and upgrading practices involved Mercurial revision-control, some of you may not be familiar with Git. While you no longer need to use _any_ revision control system to use the _labscript suite_, those of you wanting to contribute to development who aren't acquainted with Git may benefit from these resources:
 
