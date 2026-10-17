@@ -33,13 +33,13 @@ classifiers = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "blacs>=3.3.0",
-    "labscript>=3.5.0",
-    "labscript-devices>=3.4.0",
-    "labscript_utils>=3.5.0",
-    "lyse>=3.4.0",
-    "runmanager>=3.4.0",
-    "runviewer>=3.3.0",
+    "blacs>=3.3.0rc1",
+    "labscript>=3.5.0rc1",
+    "labscript-devices>=3.4.0rc1",
+    "labscript_utils>=3.5.0rc1",
+    "lyse>=3.4.0rc1",
+    "runmanager>=3.4.0rc1",
+    "runviewer>=3.3.0rc1",
 ]
 dynamic = ["version"]
 
