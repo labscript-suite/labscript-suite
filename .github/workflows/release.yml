@@ -10,7 +10,7 @@ on:
 
 env:
   OS_LIST_UBUNTU: '["ubuntu-latest"]'
-  OS_LIST_ALL: '["ubuntu-latest", "windows-latest", "macos-latest", "macos-13"]'
+  OS_LIST_ALL: '["ubuntu-latest", "windows-2022", "macos-latest", "macos-15-intel"]'
 
 
 jobs:
@@ -38,9 +38,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ignore Tags for non-tag pushes
-        if: "!startsWith(github.ref, 'refs/tags/')"
-        run: git tag -d $(git tag --points-at HEAD)
+      - name: Ignore tags other than the pushed tag
+        # The version comes from the tags at HEAD, so a commit that carries both an rc
+        # tag and a final tag builds the version of the tag that was pushed, and a branch
+        # push of a tagged commit builds a development version.
+        run: git tag -d $(git tag --points-at HEAD | grep -vx "${GITHUB_REF_NAME}" || true)
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -226,9 +228,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Ignore Tags for non-tag pushes
-        if: "!startsWith(github.ref, 'refs/tags/')"
-        run: git tag -d $(git tag --points-at HEAD)
+      - name: Ignore tags other than the pushed tag
+        # The version comes from the tags at HEAD, so a commit that carries both an rc
+        # tag and a final tag builds the version of the tag that was pushed, and a branch
+        # push of a tagged commit builds a development version.
+        run: git tag -d $(git tag --points-at HEAD | grep -vx "${GITHUB_REF_NAME}" || true)
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -259,7 +263,7 @@ jobs:
           if-no-files-found: error
 
       - name: Install Miniforge
-        uses: conda-incubator/setup-miniconda@v3
+        uses: conda-incubator/setup-miniconda@v4
         with:
           miniforge-version: "latest"
           auto-update-conda: true
@@ -305,7 +309,7 @@ jobs:
           merge-multiple: true
 
       - name: Create GitHub release and upload release asset
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -342,6 +346,8 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          verbose: true
+          skip-existing: true
 
 
   pypi-upload:
@@ -368,6 +374,9 @@ jobs:
 
       - name: Publish on PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          skip-existing: true
 
 
   test-anaconda-upload:
@@ -385,7 +394,7 @@ jobs:
           merge-multiple: true
 
       - name: Install Miniforge
-        uses: conda-incubator/setup-miniconda@v3
+        uses: conda-incubator/setup-miniconda@v4
         with:
           miniforge-version: "latest"
           auto-update-conda: true
@@ -424,7 +433,7 @@ jobs:
           merge-multiple: true
 
       - name: Install Miniforge
-        uses: conda-incubator/setup-miniconda@v3
+        uses: conda-incubator/setup-miniconda@v4
         with:
           miniforge-version: "latest"
           auto-update-conda: true
