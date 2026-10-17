@@ -42,6 +42,7 @@ jobs:
         # The version comes from the tags at HEAD, so a commit that carries both an rc
         # tag and a final tag builds the version of the tag that was pushed, and a branch
         # push of a tagged commit builds a development version.
+        shell: bash
         run: git tag -d $(git tag --points-at HEAD | grep -vx "${GITHUB_REF_NAME}" || true)
 
       - name: Install Python
@@ -232,6 +233,7 @@ jobs:
         # The version comes from the tags at HEAD, so a commit that carries both an rc
         # tag and a final tag builds the version of the tag that was pushed, and a branch
         # push of a tagged commit builds a development version.
+        shell: bash
         run: git tag -d $(git tag --points-at HEAD | grep -vx "${GITHUB_REF_NAME}" || true)
 
       - name: Install Python
