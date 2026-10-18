@@ -70,6 +70,7 @@ The following is a detailed explanation of the steps provided in the Quick start
    .. note::
         * This will set your forked repository(ies) to be the 'origin' remote.
         * On Linux / macOS the line continuation character is ``\`` rather than `^`.
+        * `git` must be installed and on the path, because `pip` uses it to clone the repositories and to read each component's version from its git repository.
 
    Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` by running the following from the common parent directory:
 

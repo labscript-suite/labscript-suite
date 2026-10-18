@@ -37,7 +37,7 @@ Quick start
     (base) > git clone https://github.com/wkheisenberg/labscript-utils
     (base) > conda activate labscript
     (labscript) > conda config --env --append channels labscript-suite
-    (labscript) > conda install setuptools-conda "pyqt<6" pip desktop-app
+    (labscript) > conda install setuptools-conda "pyqt<6" pip desktop-app git
     (labscript) > setuptools-conda install-requirements ^ 
              labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
     (labscript) > pip install --no-build-isolation --no-deps ^
@@ -71,6 +71,16 @@ The following is a detailed explanation of the steps provided in the Quick start
 
    .. note::
         This will set your forked repository(ies) to be the 'origin' remote.
+
+#. Activate the `labscript` environment, add the `labscript-suite` channel to it, and install the build tools, the GUI toolkit bindings and `git`:
+
+   .. code-block:: console
+
+        (base) C:\Users\wkheisenberg\labscript-suite> conda activate labscript
+        (labscript) C:\Users\wkheisenberg\labscript-suite> conda config --env --append channels labscript-suite
+        (labscript) C:\Users\wkheisenberg\labscript-suite> conda install setuptools-conda "pyqt<6" pip desktop-app git
+
+   `git` is required in the `labscript` environment because `setuptools-conda install-requirements` and the editable `pip install` below read each component's version from its git repository.
 
 #. Use the `setuptools-conda install-requirements` command to introspect the dependencies from the cloned repositories.
 
