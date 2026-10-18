@@ -8,7 +8,7 @@ Further details on how to use each component can be found in the documentation f
 .. note::
 
    As of `labscript-utils>=3.4.0`, the `labscript-profile-create` command can be used to perform the following mandatory configurations automatically.
-   The `-n/--apparatus-name` argument allows you to set your apparatus name (which governs many install locations).
+   The `-n/--apparatus_name` argument allows you to set your apparatus name (which governs many install locations).
    The `-c/--compile` flag will compile the example connection table (which only defines dummy instruments and will always run).
    Using both of these arguments will allow all suite components to load with a minimal configuration that is readily customised.
 
@@ -34,7 +34,7 @@ Once the appropriate changes have been made, save the file.
 * `[DEFAULT]`
 
   * `apparatus_name` should be set to a name describing the experiment.
-     It should not have spaces.
+     It must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
      This name is used to create sub-directories within the various **labscript-suite** directories where the various shots and scripts will be stored.
      If these sub-directories do not exist, the suite will create them and populate them with the bare minimum of requirements to function.
      The relative paths for the items are described by the other keys in the `DEFAULT` section, and can be modified if desired.
@@ -42,7 +42,7 @@ Once the appropriate changes have been made, save the file.
      In order for a changed `apparatus_name` to take effect, you will need to reload **labscript-suite** components.
 
      .. note::
-         This name can be set by the `labscript-profile-create` command using the optional `-n/--apparatus-name` argument.
+         This name can be set by the `labscript-profile-create` command using the optional `-n/--apparatus_name` argument.
 
   * `shared_drive` is the path to where the individual shots are stored and accessed by the **labscript-suite** components.
      If your installation spreads the **labscript-suite** components across multiple separate computers, set this value to the path to the common network location where shots are stored.

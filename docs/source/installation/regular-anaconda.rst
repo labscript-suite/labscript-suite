@@ -42,7 +42,8 @@ Detailed instructions
 
 4. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
    Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
-   `-n/--appparatus-name` allows for setting a custom apparatus name for the experiment.
+   `-n/--apparatus_name` allows for setting a custom apparatus name for the experiment.
+   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
    `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
    Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
