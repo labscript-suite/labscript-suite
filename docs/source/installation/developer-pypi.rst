@@ -22,7 +22,7 @@ Quick start
             --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
             --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
             --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
-    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
     (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
     (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
@@ -100,7 +100,7 @@ The following is a detailed explanation of the steps provided in the Quick start
 
    Repeat for the other repositories.
 
-4. Continue from step 4 (install PyQt5) in the :doc:`regular-pypi` instructions.
+4. Continue from step 4 (install the Qt bindings) in the :doc:`regular-pypi` instructions.
 
 
 Updating a developer installation

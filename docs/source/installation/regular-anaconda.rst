@@ -12,7 +12,7 @@ Quick start
 
     (base) C:\> conda activate labscript
     (base) C:\> conda config --env --append channels labscript-suite
-    (labscript) C:\> conda install labscript-suite "pyqt<6"
+    (labscript) C:\> conda install labscript-suite pyside6
     (labscript) C:\> labscript-profile-create [-n my_apparatus_name] [-c]
     (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
@@ -32,12 +32,17 @@ Detailed instructions
 
     (labscript) C:\> conda config --env --add channels labscript-suite
 
-3. Install the meta-package (`labscript-suite`) and bindings to the GUI toolkit (`pyqt`) from Anaconda Cloud.
+3. Install the meta-package (`labscript-suite`) from Anaconda Cloud, and PySide6 (`pyside6`), the Python bindings for the Qt GUI toolkit.
    This will install blacs, labscript, labscript-devices, labscript-utils, lyse, runmanager, runviewer, and all dependencies:
 
   .. code-block:: console
 
-    (labscript) C:\> conda install labscript-suite "pyqt<6"
+    (labscript) C:\> conda install labscript-suite pyside6
+
+  The *labscript suite* also works with the PyQt6 and PyQt5 bindings instead of PySide6.
+  On the default channels, the `pyqt` package is PyQt6 and ``"pyqt<6"`` is PyQt5; on conda-forge, `pyqt` is PyQt5 and there is no PyQt6.
+  On macOS on Intel processors, the default channels have neither PySide6 nor PyQt6, so install ``"pyqt<6"`` instead of `pyside6`, or use conda-forge.
+  If more than one binding is installed, the applications use PyQt5, then PySide6, then PyQt6, unless the environment variable `QT_ENV` is set to `PyQt5`, `PySide6` or `PyQt6`.
 
 
 4. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
