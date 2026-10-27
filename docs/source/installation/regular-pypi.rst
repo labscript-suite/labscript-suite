@@ -13,9 +13,14 @@ Quick start
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
     (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
-    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
     (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
     (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+
+.. warning::
+
+    PySide6 6.12.0 crashes lyse when an analysis routine adds columns, and on Python 3.11 it crashes each of the applications after some time.
+    If `pip` installs PySide6 6.12.0, install an earlier version with ``pip install "PySide6<6.12"``.
 
 
 Detailed instructions
@@ -43,11 +48,19 @@ Detailed instructions
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
 
 
-4. Install PyQt5, the bindings to the GUI toolkit (not installed above for licensing reasons):
+4. Install PySide6, the Python bindings for the Qt GUI toolkit:
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PyQt5
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
+
+  The *labscript suite* also works with the PyQt6 and PyQt5 bindings (``pip install PyQt6`` or ``pip install PyQt5``) instead of PySide6.
+  If more than one is installed, the applications use PyQt5, then PySide6, then PyQt6, unless the environment variable `QT_ENV` is set to `PyQt5`, `PySide6` or `PyQt6`.
+
+  .. warning::
+
+     PySide6 6.12.0 crashes lyse when an analysis routine adds columns, and on Python 3.11 it crashes each of the applications after some time.
+     If `pip` installs PySide6 6.12.0, install an earlier version with ``pip install "PySide6<6.12"``.
 
 
 5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
