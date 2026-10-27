@@ -1,28 +1,39 @@
 Installing the *labscript suite*
 ================================
 
-.. todo:: discussion on python vs. conda and regular vs. developer install
+The *labscript suite* components are Python packages on `PyPI <https://pypi.org/user/labscript-suite>`_ and on the `labscript-suite channel <https://anaconda.org/labscript-suite>`_ of Anaconda Cloud.
 
-We're excited to announce that accompanying the recent migration of the codebase from BitBucket to GitHub, *labscript suite* components are now distributed as Python packages on `PyPI <https://pypi.org/user/labscript-suite>`_ and `Anaconda Cloud <https://anaconda.org/labscript-suite>`_.
+Choosing an installation method
+-------------------------------
 
-This makes it far easier to get started using the *labscript suite*, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
+We recommend installing the *labscript suite* from PyPI into a virtual environment, with `uv <https://docs.astral.sh/uv/>`_ or `pip`.
+uv installs Python itself as well as the packages, so it is the quickest way to start; pip works with any Python installation.
+This is the installation method with which the *labscript suite* is tested, on Windows and Linux, for every supported Python version and Qt binding.
 
-* |pip|_: the standard package manager common to all Python distributions; or
-* |conda|_: a binary package and environment manager, part of the `Anaconda Python <https://www.anaconda.com>`_ distribution.
+* A **regular installation** installs the released packages. Use it to run an experiment: :doc:`regular-pypi`.
+* A **developer installation** installs editable copies of the repositories that you have cloned with git. Use it to change the code of the *labscript suite*, or to contribute changes: :doc:`developer-pypi`.
+  A regular installation can be converted to a developer installation one component at a time: :doc:`regular-to-developer`.
 
+The *labscript suite* can also be installed with conda: :doc:`regular-anaconda` and :doc:`developer-anaconda`.
+Conda installations need more care:
+
+* The environment must take its packages from conda-forge. On Windows, the `pyzmq` package of Anaconda's default channels is built without the CurveZMQ support that the *labscript suite* uses for encrypted communication, and on macOS on Intel processors the default channels have neither PySide6 nor PyQt6.
+* On Windows, Python 3.15 cannot be used with conda yet: conda-forge has no Python 3.15 package of `windows-curses`, which zprocess requires on Windows.
+* The `desktop-app` package on conda-forge is older than the one on the labscript-suite channel, so the labscript-suite channel must have a higher priority than conda-forge.
 
 .. toctree::
     :maxdepth: 2
 
     setting-up-an-environment
     regular-pypi
-    regular-anaconda
     developer-pypi
-    developer-anaconda
     regular-to-developer
 
-.. |pip| replace:: ``pip``
-.. _pip: https://packaging.python.org/tutorials/installing-packages
+Installing with conda
+---------------------
 
-.. |conda| replace:: ``conda``
-.. _conda: https://anaconda.org/anaconda/conda
+.. toctree::
+    :maxdepth: 2
+
+    regular-anaconda
+    developer-anaconda

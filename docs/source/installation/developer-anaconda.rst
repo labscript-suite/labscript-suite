@@ -8,6 +8,8 @@ Developer installations are useful for those who want to customise the *labscrip
     Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
+We recommend a :doc:`developer installation with uv or pip <developer-pypi>` instead; read the conda caveats in :doc:`index` first.
+
 In this example, we will use an existing conda environment named `labscript`.
 Skip the first line/step if continuing on from the instructions to :ref:`set up this environment <installation/setting-up-an-environment:Anaconda Python>`.
 
@@ -36,7 +38,9 @@ Quick start
     (base) > git clone https://github.com/wkheisenberg/labscript-devices
     (base) > git clone https://github.com/wkheisenberg/labscript-utils
     (base) > conda activate labscript
-    (labscript) > conda config --env --append channels labscript-suite
+    (labscript) > conda config --env --add channels conda-forge
+    (labscript) > conda config --env --add channels labscript-suite
+    (labscript) > conda config --env --set channel_priority strict
     (labscript) > conda install setuptools-conda pyside6 pip desktop-app git
     (labscript) > setuptools-conda install-requirements ^ 
              labscript runmanager blacs lyse runviewer labscript-devices labscript-utils
@@ -72,12 +76,14 @@ The following is a detailed explanation of the steps provided in the Quick start
    .. note::
         This will set your forked repository(ies) to be the 'origin' remote.
 
-#. Activate the `labscript` environment, add the `labscript-suite` channel to it, and install the build tools, the Qt bindings (see :doc:`regular-anaconda` for the alternatives to PySide6) and `git`:
+#. Activate the `labscript` environment, add the conda-forge and `labscript-suite` channels to it with strict channel priority (step 2 of :doc:`regular-anaconda` gives the reasons), and install the build tools, the Qt bindings (see :doc:`regular-anaconda` for the alternatives to PySide6) and `git`:
 
    .. code-block:: console
 
         (base) C:\Users\wkheisenberg\labscript-suite> conda activate labscript
-        (labscript) C:\Users\wkheisenberg\labscript-suite> conda config --env --append channels labscript-suite
+        (labscript) C:\Users\wkheisenberg\labscript-suite> conda config --env --add channels conda-forge
+        (labscript) C:\Users\wkheisenberg\labscript-suite> conda config --env --add channels labscript-suite
+        (labscript) C:\Users\wkheisenberg\labscript-suite> conda config --env --set channel_priority strict
         (labscript) C:\Users\wkheisenberg\labscript-suite> conda install setuptools-conda pyside6 pip desktop-app git
 
    `git` is required in the `labscript` environment because `setuptools-conda install-requirements` and the editable `pip install` below read each component's version from its git repository.

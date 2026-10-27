@@ -48,14 +48,16 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 
 ## Installing the _labscript suite_
 
-We're excited to announce that accompanying the recent migration to GitHub, _labscript suite_ components are now distributed as Python packages on [PyPI](https://pypi.org/user/labscript-suite) and [Anaconda Cloud](https://anaconda.org/labscript-suite).
+The _labscript suite_ components are Python packages on [PyPI](https://pypi.org/user/labscript-suite) and on the [labscript-suite channel](https://anaconda.org/labscript-suite) of Anaconda Cloud. We recommend installing them from PyPI into a virtual environment, with [uv](https://docs.astral.sh/uv/) or [`pip`](https://packaging.python.org/tutorials/installing-packages):
 
-This makes it far easier to get started using the _labscript suite_, as you no longer require a Mercurial or Git installation (or any knowledge of version control software); components can be installed and upgraded using:
+```
+uv venv --seed --python 3.14
+.venv\Scripts\activate
+uv pip install labscript-suite PySide6
+labscript-profile-create
+```
 
-* [`pip`](https://packaging.python.org/tutorials/installing-packages): the standard package manager common to all Python distributions; or
-* [`conda`](https://anaconda.org/anaconda/conda): a binary package and environment manager, part of the [Anaconda Python](https://www.anaconda.com) distribution.
-
-For further information, please see the [documentation](http://docs.labscriptsuite.org/en/latest/installation), which includes information about both regular and developer (editable) installations of the *labscript suite*.
+On Linux and macOS, activate the environment with `source .venv/bin/activate`. Installation with conda is also supported, with conda-forge as the source of the dependencies. Please see the [documentation](http://docs.labscriptsuite.org/en/latest/installation), which describes regular and developer (editable) installations with uv, pip and conda.
 
 ## Recent changes to the _labscript suite_
 
@@ -117,8 +119,6 @@ allow_insecure = True
 *Notes*:
 
 * Steps 1 and 2 are executed automatically as part of the `labscript-profile-create` command. However, for multiple hosts, step 3 above must still be followed to ensure the same public-key is used by all hosts running *labscript suite* programs.
-
-* There is an outstanding issue with the ZMQ Python bindings on Windows ([zeromq/pyzmq#1148](https://github.com/zeromq/pyzmq/issues/1148)), whereby encryption is significantly slower for Python distributions other than [Anaconda](https://www.anaconda.com). Until this issue is resolved, we recommend that Windows users on an untrusted network use the Anaconda Python distribution (and install `pyzmq` using `conda install pyzmq`).
 
 
 ### Application shortcuts
