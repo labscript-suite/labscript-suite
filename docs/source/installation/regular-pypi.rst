@@ -1,12 +1,25 @@
 Regular installation (Python Package Index)
 ===========================================
 
-In this example, we will use an existing virtual environment named `.venv` located in `C:\Users\wkheisenberg\labscript-suite`.
-Skip the first two lines/steps if continuing on from the instructions to :ref:`set up this environment <installation/setting-up-an-environment:Regular Python>`.
+In this example, we will use a virtual environment named `.venv` located in `C:\Users\wkheisenberg\labscript-suite`, made with :ref:`uv <installation/setting-up-an-environment:uv>` or with the :ref:`venv module <installation/setting-up-an-environment:Regular Python>`.
 
 
-Quick start
------------
+Quick start with uv
+-------------------
+
+.. code-block:: console
+
+    C:\Users\wkheisenberg\labscript-suite> uv venv --seed --python 3.14
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+    (.venv) C:\Users\wkheisenberg\labscript-suite> uv pip install labscript-suite PySide6
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
+    (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+
+Skip the first line if you have already created the virtual environment.
+
+
+Quick start with pip
+--------------------
 
 .. code-block:: console
 
@@ -20,11 +33,14 @@ Quick start
 .. warning::
 
     PySide6 6.12.0 crashes lyse when an analysis routine adds columns, and on Python 3.11 it crashes each of the applications after some time.
-    If `pip` installs PySide6 6.12.0, install an earlier version with ``pip install "PySide6<6.12"``.
+    If PySide6 6.12.0 is installed, install an earlier version with ``uv pip install "PySide6<6.12"`` or ``pip install "PySide6<6.12"``.
 
 
 Detailed instructions
 ---------------------
+
+The steps below use `pip`.
+With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install`.
 
 1. Activate the virtual environment (this step is OS specific, e.g. on Linux it's `source .venv/bin/activate`).
 
@@ -60,7 +76,7 @@ Detailed instructions
   .. warning::
 
      PySide6 6.12.0 crashes lyse when an analysis routine adds columns, and on Python 3.11 it crashes each of the applications after some time.
-     If `pip` installs PySide6 6.12.0, install an earlier version with ``pip install "PySide6<6.12"``.
+     If PySide6 6.12.0 is installed, install an earlier version with ``pip install "PySide6<6.12"``.
 
 
 5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
@@ -113,18 +129,19 @@ To launch the applications detached from the console, suffix the application nam
 Updating a regular installation
 -------------------------------
 
-Individual components of the labscript suite can be updated using the `--upgrade` (`-U`) flag of `pip`. For example:
+Individual components of the labscript suite can be updated using the `--upgrade` (`-U`) flag of `pip` or `uv pip`. For example:
 
 .. code-block:: console
 
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -U runmanager
 
 
-To upgrade to a pre-release version, you can use the `--pre` (pre-relase) flag:
+To upgrade to a pre-release version, you can use the `--pre` (pre-release) flag, or `--prerelease allow` with `uv pip`:
 
 .. code-block:: console
 
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -U --pre runmanager
+    (.venv) C:\Users\wkheisenberg\labscript-suite> uv pip install -U --prerelease allow runmanager
 
 
 If updating multiple components, use a single `pip install` command to assist dependency resolution:

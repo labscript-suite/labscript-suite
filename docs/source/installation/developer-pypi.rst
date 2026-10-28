@@ -8,8 +8,36 @@ Developer installations are useful for those who want to customise the *labscrip
     Moreover, there is now an option to write and use custom labscript device drivers outside of the labscript-devices installation directory.
 
 
-Quick start
------------
+In these examples, the forks are owned by the (non-existent) GitHub user wkheisenberg, and the virtual environment is `.venv` in `C:\Users\wkheisenberg\labscript-suite` (see :doc:`setting-up-an-environment`).
+`git` must be installed and on the path.
+
+
+Quick start with uv
+-------------------
+
+.. code-block:: console
+
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/blacs
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-devices
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-utils
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/lyse
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runmanager
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runviewer
+    C:\Users\wkheisenberg\labscript-suite> uv venv --seed --python 3.14
+    C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+    (.venv) C:\Users\wkheisenberg\labscript-suite> uv pip install -e blacs -e labscript ^
+            -e labscript-devices -e labscript-utils -e lyse -e runmanager -e runviewer
+    (.venv) C:\Users\wkheisenberg\labscript-suite> uv pip install PySide6
+    (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
+    (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
+
+On Linux and macOS the line continuation character is ``\`` rather than `^`, and the activation command is `source .venv/bin/activate`.
+Then set the upstream remotes (step 3 below).
+
+
+Quick start with pip
+--------------------
 
 .. code-block:: console
 
@@ -30,7 +58,7 @@ Quick start
 Detailed instructions
 ---------------------
 
-The following is a detailed explanation of the steps provided in the Quick start section above.
+The following is a detailed explanation of the steps provided in the Quick start sections above.
 
 1. Fork the labscript-suite repositories you want to develop using the `GitHub online interface <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>`_. Below we will include all repositories (except the labscript-suite metapackage).
 
@@ -72,7 +100,7 @@ The following is a detailed explanation of the steps provided in the Quick start
         * On Linux / macOS the line continuation character is ``\`` rather than `^`.
         * `git` must be installed and on the path, because `pip` uses it to clone the repositories and to read each component's version from its git repository.
 
-   Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` by running the following from the common parent directory:
+   Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` (or `uv pip`) by running the following from the common parent directory:
 
    .. code-block:: console
 

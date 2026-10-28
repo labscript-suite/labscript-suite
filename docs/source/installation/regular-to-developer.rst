@@ -13,7 +13,7 @@ Clone the repository
 --------------------
 
 For either type of installation, you must first create a local copy of the source code that you would like to edit.
-This is done by following the first two steps of the :doc:`Anaconda developer installation <developer-anaconda>`.
+This is done by following the first two steps of the :doc:`developer installation <developer-pypi>`.
 If brief, you should create a fork of the labscript-suite repository that you want to develop (done online through github),
 then use git to clone a local copy to your computer.
 In this document, it is assumed you have cloned the repository to the `C:\\wkheisenberg\\labscript-suite\\` directory.
@@ -46,6 +46,8 @@ This section assumes you followed the :doc:`regular installation directions usin
    .. code-block:: console
 
         C:\Users\wkheisenberg\labscript-suite> pip install -e labscript-devices
+
+   With uv, use `uv pip install -e labscript-devices`.
 
    Note that packages installed in editable mode do not typically need to be re-installed when the source code is updated.
    In other words, updating the component is as simple as pulling changes into the local repository.
