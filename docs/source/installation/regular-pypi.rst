@@ -156,12 +156,3 @@ You can also update (or downgrade) to a specific version:
 .. code-block:: console
 
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install runmanager==2.5.0
-
-
-.. TODO::
-
-    Development versions will be suffixed with `devN`, i.e.
-
-    .. code-block:: console
-
-        (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -i https://test.pypi.org/simple runmanager==2.6.0dev3

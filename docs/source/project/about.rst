@@ -1,10 +1,6 @@
 About
 =====
 
-.. todo:: Add brief history of the project
-
-.. todo:: Add guiding principles
-
 Development Team
 ++++++++++++++++
 

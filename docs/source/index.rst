@@ -1,5 +1,3 @@
-.. labscript suite documentation master file
-
 .. include:: main.md
    :parser: myst_parser.sphinx_
 
@@ -11,7 +9,7 @@
 .. code-block:: bibtex
 
    @phdthesis{starkey_phd_2019, 
-      title = {State-dependent forces in cold quantum gases}, 
+      title = {A software framework for control and automation of precisely timed experiments}, 
       author = {Starkey, P. T.},
       year = {2019},
       url = {https://doi.org/10.26180/5d1db8ffe29ef}, 
@@ -108,8 +106,6 @@ Testimonials
    project/about
    project/contributing
    project/license
-   project/structure
-   project/conduct
 
 .. toctree::
    :maxdepth: 2
@@ -152,5 +148,3 @@ Testimonials
    Source Code <https://github.com/labscript-suite/labscript-suite>
    PyPI <https://pypi.org/project/labscript-suite/>
    Anaconda Cloud <https://anaconda.org/labscript-suite/labscript-suite>
-
-.. todolist:: 
