@@ -43,7 +43,7 @@ Quickstart
     C:\Users\wkheisenberg> cd labscript-suite
     C:\Users\wkheisenberg\labscript-suite> python -m venv .venv
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 Once activated, the name of the virtual environment (in this case, `.venv` ) will prefix the command line.
 
@@ -76,11 +76,11 @@ Detailed Instructions
 
   .. note:: This step is OS specific, e.g. on Linux it's `source .venv/bin/activate`.
 
-4. Update the Python package installer and other installation packages of your virtual environment.
+4. Update pip, the Python package installer, in the virtual environment.
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 
 Anaconda Python

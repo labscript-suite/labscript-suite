@@ -24,7 +24,7 @@ Quick start with pip
 .. code-block:: console
 
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
     (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
@@ -49,11 +49,11 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
 
 
-2. Update the Python package installer and other installation packages of your virtual environment.
+2. Update pip, the Python package installer, in the virtual environment.
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 
 3. Install the meta-package (`labscript-suite`) from PyPI.
@@ -105,7 +105,7 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
 
 .. note::
 
-    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. 'runmanager – the labscript suite (py38)' for a virtual environment named `py38`.
+    The name of a virtual environment other than `.venv` or `venv` is included in the name of the shortcut, e.g. 'runmanager - the labscript suite (labscript)' for a virtual environment named `labscript`.
 
 Alternatively, you can launch the applications from a terminal, e.g.
 

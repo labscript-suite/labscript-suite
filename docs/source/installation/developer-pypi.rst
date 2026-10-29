@@ -41,15 +41,16 @@ Quick start with pip
 
 .. code-block:: console
 
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/blacs
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-devices
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-utils
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/lyse
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runmanager
+    C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runviewer
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install \
-            --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs \
-            --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript \
-            --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices \
-            --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils \
-            --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager \
-            --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer \
-            --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
+    (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -e blacs -e labscript ^
+            -e labscript-devices -e labscript-utils -e lyse -e runmanager -e runviewer
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
     (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
     (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
@@ -81,31 +82,26 @@ The following is a detailed explanation of the steps provided in the Quick start
 .. _GitClone: https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
 
-2. Use `pip` to both clone these forks locally and install them into your environment. In this example (on Windows), the forks are owned by the (non-existent) GitHub user wkheisenberg.
+2. Clone the forks using |GitClone|_, and install them with `pip` (or `uv pip`) in editable mode, from their common parent directory. In this example (on Windows), the forks are owned by the (non-existent) GitHub user wkheisenberg.
 
    .. code-block:: console
 
-        C:\Users\wkheisenberg\labscript-suite> pip install ^
-        --src . -e git+https://github.com/wkheisenberg/blacs#egg=blacs ^
-        --src . -e git+https://github.com/wkheisenberg/labscript#egg=labscript ^
-        --src . -e git+https://github.com/wkheisenberg/labscript-devices#egg=labscript-devices ^
-        --src . -e git+https://github.com/wkheisenberg/labscript-utils#egg=labscript-utils ^
-        --src . -e git+https://github.com/wkheisenberg/runmanager#egg=runmanager ^
-        --src . -e git+https://github.com/wkheisenberg/runviewer#egg=runviewer ^
-        --src . -e git+https://github.com/wkheisenberg/lyse#egg=lyse
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/blacs
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-devices
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/labscript-utils
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/lyse
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runmanager
+        C:\Users\wkheisenberg\labscript-suite> git clone https://github.com/wkheisenberg/runviewer
+        C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
+        (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -e blacs -e labscript ^
+            -e labscript-devices -e labscript-utils -e lyse -e runmanager -e runviewer
 
 
    .. note::
-        * This will set your forked repository(ies) to be the 'origin' remote.
+        * `git clone` sets each fork as the 'origin' remote of its repository.
         * On Linux / macOS the line continuation character is ``\`` rather than `^`.
-        * `git` must be installed and on the path, because `pip` uses it to clone the repositories and to read each component's version from its git repository.
-
-   Alternatively, manually clone the repositories using |GitClone|_ and then install them using `pip` (or `uv pip`) by running the following from the common parent directory:
-
-   .. code-block:: console
-
-        C:\Users\wkheisenberg\labscript-suite> pip install -e blacs -e labscript \ 
-            -e labscript-devices -e labscript-utils -e lyse -e runmanager -e runviewer
+        * `git` must be installed and on the path, because `pip` uses it to read each component's version from its git repository.
 
 
    For a single package, this would look like:
@@ -160,13 +156,6 @@ This assumes you have already completed the developer installation above and hav
         > git pull upstream master --tags
 
 
-   Or using `hub sync <https://hub.github.com/>`_ command-line extension (does not require current local working branch to be master):
-
-   .. code-block:: console
-
-        > hub sync
-
-
 2. Update your feature branches by merging them with master or rebasing them to master:
 
    .. code-block:: console
@@ -213,4 +202,4 @@ This assumes you have already completed the developer installation above and hav
         > pip install -e .
 
 
-   As the installations are in editable mode and the version is being introspected at runtime, this step is not always necessary, but is required for any change requiring setup.py to be run to take effect, e.g. dependency changes, console entry points, etc.
+   As the installations are in editable mode and the version is being introspected at runtime, this step is not always necessary, but it is required for changes to the package metadata in `pyproject.toml` to take effect, such as changes to the dependencies or the console entry points.
