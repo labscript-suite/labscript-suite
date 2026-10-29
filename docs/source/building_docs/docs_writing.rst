@@ -5,7 +5,7 @@ Documentation for the **labscript-suite** is generally written at two levels: ma
 These two types of documentation live in different places within the code repository and have different purposes, as described in the following sections.
 
 As a general guideline for writing documentation, please ensure no more than one sentence is on a line in the source file.
-This ensures diffs will only highlight the changed senstences of the paragraph, instead of large blocks of text.
+This ensures diffs will only highlight the changed sentences of the paragraph, instead of large blocks of text.
 Note that paragraph breaks require a blank line between lines of text.
 
 Top-Level
@@ -22,7 +22,7 @@ Examples of documentation sources can be readily found by clicking the `Edit on 
 ReStructuredText
 ****************
 
-ReStructuredText is the native language for writting documention in a sphinx-based system.
+ReStructuredText is the native language for writing documentation in a sphinx-based system.
 As such, most documentation should be written in rst.
 Examples and syntax guides are available via links :doc:`here <docs_resources>`.
 
@@ -33,11 +33,11 @@ Files in a single project with identical names can be difficult to uniquely refe
 MarkDown
 ********
 
-Markdown syntax documentation can also be used within the **labscript-suite** via the `m2r <https://pypi.org/project/m2r/>`_ package.
+Markdown syntax documentation can also be used within the **labscript-suite** via the `MyST-Parser <https://myst-parser.readthedocs.io/>`_ package.
 Given markdown's simpler syntax, it can be an ideal choice for long prose documentation.
-Note that, unlike rst files, markdown files cannot be used indepently to form a new page.
-Instead, markdown source files must be included directly into a parent rst file via an `mdinclude` rst directive.
-An example of how this is done is found in the homepage of each project (i.e. the `index.rst` and `main.md` files in the `docs` root directory).
+A markdown file can be a page of its own, or can be included in an rst file with the `include` directive and its `:parser: myst_parser.sphinx_` option.
+A markdown file that is only included in other pages must be listed in `exclude_patterns` in `conf.py`, so that it is not also built as a page of its own.
+An example of an included markdown file is the homepage of each project (i.e. the `index.rst` and `main.md` files in the `docs/source` directory).
 Documentation that requires higher level features (particularly cross-referencing) are often better written in rst directly.
 
 API/Docstrings

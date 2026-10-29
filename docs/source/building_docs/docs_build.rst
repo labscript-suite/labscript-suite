@@ -28,7 +28,7 @@ For locally inspecting the documentation, the `make html` command is preferred t
 
 .. note::
 
-	Some cross-referencing used in the markdown files is not cross-compatible between the `html` and `dirthtml` build commands.
+	Some cross-referencing used in the markdown files is not cross-compatible between the `html` and `dirhtml` build commands.
 	When using markdown source files, please ensure cross-references actually work when built on Read the Docs.
 
 latexpdf

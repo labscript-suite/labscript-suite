@@ -79,10 +79,11 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
      If PySide6 6.12.0 is installed, install an earlier version with ``pip install "PySide6<6.12"``.
 
 
-5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+5. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+   `labscript-profile-create` does not change an existing profile: it raises `FileExistsError` if the profile directory already contains a `labconfig`, `userlib` or `app_saved_configs` directory.
    Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
    `-n/--apparatus_name` allows for setting a custom apparatus name for the experiment.
-   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
+   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit) that is not a Python keyword, because it becomes the name of an importable package under `labscriptlib`.
    `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
    Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
@@ -98,7 +99,7 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
        (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
-   These will be named, e.g. 'runmanager – the labcript suite' which when clicked on will:
+   These will be named, e.g. 'runmanager - the labscript suite' which when clicked on will:
 
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).

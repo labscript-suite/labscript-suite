@@ -29,7 +29,7 @@ This is a metapackage for the _labscript suite_. Formerly the _labscript suite_ 
 - Dynamic visualisation of experiment composition and results.
 - Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
 - Auto-generating user-interfaces.
-- High-level scripting: user-interface interaction can be programatically synthesised.
+- High-level scripting: user-interface interaction can be programmatically synthesised.
 
 ## Table of contents
 
@@ -94,7 +94,7 @@ _Note:_ As of [labscript-suite/labscript-utils#37](https://github.com/labscript-
 
 Interprocess communication between components of the *labscript suite* is based on the [ZeroMQ](https://zeromq.org) (ZMQ) messaging protocol. We have supported secure interprocess communication via encrypted ZMQ messaging since February 2019 (labscript-utils 2.11.0).
 
-As of labscript-utils 2.16.0, **encryted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret (or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
+As of labscript-utils 2.16.0, **encrypted interprocess communication will be the default**. If you haven't already, this means you'll need to create a new shared secret (or [pre-shared key](https://en.wikipedia.org/wiki/Pre-shared_key)) as follows:
 
 1. Run `python -m zprocess.makesecret` from the labconfig directory.
 
@@ -160,7 +160,7 @@ Existing users who move to a developer (editable) installation, please note the 
 
 ### Versioning (developer installation)
 
-Aside from the maintenance branches documented [here](http://docs.labscriptsuite.org/en/latest/contributing/#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](importlib.metadata) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version 2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
+Aside from the maintenance branches documented [here](https://docs.labscriptsuite.org/en/latest/project/contributing/#branching-model-strategy), versions of the labscript suite packages are introspected at run-time using either the [importlib.metadata](https://docs.python.org/3/library/importlib.metadata.html) library (regular installations) or [setuptools_scm](https://github.com/pypa/setuptools_scm) (developer installations). Thus any changes to an editable install will be traceable by local version numbers, e.g. editing the released version of a package with version 2.4.0 will result in 2.4.0dev1+gc28fe94, for example. This will help us diagnose issues users have with their editable installations.
 
 
 ## BitBucket archive
@@ -174,7 +174,7 @@ In April–May 2020 the _labscript suite_ code base was migrated from BitBucket 
 
 This archive can be found at [bitbucket-archive.labscriptsuite.org](https://bitbucket-archive.labscriptsuite.org/) (this page can take some time to load for the first time). Copies of every public fork of our repositories are at [github.com/labscript-suite-bitbucket-archive](https://github.com/labscript-suite-bitbucket-archive). As this is an archive, we will not be transferring ownership of these repositories back to their original owners. However, should you wish to continue development on one of those repositories you can fork it into your own account through the GitHub web interface. Should you have uncommitted changes (or changes made after 1st February, 2020) that you wish to have archived, please contact us to discuss the best approach to including these. Please note that we are not recommending continuing development in such forks long term, due to the changes in package structure outlined above.
 
-Further information about migrating your own customisations of the labscript suite can be found [here](https://docs.labscriptsuite.org/en/latest/archive/).
+Further information about migrating your own customisations of the labscript suite can be found [here](https://docs.labscriptsuite.org/en/latest/reference/archive/).
 
 
 ## Contributing to the _labscript suite_
@@ -199,7 +199,7 @@ For advice on _how_ to use the existing functionality of the _labscript suite_, 
 
 We would like to reaffirm our invitation for users to directly contribute toward developing the _labscript suite_. We have established a separate discussion forum on Zulip for discussing development direction and design. If you are interested in being a part of these discussions, and/or testing and merging pull requests, please [reach out to us](mailto:labscriptsuite@gmail.com).
 
-Further guidance on contributing—including the branching model we use, and the procedure for issuing pull requests—can be found in the [documentation](http://docs.labscriptsuite.org/en/latest/contributing).
+Further guidance on contributing—including the branching model we use, and the procedure for issuing pull requests—can be found in the [documentation](https://docs.labscriptsuite.org/en/latest/project/contributing/).
 
 
 ## Citing the _labscript suite_
@@ -213,7 +213,7 @@ If you use the _labscript suite_ to control your experiment or perform analysis,
 
   ```bibtex
     @phdthesis{starkey_phd_2019,
-      title = {State-dependent forces in cold quantum gases},
+      title = {A software framework for control and automation of precisely timed experiments},
       author = {Starkey, P. T.},
       year = {2019},
       url = {https://doi.org/10.26180/5d1db8ffe29ef},

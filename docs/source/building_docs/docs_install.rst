@@ -15,10 +15,10 @@ you can create a new environment.
 Install build dependencies
 --------------------------
 
-If you have an existing, functioning environment for using the **labscript-suite**, you can configure it to build docs by simply installing the docs dependencies found in the `setup.cfg` file of each repository. 
-For a functioning **labscript** environment, the only additional dependencies should be `sphinx`, `sphinx-rtd-theme`, `recommonmark`, and `m2r`.
+If you have an existing, functioning environment for using the **labscript-suite**, you can configure it to build docs by installing the `docs` optional dependencies listed in the `pyproject.toml` file of each repository, for example with `pip install -e .[docs]` from the root of the repository.
+For a functioning **labscript** environment, the only additional dependencies should be `sphinx`, `sphinx-rtd-theme`, `myst_parser` and, for the labscript-suite repository, `sphinxcontrib-bibtex`.
 
-The versions pinned in the `setup.cfg` file will be the versions of these packages that are used by Read the Docs when building the documentation.
+The versions pinned in the `pyproject.toml` file will be the versions of these packages that are used by Read the Docs when building the documentation.
 In order to get an accurate reproduction of what the online docs look like, you should ensure the versions you install match the pins.
 
 Once these dependencies are installed in your **labscript** environment, you are ready to build the docs.
@@ -26,20 +26,20 @@ Once these dependencies are installed in your **labscript** environment, you are
 Using a cloned environment
 --------------------------
 
-If you have an existing, functioning **labscript** environment, but do not want to install the many build dependecies into it, you can instead build the docs using a cloned copy of the functioning environment.
-You clone a conda enviroment using
+If you have an existing, functioning **labscript** environment, but do not want to install the many build dependencies into it, you can instead build the docs using a cloned copy of the functioning environment.
+You clone a conda environment using
 
 .. code-block:: bash
 
-	conda create -n labscript-sphinx -c labscript
+	conda create -n labscript-sphinx --clone labscript
 
 Here we clone an existing `labscript` conda environment into a new environment `labscript-sphinx`.
-This new enviroment will be an exact duplicate of the original at the time of cloning.
+This new environment will be an exact duplicate of the original at the time of cloning.
 Changes in one environment will not affect the other.
 
 Once the new environment is created, you can activate it then install the dependencies for the docs as described above.
 
-When using this method, both enviroments will use the same installation of the **labscript-suite**.
+When using this method, both environments will use the same installation of the **labscript-suite**.
 
 Using a new environment
 -----------------------
@@ -52,4 +52,4 @@ Once installed, follow the directions above to install the docs dependencies int
 	The normal installation steps to create a labscript profile and the launcher shortcuts should not be necessary when only building docs.
 
 This installation method should also be used if you desire to develop documentation in local repositories separate from an existing installation (i.e. having two environments using different installations of the **labscript-suite**).
-This can be desirable if you want to avoid docs dependencies in a function environment *and* want to isolate local changes for a functioning experiment from documentation developement.
+This can be desirable if you want to avoid docs dependencies in a function environment *and* want to isolate local changes for a functioning experiment from documentation development.

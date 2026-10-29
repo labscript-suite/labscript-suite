@@ -15,7 +15,7 @@ The below sections describe how to configure your environment for building docs 
     docs_install
     docs_build
     docs_writing
-    docs_comitting
+    docs_committing
     docs_resources
     docs_minutia
 
