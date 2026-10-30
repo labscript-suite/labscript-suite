@@ -43,7 +43,7 @@ Quickstart
     C:\Users\wkheisenberg> cd labscript-suite
     C:\Users\wkheisenberg\labscript-suite> python -m venv .venv
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 Once activated, the name of the virtual environment (in this case, `.venv` ) will prefix the command line.
 
@@ -52,7 +52,7 @@ Once activated, the name of the virtual environment (in this case, `.venv` ) wil
 Detailed Instructions
 *********************
 
-1. From a new terminal, create a directory for the virtual environment and enter it. Here we use a directory named `labscript-suite` in the user's home directory, also the location of the labscript suite profile directory. You need create the virtual environment here, but it is a convenient choice.
+1. From a new terminal, create a directory for the virtual environment and enter it. Here we use a directory named `labscript-suite` in the user's home directory, also the location of the labscript suite profile directory. You need not create the virtual environment here, but it is a convenient choice.
 
   .. code-block:: console
 
@@ -76,11 +76,11 @@ Detailed Instructions
 
   .. note:: This step is OS specific, e.g. on Linux it's `source .venv/bin/activate`.
 
-4. Update the Python package installer and other installation packages of your virtual environment.
+4. Update pip, the Python package installer, in the virtual environment.
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 
 Anaconda Python
@@ -106,7 +106,7 @@ Read the conda caveats in :doc:`index` before choosing conda.
 Conda quickstart
 ****************
 
-When creating a new virtual enviornment, it is preferrable to specify the python version to use.
+When creating a new virtual environment, it is preferable to specify the python version to use.
 You will need to specify a python version that is compatible with the **labscript-suite**.
 The currently compatible versions are |PyPI pyversions|.
 It is recommended to select a newer version of python for a new install,

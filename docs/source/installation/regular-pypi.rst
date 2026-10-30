@@ -24,7 +24,7 @@ Quick start with pip
 .. code-block:: console
 
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install labscript-suite
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
     (.venv) C:\Users\wkheisenberg\labscript-suite> labscript-profile-create [-n my_apparatus_name] [-c]
@@ -49,11 +49,11 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
     C:\Users\wkheisenberg\labscript-suite> .venv\Scripts\activate
 
 
-2. Update the Python package installer and other installation packages of your virtual environment.
+2. Update pip, the Python package installer, in the virtual environment.
 
   .. code-block:: console
 
-    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip setuptools wheel
+    (.venv) C:\Users\wkheisenberg\labscript-suite> python -m pip install --upgrade pip
 
 
 3. Install the meta-package (`labscript-suite`) from PyPI.
@@ -79,10 +79,11 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
      If PySide6 6.12.0 is installed, install an earlier version with ``pip install "PySide6<6.12"``.
 
 
-5. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+5. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+   `labscript-profile-create` does not change an existing profile: it raises `FileExistsError` if the profile directory already contains a `labconfig`, `userlib` or `app_saved_configs` directory.
    Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
    `-n/--apparatus_name` allows for setting a custom apparatus name for the experiment.
-   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
+   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit) that is not a Python keyword, because it becomes the name of an importable package under `labscriptlib`.
    `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
    Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
@@ -98,14 +99,14 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
        (.venv) C:\Users\wkheisenberg\labscript-suite> desktop-app install blacs lyse runmanager runviewer
 
 
-   These will be named, e.g. 'runmanager – the labcript suite' which when clicked on will:
+   These will be named, e.g. 'runmanager - the labscript suite' which when clicked on will:
 
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
 
 .. note::
 
-    Virtual environments named anything other than `.venv` will be included in the name of the shortcut, e.g. 'runmanager – the labscript suite (py38)' for a virtual environment named `py38`.
+    The name of a virtual environment other than `.venv` or `venv` is included in the name of the shortcut, e.g. 'runmanager - the labscript suite (labscript)' for a virtual environment named `labscript`.
 
 Alternatively, you can launch the applications from a terminal, e.g.
 
@@ -156,12 +157,3 @@ You can also update (or downgrade) to a specific version:
 .. code-block:: console
 
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install runmanager==2.5.0
-
-
-.. TODO::
-
-    Development versions will be suffixed with `devN`, i.e.
-
-    .. code-block:: console
-
-        (.venv) C:\Users\wkheisenberg\labscript-suite> pip install -i https://test.pypi.org/simple runmanager==2.6.0dev3

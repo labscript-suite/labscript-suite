@@ -46,7 +46,7 @@ We will continue the same feature-branch workflow as before.
    This can be done at any time in this process, but it must be done at least once at the end to ensure your changes are made available on GitHub for the PR. 
 6. **With changes complete, tested and pushed to your fork, you create the PR**.
    This can be done in a few ways, but here we describe (briefly) how this is done via the web interface.
-   Detailed documenation of this process is available at the links below.
+   Detailed documentation of this process is available at the links below.
 
    1. When you go the home page of your fork, you will see a notice that there are new changes to a branch on your fork, do you want to merge?
       You can also access the PR creation menu by going to the original **labscript-suite** component and selecting Pull Request.
@@ -92,5 +92,5 @@ As our former development, installation, and upgrading practices involved Mercur
     * [Hello World](https://guides.github.com/activities/hello-world/)
     * [Git Handbook](https://guides.github.com/introduction/git-handbook/)
     	_Note:_ You may notice references to 'GitHub Flow' in these guides (and 'Git Flow' elsewhere). These share some aspects of the Release Flow branching-workflow we use, but are distinct.
-* [Atliassian Git Tutorials](https://www.atlassian.com/git/tutorials): Despite the many references to BitBucket (ignore these); there is a wealth of excellent beginner information for using Git at the command line here; and finally
+* [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials): Despite the many references to BitBucket (ignore these); there is a wealth of excellent beginner information for using Git at the command line here; and finally
 * [Oh Shit, Git!?!](https://ohshitgit.com/) Mistakes happen. This is a good place to start fixing them. ([Censored version](https://dangitgit.com/).)

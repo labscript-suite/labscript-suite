@@ -54,10 +54,11 @@ Detailed instructions
   If more than one binding is installed, the applications use PyQt5, then PySide6, then PyQt6, unless the environment variable `QT_ENV` is set to `PyQt5`, `PySide6` or `PyQt6`.
 
 
-4. Create (or populate) a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+4. Create a profile directory in your home directory (the location of user data; see :doc:`/reference/changes`).
+   `labscript-profile-create` does not change an existing profile: it raises `FileExistsError` if the profile directory already contains a `labconfig`, `userlib` or `app_saved_configs` directory.
    Optional arguments allow for minimal control of default installation parameters to allow for all components to load.
    `-n/--apparatus_name` allows for setting a custom apparatus name for the experiment.
-   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
+   The apparatus name must be a valid Python identifier (letters, digits and underscores, not starting with a digit) that is not a Python keyword, because it becomes the name of an importable package under `labscriptlib`.
    `-c/--compile` compiles the example connection table (with dummy devices) so BLACS will launch.
    Using these arguments makes :doc:`initial configuration </setup/configuration>` of the suite much simpler.
 
@@ -73,16 +74,16 @@ Detailed instructions
        (labscript) C:\> desktop-app install blacs lyse runmanager runviewer
 
 
-   These will be named, e.g. 'runmanager – the labcript suite (labscript)' which when clicked on will:
+   These will be named, e.g. 'runmanager - the labscript suite (labscript)', which when clicked on will:
 
    * Launch the application without a terminal window, using the virtual environment the above command was called in.
    * Display the application with an application-specific shortcut in the taskbar (which can be pinned, like any other desktop application).
 
 .. note::
 
-   Conda environments named anything other than `base` will be included in the name of the shortcut, e.g. 'runmanager – the labscript suite (labscript)' for a conda environment named `labscript`.
+   Conda environments named anything other than `base` will be included in the name of the shortcut, e.g. 'runmanager - the labscript suite (labscript)' for a conda environment named `labscript`.
 
-Alternatively, you can launch the applications from the Anaconda Prompt in the , e.g.
+Alternatively, you can launch the applications from the Anaconda Prompt, in the conda environment in which the *labscript suite* is installed, e.g.
 
 .. code-block:: console
 
@@ -95,7 +96,7 @@ To launch the applications detached from the console, suffix the application nam
 
 .. code-block:: console
 
-    (.venv) C:\> runmanager-gui
+    (labscript) C:\> runmanager-gui
 
 
 .. note::
@@ -128,12 +129,14 @@ If updating multiple components, use a single |conda-update|_ command to assist 
     (labscript) C:\> conda update -c labscript-suite labscript lyse runmanager
 
 
-You can also update (or downgrade) to a specific version:
+You can also update (or downgrade) to a specific version with |conda-install|_:
 
 .. code-block:: console
 
-    (labscript) C:\> conda update runmanager==2.5.0
+    (labscript) C:\> conda install runmanager=2.5.0
 
 
 .. |conda-update| replace:: ``conda update``
 .. _conda-update: https://docs.conda.io/projects/conda/en/latest/commands/update.html
+.. |conda-install| replace:: ``conda install``
+.. _conda-install: https://docs.conda.io/projects/conda/en/latest/commands/install.html

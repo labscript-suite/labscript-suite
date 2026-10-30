@@ -37,7 +37,7 @@ In order to build the PDF documentation locally, you will need to use the same c
 Note that the RTD latex build is fairly stable, if really ugly, so long as the html docs build. 
 That said, if there is an error unique to the latex build, discovering its origin can be very difficult since the build process has to ignore errors to complete normally anyway.
 
-One specific error already encounted is when an API documentated value is too long for latex to parse as a single line (a raw bitmap image saved as a class attribute).
+One specific error already encountered is when an API documented value is too long for latex to parse as a single line (a raw bitmap image saved as a class attribute).
 This specific error can be overcome by instructing sphinx to not publish the value in the docs using the `:meta hide-value:` rst key for the offending object.
 
 intersphinx references won't link

@@ -24,7 +24,7 @@ Quick start
 -----------
 
 .. note:: 
-    After the first line, the current directory is ommited from the command prompt for brevity.
+    After the first line, the current directory is omitted from the command prompt for brevity.
 
 .. code-block:: console
 

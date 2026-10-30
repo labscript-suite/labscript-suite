@@ -7,7 +7,7 @@ Further details on how to use each component can be found in the documentation f
 
 .. note::
 
-   As of `labscript-utils>=3.4.0`, the `labscript-profile-create` command can be used to perform the following mandatory configurations automatically.
+   The `labscript-profile-create` command can perform the following mandatory configurations automatically.
    The `-n/--apparatus_name` argument allows you to set your apparatus name (which governs many install locations).
    The `-c/--compile` flag will compile the example connection table (which only defines dummy instruments and will always run).
    Using both of these arguments will allow all suite components to load with a minimal configuration that is readily customised.
@@ -18,66 +18,43 @@ The *labconfig.ini* File
 Before running any **labscript-suite** components after a fresh installation, you should first open the automatically generated labconfig file and modify some of its default settings to match your needs.
 This file is found in the user space `labscript-suite/labconfig` directory created by the `labscript-profile-create` command of the installation process.
 This directory is, by default, located at the top level of the user's directory.
-The labconfig file will be named after your system's name.
+The labconfig file is named after the computer's host name, which on macOS is the output of `scutil --get LocalHostName`.
 So if your system hostname is `heisenberg`, the labconfig file will be named `heisenberg.ini`.
 This directory will also contain a copy of the default labconfig file as `example.ini`.
 Only changes made to the labconfig file named after your system will have any effect.
 
-The current contents of the default labconfig file are available :doc:`here <labscript-utils:labconfig>`.
+The :doc:`labconfig page of labscript-utils <labscript-utils:labconfig>` shows the default labconfig file and describes every key.
 
 Configuration
 *************
 
 Many of the options in this file do not need to be changed, but a few things should be changed before running any **labscript-suite** module the first time.
 Once the appropriate changes have been made, save the file.
+The keys are described in the :ref:`list of keys <labscript-utils:labconfig:keys>` of the labconfig page.
 
-* `[DEFAULT]`
+* `[DEFAULT]` `apparatus_name`: the name of the experiment.
+  `labscript-profile-create` sets it to the value of its `-n/--apparatus_name` argument, or to `example_apparatus` without that argument.
+  The paths of the experiment scripts, analysis routines and shot files contain it.
+  `labscript-profile-create` creates the `userlib/labscriptlib/<apparatus_name>` and `userlib/analysislib/<apparatus_name>` directories for the name that it is given.
+  To change the apparatus name later, create these directories for the new name, with an `__init__.py` file in each, and restart the **labscript-suite** components.
 
-  * `apparatus_name` should be set to a name describing the experiment.
-     It must be a valid Python identifier (letters, digits and underscores, not starting with a digit), because it becomes the name of an importable package under `labscriptlib`.
-     This name is used to create sub-directories within the various **labscript-suite** directories where the various shots and scripts will be stored.
-     If these sub-directories do not exist, the suite will create them and populate them with the bare minimum of requirements to function.
-     The relative paths for the items are described by the other keys in the `DEFAULT` section, and can be modified if desired.
-     Note that while multiple apparatus names can exist for the same installation, only one can be used at a time.
-     In order for a changed `apparatus_name` to take effect, you will need to reload **labscript-suite** components.
+* `[DEFAULT]` `shared_drive`: the directory that holds the shot files.
+  In an installation that spans several computers, it is a network location that all of the computers can access.
 
-     .. note::
-         This name can be set by the `labscript-profile-create` command using the optional `-n/--apparatus_name` argument.
+* `[servers]` `zlock`: in an installation that spans several computers, the host name of the computer that runs the zlock server.
 
-  * `shared_drive` is the path to where the individual shots are stored and accessed by the **labscript-suite** components.
-     If your installation spreads the **labscript-suite** components across multiple separate computers, set this value to the path to the common network location where shots are stored.
-     This allows all components seamless access to the same shots.
+* `[servers]` `runmanager`: the host name of the computer that runs runmanager, to which the `runmanager.remote` client connects.
 
-* `[servers]`
-  
-  * `zlock` should be set to the network address of the computer that runs the common zlock server.
-     In an installation spanning multiple computers, only one computer runs the zlock server.
-     This ensures only one device can access files at a time.
-     At least one computer in an installation must be set to `localhost`, indicating it is the zlock server.
-  * `runmanager` should be set to the network address of the computer that runs a common runmanager server for compiling shots.
-     Rules to set it are the same as `zlock`.
-     It can be the same computer as the zlock server.
+* `[programs]` `text_editor` and `hdf5_viewer`: the programs that open experiment scripts, analysis routines, the connection table and shot files.
+  On Windows, the default labconfig file gives the paths of `VS Code <https://code.visualstudio.com/>`_ and `HDFView <https://github.com/HDFGroup/hdfview/releases>`_ that their installers use.
+  Install VS Code with its user installer, and HDFView with the `HDFView-<version>-Windows.msi` file of the latest HDFView release on GitHub, or set the keys to the paths of other programs.
+  If a key is empty, files are opened in the operating system's default program for the file type.
 
-* `[programs]`
-
-  * `text_editor` is the program in which runmanager, lyse and BLACS open experiment scripts, analysis routines and the connection table, and `hdf5_viewer` is the program in which lyse opens shot files.
-     On Windows, the default labconfig file gives the paths of `VS Code <https://code.visualstudio.com/>`_ and `HDFView <https://github.com/HDFGroup/hdfview/releases>`_ that their installers use.
-     Install VS Code with its user installer, and HDFView with the `HDFView-<version>-Windows.msi` file of the latest HDFView release on GitHub, or set the keys to the paths of other programs.
-     The HDFView installer also makes HDFView the default program for `.h5` files.
-     If a key is empty, files are opened in the operating system's default program for the file type.
-     On Linux and macOS, both keys are empty by default. The HDFView releases also contain packages for Linux and macOS.
-
-* `[security]`
-
-  * `shared_secret` should be set to the full path to the zprocess secret key for encryption.
-     The default installation will create this file for you, place it in the correct folder, and update the reference in the config file to reflect its automatically generated name.
-     In a multi-computer installation, all computers will need access to the same secret key in order to commuicate with encryption.
-     Each computer's labconfig file will need to be updated to point to the same key file.
-  * `allow_insecure` can be added to this section and set to `True` to disable secure communications.
-     This value will need to be the same across all computers in a multi-computer setup.
+* `[security]` `shared_secret`: in an installation that spans several computers, the path of a copy of the same key file on each computer.
+  `labscript-profile-create` creates a key file and sets this key.
 
 With these configurations made, you should now be able to run any module of the **labscript-suite**, except BLACS which requires more configuration.
-    
+
 
 Initial Compile of the Connection Table
 ---------------------------------------
@@ -91,7 +68,7 @@ The connection table is defined by writing a `connection_table.py` file that is 
 This involves importing the specific device code and instantiating each device you wish to connect to.
 At the end of the file, you will call the **labscript** functions `start` and `stop`, without any actual instructions commanded to any device in the shot.
 This file must be saved as the name defined and at the location specified by the `connection_table_py` key of the labconfig file.
-The default location is in the `apparatus_name/labscriptlib` sub-folder of the userlib.
+The default location is the `userlib/labscriptlib/<apparatus_name>` directory of the profile.
 
 .. note::
 
@@ -124,7 +101,7 @@ A very simple connection table that defines a PrawnBlaster pseudoclock and an NI
    # The following is standard boilerplate necessary for the file to compile
    if __name__ == '__main__':
 
-      start(0)
+      start()
 
       stop(1)
 

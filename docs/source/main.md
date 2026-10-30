@@ -18,7 +18,7 @@ The _labscript suite_ is a powerful and extensible framework for experiment [com
 * Dynamic visualisation of experiment composition and results.
 * Remote operation: different modules can run on physically separate hosts / single modules can be run on multiple hosts (including hardware supervisor, [blacs](https://github.com/labscript-suite/blacs)).
 * Auto-generating user-interfaces.
-* High-level scripting: user-interface interaction can be programatically synthesised.
+* High-level scripting: user-interface interaction can be programmatically synthesised.
 
 
 ## Citing the _labscript suite_
