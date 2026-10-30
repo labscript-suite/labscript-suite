@@ -70,8 +70,10 @@ With uv, skip step 2, and use `uv pip install` wherever a step uses `pip install
 
     (.venv) C:\Users\wkheisenberg\labscript-suite> pip install PySide6
 
-  The *labscript suite* also works with the PyQt6 and PyQt5 bindings (``pip install PyQt6`` or ``pip install PyQt5``) instead of PySide6.
-  If more than one is installed, the applications use PyQt5, then PySide6, then PyQt6, unless the environment variable `QT_ENV` is set to `PyQt5`, `PySide6` or `PyQt6`.
+  The *labscript suite* also works with the PyQt6 and PyQt5 bindings (``pip install PyQt6`` or ``pip install PyQt5``).
+  To use one of them, install it and set the key `qt_binding` in the `[gui]` section of the :doc:`labconfig file <labscript-utils:labconfig>` to `PyQt6` or `PyQt5`.
+  The default is `PySide6`.
+  If the environment variable `QT_ENV` is set to `PyQt5`, `PySide6` or `PyQt6`, it takes precedence over the key.
 
   .. warning::
 
